@@ -1,24 +1,4 @@
-/**
- * A Branded Type for values parseable to number.
- */
-export type NumberParseable = (number | string | boolean) & {
-    readonly isNumberParseble: unique symbol;
-};
-/**
- * Check if value is parseable to number.
- * @example
- * ```js
- * isNumberParseable('AAAA');
- * //=> false
- *
- * isNumberParseable('100');
- * //=> true
- *
- * if (!isNumberParseable(value))
- *   throw new Error('Value can\'t be parseable to `Number`.')
- * return Number(value);
- * ```
- * @param value - An `unknown` value to be checked.
- */
-export declare const isNumberParseable: (value: unknown) => value is NumberParseable;
+import { Session } from './lib/session';
+import type { ISessionConfig } from './lib/utils/interface';
+export declare function createSession(urls: string | string[], cfg: ISessionConfig): Session;
 //# sourceMappingURL=index.d.ts.map
