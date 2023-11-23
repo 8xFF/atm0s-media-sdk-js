@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:99](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L99)
+[src/lib/interfaces/rtsocket.ts:101](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L101)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:96](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L96)
+[src/lib/interfaces/rtsocket.ts:98](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L98)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:95](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L95)
+[src/lib/interfaces/rtsocket.ts:97](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L97)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:94](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L94)
+[src/lib/interfaces/rtsocket.ts:96](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L96)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:97](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L97)
+[src/lib/interfaces/rtsocket.ts:99](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L99)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:98](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L98)
+[src/lib/interfaces/rtsocket.ts:100](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L100)

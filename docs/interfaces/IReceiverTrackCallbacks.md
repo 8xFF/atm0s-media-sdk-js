@@ -30,4 +30,4 @@
 
 #### Defined in
 
-[lib/interfaces/tracks.ts:4](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/tracks.ts#L4)
+[src/lib/interfaces/tracks.ts:4](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/tracks.ts#L4)

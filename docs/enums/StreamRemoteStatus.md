@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[lib/utils/types.ts:85](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L85)
+[src/lib/utils/types.ts:85](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L85)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:84](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L84)
+[src/lib/utils/types.ts:84](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L84)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:87](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L87)
+[src/lib/utils/types.ts:87](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L87)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:83](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L83)
+[src/lib/utils/types.ts:83](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L83)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:86](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L86)
+[src/lib/utils/types.ts:86](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L86)

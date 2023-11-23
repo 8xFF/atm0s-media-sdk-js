@@ -4,15 +4,95 @@
 
 Represents a stream receiver.
 
+## Hierarchy
+
+- `TypedEventEmitter`<[`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)\>
+
+  ↳ **`IStreamReceiver`**
+
+## Implemented by
+
+- [`StreamReceiver`](../classes/StreamReceiver.md)
+
 ## Table of contents
+
+### Properties
+
+- [kind](IStreamReceiver.md#kind)
+- [state](IStreamReceiver.md#state)
+- [stream](IStreamReceiver.md#stream)
 
 ### Methods
 
+- [emit](IStreamReceiver.md#emit)
 - [limit](IStreamReceiver.md#limit)
+- [listenerCount](IStreamReceiver.md#listenercount)
+- [listeners](IStreamReceiver.md#listeners)
+- [off](IStreamReceiver.md#off)
+- [offAllListeners](IStreamReceiver.md#offalllisteners)
+- [on](IStreamReceiver.md#on)
+- [onMany](IStreamReceiver.md#onmany)
+- [removeAllListeners](IStreamReceiver.md#removealllisteners)
+- [removeListener](IStreamReceiver.md#removelistener)
 - [stop](IStreamReceiver.md#stop)
 - [switch](IStreamReceiver.md#switch)
 
+## Properties
+
+### kind
+
+• **kind**: [`StreamKinds`](../enums/StreamKinds.md)
+
+#### Defined in
+
+[src/lib/interfaces/receiver.ts:12](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L12)
+
+___
+
+### state
+
+• **state**: [`StreamReceiverState`](../enums/StreamReceiverState.md)
+
+#### Defined in
+
+[src/lib/interfaces/receiver.ts:10](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L10)
+
+___
+
+### stream
+
+• **stream**: `MediaStream`
+
+#### Defined in
+
+[src/lib/interfaces/receiver.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L11)
+
 ## Methods
+
+### emit
+
+▸ **emit**(`event`, `...args`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+| `...args` | [state: StreamReceiverState] \| [level: number] |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypedEventEmitter.emit
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+
+___
 
 ### limit
 
@@ -38,7 +118,233 @@ A promise that resolves to a boolean indicating whether the limit was successful
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L26)
+[src/lib/interfaces/receiver.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L32)
+
+___
+
+### listenerCount
+
+▸ **listenerCount**<`TEvent`\>(`event`): `number`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `TEvent` |
+
+#### Returns
+
+`number`
+
+#### Inherited from
+
+TypedEventEmitter.listenerCount
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+
+___
+
+### listeners
+
+▸ **listeners**<`TEvent`\>(`eventName`): `undefined` \| [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`][]
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `eventName` | `TEvent` |
+
+#### Returns
+
+`undefined` \| [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`][]
+
+#### Inherited from
+
+TypedEventEmitter.listeners
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+
+___
+
+### off
+
+▸ **off**<`TEvent`\>(`event`, `cb`): `void`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `TEvent` |
+| `cb` | [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`] |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypedEventEmitter.off
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+
+___
+
+### offAllListeners
+
+▸ **offAllListeners**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypedEventEmitter.offAllListeners
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+
+___
+
+### on
+
+▸ **on**<`TEvent`\>(`event`, `cb`): () => `any`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `TEvent` |
+| `cb` | [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`] |
+
+#### Returns
+
+`fn`
+
+▸ (): `any`
+
+##### Returns
+
+`any`
+
+#### Inherited from
+
+TypedEventEmitter.on
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+
+___
+
+### onMany
+
+▸ **onMany**<`TEvent`\>(`events`, `cb`): () => `any`[]
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `events` | `TEvent`[] |
+| `cb` | [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`] |
+
+#### Returns
+
+() => `any`[]
+
+#### Inherited from
+
+TypedEventEmitter.onMany
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+
+___
+
+### removeAllListeners
+
+▸ **removeAllListeners**(): `void`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypedEventEmitter.removeAllListeners
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+
+___
+
+### removeListener
+
+▸ **removeListener**<`TEvent`\>(`event`, `cb`): `void`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TEvent` | extends keyof [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md) |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `TEvent` |
+| `cb` | [`IStreamReceiverCallbacks`](IStreamReceiverCallbacks.md)[`TEvent`] |
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+TypedEventEmitter.removeListener
+
+#### Defined in
+
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -56,7 +362,7 @@ A promise that resolves to a boolean indicating whether the stop was successful.
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:36](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L36)
+[src/lib/interfaces/receiver.ts:42](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L42)
 
 ___
 
@@ -70,7 +376,7 @@ Switches to a remote stream.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `remote` | `StreamRemote` | The remote stream to switch to. |
+| `remote` | [`StreamRemote`](../classes/StreamRemote.md) | The remote stream to switch to. |
 | `priority?` | `number` | - |
 
 #### Returns
@@ -81,4 +387,4 @@ A promise that resolves to a boolean indicating whether the switch was successfu
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:14](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L14)
+[src/lib/interfaces/receiver.ts:20](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L20)

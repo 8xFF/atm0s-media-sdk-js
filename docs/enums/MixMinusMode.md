@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[lib/utils/types.ts:39](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L39)
+[src/lib/utils/types.ts:39](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L39)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:40](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L40)
+[src/lib/utils/types.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L40)

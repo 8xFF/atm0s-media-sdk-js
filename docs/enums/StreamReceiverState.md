@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:41](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L41)
+[src/lib/interfaces/receiver.ts:47](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L47)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:44](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L44)
+[src/lib/interfaces/receiver.ts:50](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L50)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:42](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L42)
+[src/lib/interfaces/receiver.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L48)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:40](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L40)
+[src/lib/interfaces/receiver.ts:46](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L46)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L43)
+[src/lib/interfaces/receiver.ts:49](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L49)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:45](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L45)
+[src/lib/interfaces/receiver.ts:51](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L51)

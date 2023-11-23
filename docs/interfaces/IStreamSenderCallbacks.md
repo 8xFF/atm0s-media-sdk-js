@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[lib/interfaces/sender.ts:37](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L37)
+[src/lib/interfaces/sender.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L40)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/sender.ts:36](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L36)
+[src/lib/interfaces/sender.ts:39](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L39)

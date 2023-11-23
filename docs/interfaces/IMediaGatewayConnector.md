@@ -37,7 +37,7 @@ Connects to the media server using the provided configuration.
 
 #### Defined in
 
-[lib/interfaces/gateway.ts:49](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/gateway.ts#L49)
+[src/lib/interfaces/gateway.ts:49](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L49)
 
 ___
 
@@ -62,7 +62,7 @@ Sends a ice candidate update to the media server.
 
 #### Defined in
 
-[lib/interfaces/gateway.ts:58](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/gateway.ts#L58)
+[src/lib/interfaces/gateway.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L58)
 
 ___
 
@@ -86,4 +86,4 @@ A promise that resolves to the selected media stream.
 
 #### Defined in
 
-[lib/interfaces/gateway.ts:42](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/gateway.ts#L42)
+[src/lib/interfaces/gateway.ts:42](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L42)

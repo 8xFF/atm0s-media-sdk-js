@@ -19,7 +19,7 @@ Represents the callbacks for a session.
 
 ### mystream\_added
 
-• **mystream\_added**: (`stream`: `StreamRemote`) => `void`
+• **mystream\_added**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -31,7 +31,7 @@ Callback function triggered when my stream is added.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The added my stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The added my stream. |
 
 ##### Returns
 
@@ -39,13 +39,13 @@ Callback function triggered when my stream is added.
 
 #### Defined in
 
-[lib/interfaces/session.ts:13](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L13)
+[src/lib/interfaces/session.ts:13](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L13)
 
 ___
 
 ### mystream\_removed
 
-• **mystream\_removed**: (`stream`: `StreamRemote`) => `void`
+• **mystream\_removed**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -57,7 +57,7 @@ Callback function triggered when my stream is removed.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The removed my stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The removed my stream. |
 
 ##### Returns
 
@@ -65,13 +65,13 @@ Callback function triggered when my stream is removed.
 
 #### Defined in
 
-[lib/interfaces/session.ts:19](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L19)
+[src/lib/interfaces/session.ts:19](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L19)
 
 ___
 
 ### mystream\_updated
 
-• **mystream\_updated**: (`stream`: `StreamRemote`) => `void`
+• **mystream\_updated**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -83,7 +83,7 @@ Callback function triggered when my stream is updated.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The updated my stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The updated my stream. |
 
 ##### Returns
 
@@ -91,13 +91,13 @@ Callback function triggered when my stream is updated.
 
 #### Defined in
 
-[lib/interfaces/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L25)
+[src/lib/interfaces/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L25)
 
 ___
 
 ### stream\_added
 
-• **stream\_added**: (`stream`: `StreamRemote`) => `void`
+• **stream\_added**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -109,7 +109,7 @@ Callback function triggered when a stream is added.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The added stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The added stream. |
 
 ##### Returns
 
@@ -117,13 +117,13 @@ Callback function triggered when a stream is added.
 
 #### Defined in
 
-[lib/interfaces/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L31)
+[src/lib/interfaces/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L31)
 
 ___
 
 ### stream\_removed
 
-• **stream\_removed**: (`stream`: `StreamRemote`) => `void`
+• **stream\_removed**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -135,7 +135,7 @@ Callback function triggered when a stream is removed.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The removed stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The removed stream. |
 
 ##### Returns
 
@@ -143,13 +143,13 @@ Callback function triggered when a stream is removed.
 
 #### Defined in
 
-[lib/interfaces/session.ts:37](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L37)
+[src/lib/interfaces/session.ts:37](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L37)
 
 ___
 
 ### stream\_updated
 
-• **stream\_updated**: (`stream`: `StreamRemote`) => `void`
+• **stream\_updated**: (`stream`: [`StreamRemote`](../classes/StreamRemote.md)) => `void`
 
 #### Type declaration
 
@@ -161,7 +161,7 @@ Callback function triggered when a stream is updated.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `stream` | `StreamRemote` | The updated stream. |
+| `stream` | [`StreamRemote`](../classes/StreamRemote.md) | The updated stream. |
 
 ##### Returns
 
@@ -169,4 +169,4 @@ Callback function triggered when a stream is updated.
 
 #### Defined in
 
-[lib/interfaces/session.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L43)
+[src/lib/interfaces/session.ts:43](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L43)

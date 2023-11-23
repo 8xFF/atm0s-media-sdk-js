@@ -36,7 +36,7 @@ Unregisters the event handler for the specified command.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:29](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L29)
+[src/lib/interfaces/rpc.ts:30](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rpc.ts#L30)
 
 ___
 
@@ -59,13 +59,13 @@ Registers an event handler for the specified command.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:23](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L23)
+[src/lib/interfaces/rpc.ts:24](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rpc.ts#L24)
 
 ___
 
 ### request
 
-▸ **request**<`DataType`, `ResponseType`\>(`cmd`, `data`): `Promise`<`ResponseType`\>
+▸ **request**<`T`\>(`cmd`, `data`): `Promise`<[`RpcResponse`](../README.md#rpcresponse)<`T`\>\>
 
 Sends an RPC request with the specified command and data.
 
@@ -73,22 +73,21 @@ Sends an RPC request with the specified command and data.
 
 | Name |
 | :------ |
-| `DataType` |
-| `ResponseType` |
+| `T` |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `cmd` | `string` | The command to be executed. |
-| `data` | `DataType` | The data to be sent with the request. |
+| `cmd` | keyof [`RpcRequests`](../README.md#rpcrequests) | The command to be executed. |
+| `data` | [`OfferMeta`](../README.md#offermeta) \| { `id`: `string` ; `max_spatial`: `number` ; `max_temporal`: `number` ; `priority`: `number`  } \| { `id`: `string` ; `priority`: `number` ; `remote`: { `peer`: `string` ; `stream`: `string`  }  } \| { `id`: `string`  } \| { `kind`: [`StreamKinds`](../enums/StreamKinds.md) ; `name`: `string` ; `track`: `string`  } | The data to be sent with the request. |
 
 #### Returns
 
-`Promise`<`ResponseType`\>
+`Promise`<[`RpcResponse`](../README.md#rpcresponse)<`T`\>\>
 
 A promise that resolves to the response from the RPC server.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:13](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L13)
+[src/lib/interfaces/rpc.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rpc.ts#L14)

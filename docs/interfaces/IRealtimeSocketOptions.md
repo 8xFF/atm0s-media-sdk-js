@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:89](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L89)
+[src/lib/interfaces/rtsocket.ts:91](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L91)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:90](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L90)
+[src/lib/interfaces/rtsocket.ts:92](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L92)
