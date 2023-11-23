@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[lib/interfaces/remote.ts:15](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/remote.ts#L15)
+[lib/interfaces/remote.ts:15](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/remote.ts#L15)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/remote.ts:14](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/remote.ts#L14)
+[lib/interfaces/remote.ts:14](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/remote.ts#L14)

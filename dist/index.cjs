@@ -361,25 +361,25 @@ var TypedEventEmitter = /** @class */ (function () {
 }());
 
 var _a, _b;
-var StreamKinds;
+exports.StreamKinds = void 0;
 (function (StreamKinds) {
     StreamKinds["AUDIO"] = "audio";
     StreamKinds["VIDEO"] = "video";
-})(StreamKinds || (StreamKinds = {}));
-var Codecs;
+})(exports.StreamKinds || (exports.StreamKinds = {}));
+exports.Codecs = void 0;
 (function (Codecs) {
     Codecs["OPUS"] = "OPUS";
     Codecs["VP8"] = "VP8";
     Codecs["VP9"] = "VP9";
     Codecs["H264"] = "H264";
-})(Codecs || (Codecs = {}));
-var ContentHint;
+})(exports.Codecs || (exports.Codecs = {}));
+exports.ContentHint = void 0;
 (function (ContentHint) {
     ContentHint["None"] = "none";
     ContentHint["Motion"] = "motion";
     ContentHint["Detail"] = "detail";
-})(ContentHint || (ContentHint = {}));
-var LatencyMode;
+})(exports.ContentHint || (exports.ContentHint = {}));
+exports.LatencyMode = void 0;
 (function (LatencyMode) {
     LatencyMode["UltraLow"] = "ultra-low";
     LatencyMode["Default"] = "default";
@@ -388,72 +388,63 @@ var LatencyMode;
     LatencyMode["Smooth800"] = "smooth-800";
     LatencyMode["Smooth1000"] = "smooth-1000";
     LatencyMode["Smooth2000"] = "smooth-2000";
-})(LatencyMode || (LatencyMode = {}));
-var BitrateControlMode;
+})(exports.LatencyMode || (exports.LatencyMode = {}));
+exports.BitrateControlMode = void 0;
 (function (BitrateControlMode) {
     BitrateControlMode["SumBitrateWithClientSide"] = "SumBitrateWithClientSide";
     BitrateControlMode["SumBitrateOnly"] = "SumBitrateOnly";
     BitrateControlMode["PerStream"] = "PerStream";
-})(BitrateControlMode || (BitrateControlMode = {}));
-var StreamReceiverState$1;
-(function (StreamReceiverState) {
-    StreamReceiverState["NoSource"] = "no_source";
-    StreamReceiverState["Connecting"] = "connecting";
-    StreamReceiverState["Live"] = "live";
-    StreamReceiverState["Pause"] = "paused";
-    StreamReceiverState["KeyOnly"] = "key_only";
-    StreamReceiverState["SourceDeactived"] = "source_deactived";
-})(StreamReceiverState$1 || (StreamReceiverState$1 = {}));
-var MixMinusMode;
+})(exports.BitrateControlMode || (exports.BitrateControlMode = {}));
+exports.MixMinusMode = void 0;
 (function (MixMinusMode) {
     MixMinusMode["AllAudioStreams"] = "AllAudioStreams";
     MixMinusMode["ManualAudioStreams"] = "ManualAudioStreams";
-})(MixMinusMode || (MixMinusMode = {}));
+})(exports.MixMinusMode || (exports.MixMinusMode = {}));
 /**
  * Mapping of latency modes to maximum packets.
  * This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
  *
  */
 var LatencyMode2MaxPackets = (_a = {},
-    _a[LatencyMode.UltraLow] = [10, 10],
-    _a[LatencyMode.Smooth200] = [20, 20],
-    _a[LatencyMode.Smooth500] = [25, 25],
-    _a[LatencyMode.Smooth800] = [40, 40],
-    _a[LatencyMode.Smooth1000] = [50, 50],
-    _a[LatencyMode.Smooth2000] = [100, 100],
-    _a[LatencyMode.Default] = [undefined, undefined],
+    _a[exports.LatencyMode.UltraLow] = [10, 10],
+    _a[exports.LatencyMode.Smooth200] = [20, 20],
+    _a[exports.LatencyMode.Smooth500] = [25, 25],
+    _a[exports.LatencyMode.Smooth800] = [40, 40],
+    _a[exports.LatencyMode.Smooth1000] = [50, 50],
+    _a[exports.LatencyMode.Smooth2000] = [100, 100],
+    _a[exports.LatencyMode.Default] = [undefined, undefined],
     _a);
 /**
  * Mapping of latency modes to playout delay hints. Also for React Native WebRTC, maybe?
  */
-(_b = {},
-    _b[LatencyMode.UltraLow] = 0,
-    _b[LatencyMode.Smooth200] = 0.2,
-    _b[LatencyMode.Smooth500] = 0.5,
-    _b[LatencyMode.Smooth800] = 0.8,
-    _b[LatencyMode.Smooth1000] = 1,
-    _b[LatencyMode.Smooth2000] = 2,
-    _b[LatencyMode.Default] = undefined,
+var LatencyMode2DelayHint = (_b = {},
+    _b[exports.LatencyMode.UltraLow] = 0,
+    _b[exports.LatencyMode.Smooth200] = 0.2,
+    _b[exports.LatencyMode.Smooth500] = 0.5,
+    _b[exports.LatencyMode.Smooth800] = 0.8,
+    _b[exports.LatencyMode.Smooth1000] = 1,
+    _b[exports.LatencyMode.Smooth2000] = 2,
+    _b[exports.LatencyMode.Default] = undefined,
     _b);
-var StreamRemoteEvent;
+exports.StreamRemoteEvent = void 0;
 (function (StreamRemoteEvent) {
     StreamRemoteEvent["STATE"] = "state";
     StreamRemoteEvent["CLOSED"] = "closed";
-})(StreamRemoteEvent || (StreamRemoteEvent = {}));
-var StreamRemoteScalingType;
+})(exports.StreamRemoteEvent || (exports.StreamRemoteEvent = {}));
+exports.StreamRemoteScalingType = void 0;
 (function (StreamRemoteScalingType) {
     StreamRemoteScalingType["SINGLE"] = "single";
     StreamRemoteScalingType["SIMULCAT"] = "simulcast";
     StreamRemoteScalingType["SVC"] = "svc";
-})(StreamRemoteScalingType || (StreamRemoteScalingType = {}));
-var StreamRemoteStatus;
+})(exports.StreamRemoteScalingType || (exports.StreamRemoteScalingType = {}));
+exports.StreamRemoteStatus = void 0;
 (function (StreamRemoteStatus) {
     StreamRemoteStatus["New"] = "new";
     StreamRemoteStatus["Connecting"] = "connecting";
     StreamRemoteStatus["Connected"] = "connected";
     StreamRemoteStatus["Reconnecting"] = "reconnecting";
     StreamRemoteStatus["Disconnected"] = "disconnected";
-})(StreamRemoteStatus || (StreamRemoteStatus = {}));
+})(exports.StreamRemoteStatus || (exports.StreamRemoteStatus = {}));
 
 /**
  * Delays the execution of the function that calls it for a specified number of milliseconds.
@@ -7463,7 +7454,7 @@ var ReceiverTrack = /** @class */ (function (_super) {
     return ReceiverTrack;
 }(TypedEventEmitter));
 
-var RealtimeSocketState;
+exports.RealtimeSocketState = void 0;
 (function (RealtimeSocketState) {
     RealtimeSocketState["Created"] = "created";
     RealtimeSocketState["Connecting"] = "connecting";
@@ -7471,7 +7462,8 @@ var RealtimeSocketState;
     RealtimeSocketState["Disconnected"] = "disconnected";
     RealtimeSocketState["Failed"] = "failed";
     RealtimeSocketState["Closed"] = "closed";
-})(RealtimeSocketState || (RealtimeSocketState = {}));
+})(exports.RealtimeSocketState || (exports.RealtimeSocketState = {}));
+
 var RealtimeSocket = /** @class */ (function (_super) {
     __extends(RealtimeSocket, _super);
     function RealtimeSocket(_urls, _options) {
@@ -7480,8 +7472,8 @@ var RealtimeSocket = /** @class */ (function (_super) {
         _this._urls = _urls;
         _this._options = _options;
         _this.logger = getLogger('atm0s:realtime-socket');
-        _this._pConnState = RealtimeSocketState.Created;
-        _this._dcState = RealtimeSocketState.Created;
+        _this._pConnState = exports.RealtimeSocketState.Created;
+        _this._dcState = exports.RealtimeSocketState.Created;
         _this._sendStreams = new Map();
         _this._recvStreams = new Map();
         _this._msg_encoder = new TextEncoder();
@@ -7527,16 +7519,16 @@ var RealtimeSocket = /** @class */ (function (_super) {
             _this.logger.log('connection state changed:', _this._lc.connectionState);
             switch (_this._lc.connectionState) {
                 case 'connected':
-                    _this.setConnState(RealtimeSocketState.Connected);
+                    _this.setConnState(exports.RealtimeSocketState.Connected);
                     break;
                 case 'disconnected':
-                    _this.setConnState(RealtimeSocketState.Disconnected);
+                    _this.setConnState(exports.RealtimeSocketState.Disconnected);
                     break;
                 case 'failed':
-                    _this.setConnState(RealtimeSocketState.Failed);
+                    _this.setConnState(exports.RealtimeSocketState.Failed);
                     throw new Error('Peer Connection failed');
                 case 'closed':
-                    _this.setConnState(RealtimeSocketState.Closed);
+                    _this.setConnState(exports.RealtimeSocketState.Closed);
                     break;
             }
         };
@@ -7544,15 +7536,15 @@ var RealtimeSocket = /** @class */ (function (_super) {
             _this.emit('message', event.data);
         };
         _this._dc.onopen = function () {
-            _this.setDcState(RealtimeSocketState.Connected);
+            _this.setDcState(exports.RealtimeSocketState.Connected);
             _this.logger.log('datachannel connect :: opended');
         };
         _this._dc.onerror = function (err) {
-            _this.setDcState(RealtimeSocketState.Failed);
+            _this.setDcState(exports.RealtimeSocketState.Failed);
             _this.logger.error('datachannel connect :: error:', err);
         };
         _this._dc.onclose = function () {
-            _this.setDcState(RealtimeSocketState.Closed);
+            _this.setDcState(exports.RealtimeSocketState.Closed);
             _this.logger.log('datachannel connect :: closed');
         };
         return _this;
@@ -7566,7 +7558,7 @@ var RealtimeSocket = /** @class */ (function (_super) {
                 switch (_b.label) {
                     case 0:
                         this.logger.log('connect :: connecting to %s', this._urls);
-                        this._pConnState = RealtimeSocketState.Connecting;
+                        this._pConnState = exports.RealtimeSocketState.Connecting;
                         return [4 /*yield*/, connector.selectFromUrls(this._urls)];
                     case 1:
                         serverUrl = _b.sent();
@@ -7595,8 +7587,8 @@ var RealtimeSocket = /** @class */ (function (_super) {
                                     name: s.info.name,
                                 }); }),
                                 receivers: {
-                                    audio: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === StreamKinds.AUDIO; }).length,
-                                    video: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === StreamKinds.VIDEO; }).length,
+                                    audio: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === exports.StreamKinds.AUDIO; }).length,
+                                    video: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === exports.StreamKinds.VIDEO; }).length,
                                 },
                             })];
                     case 3:
@@ -7691,8 +7683,8 @@ var RealtimeSocket = /** @class */ (function (_super) {
                                 screen: s.info.screen,
                             }); }),
                             receivers: {
-                                audio: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === StreamKinds.AUDIO; }).length,
-                                video: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === StreamKinds.VIDEO; }).length,
+                                audio: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === exports.StreamKinds.AUDIO; }).length,
+                                video: Array.from(this._recvStreams.values()).filter(function (s) { return s.info.kind === exports.StreamKinds.VIDEO; }).length,
                             },
                         };
                         return [2 /*return*/, { offer: offer, meta: meta }];
@@ -7735,7 +7727,7 @@ var RealtimeSocket = /** @class */ (function (_super) {
     return RealtimeSocket;
 }(TypedEventEmitter));
 
-var StreamReceiverState;
+exports.StreamReceiverState = void 0;
 (function (StreamReceiverState) {
     StreamReceiverState["NoSource"] = "no_source";
     StreamReceiverState["Connecting"] = "connecting";
@@ -7743,7 +7735,7 @@ var StreamReceiverState;
     StreamReceiverState["Pause"] = "paused";
     StreamReceiverState["KeyOnly"] = "key_only";
     StreamReceiverState["SourceDeactived"] = "source_deactived";
-})(StreamReceiverState || (StreamReceiverState = {}));
+})(exports.StreamReceiverState || (exports.StreamReceiverState = {}));
 
 var StreamReceiver = /** @class */ (function (_super) {
     __extends(StreamReceiver, _super);
@@ -7752,7 +7744,7 @@ var StreamReceiver = /** @class */ (function (_super) {
         _this._rpc = _rpc;
         _this._track = _track;
         _this.hasTrackPromises = [];
-        _this._state = StreamReceiverState.NoSource;
+        _this._state = exports.StreamReceiverState.NoSource;
         _this.logger = getLogger('atm0s:stream-receiver');
         _this.kind = _this._track.info.kind;
         _this.remoteId = _this._track.info.remoteId;
@@ -7763,24 +7755,24 @@ var StreamReceiver = /** @class */ (function (_super) {
             switch (info.state) {
                 case 'live':
                     if ([
-                        StreamReceiverState.Connecting,
-                        StreamReceiverState.SourceDeactived,
-                        StreamReceiverState.KeyOnly,
+                        exports.StreamReceiverState.Connecting,
+                        exports.StreamReceiverState.SourceDeactived,
+                        exports.StreamReceiverState.KeyOnly,
                     ].includes(_this._state)) {
-                        _this._setState(StreamReceiverState.Live);
+                        _this._setState(exports.StreamReceiverState.Live);
                     }
                     break;
                 case 'key_only':
                     if ([
-                        StreamReceiverState.SourceDeactived,
-                        StreamReceiverState.KeyOnly,
+                        exports.StreamReceiverState.SourceDeactived,
+                        exports.StreamReceiverState.KeyOnly,
                     ].includes(_this._state)) {
-                        _this._setState(StreamReceiverState.KeyOnly);
+                        _this._setState(exports.StreamReceiverState.KeyOnly);
                     }
                     break;
                 case 'source_deactived':
-                    if ([StreamReceiverState.Live, StreamReceiverState.KeyOnly].includes(_this._state)) {
-                        _this._setState(StreamReceiverState.SourceDeactived);
+                    if ([exports.StreamReceiverState.Live, exports.StreamReceiverState.KeyOnly].includes(_this._state)) {
+                        _this._setState(exports.StreamReceiverState.SourceDeactived);
                     }
                     break;
             }
@@ -7830,7 +7822,7 @@ var StreamReceiver = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         if (!this._track.stream) return [3 /*break*/, 3];
-                        this._setState(StreamReceiverState.Connecting);
+                        this._setState(exports.StreamReceiverState.Connecting);
                         return [4 /*yield*/, this._rpc.request('receiver.switch', {
                                 id: this.remoteId,
                                 priority: priority,
@@ -7843,7 +7835,7 @@ var StreamReceiver = /** @class */ (function (_super) {
                             return [2 /*return*/, true];
                         }
                         else {
-                            this._setState(StreamReceiverState.NoSource);
+                            this._setState(exports.StreamReceiverState.NoSource);
                             return [2 /*return*/, false];
                         }
                     case 3: return [2 /*return*/, false];
@@ -7887,7 +7879,7 @@ var StreamReceiver = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this._state === StreamReceiverState.NoSource) {
+                        if (this._state === exports.StreamReceiverState.NoSource) {
                             return [2 /*return*/, true];
                         }
                         return [4 /*yield*/, this._rpc.request('receiver.disconnect', {
@@ -7896,7 +7888,7 @@ var StreamReceiver = /** @class */ (function (_super) {
                     case 1:
                         res = _a.sent();
                         if (res.status === true) {
-                            this._setState(StreamReceiverState.NoSource);
+                            this._setState(exports.StreamReceiverState.NoSource);
                             return [2 /*return*/, true];
                         }
                         return [2 /*return*/, false];
@@ -7907,14 +7899,14 @@ var StreamReceiver = /** @class */ (function (_super) {
     return StreamReceiver;
 }(TypedEventEmitter));
 
-var StreamSenderState;
+exports.StreamSenderState = void 0;
 (function (StreamSenderState) {
     StreamSenderState["Created"] = "created";
     StreamSenderState["Connecting"] = "connecting";
     StreamSenderState["Connected"] = "connected";
     StreamSenderState["Deactivated"] = "deactived";
     StreamSenderState["Closed"] = "closed";
-})(StreamSenderState || (StreamSenderState = {}));
+})(exports.StreamSenderState || (exports.StreamSenderState = {}));
 
 var StreamSender = /** @class */ (function (_super) {
     __extends(StreamSender, _super);
@@ -7922,13 +7914,13 @@ var StreamSender = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._rpc = _rpc;
         _this._track = _track;
-        _this._state = StreamSenderState.Created;
+        _this._state = exports.StreamSenderState.Created;
         _this.logger = getLogger('atm0s:stream-sender');
         _this.kind = _this._track.info.kind;
         _this.name = _this._track.info.name;
         _this._rpc.on("remote_stream_".concat(_this.name, "_state"), function () {
-            if (_this._state === StreamSenderState.Connecting) {
-                _this._setState(StreamSenderState.Connected);
+            if (_this._state === exports.StreamSenderState.Connecting) {
+                _this._setState(exports.StreamSenderState.Connected);
             }
         });
         _this._rpc.on("remote_stream_".concat(_this.name, "_audio_level"), function (_, info) {
@@ -7949,19 +7941,19 @@ var StreamSender = /** @class */ (function (_super) {
             track: this._track.uuid,
         });
         if (stream) {
-            this._setState(StreamSenderState.Connected);
+            this._setState(exports.StreamSenderState.Connected);
         }
         else {
-            this._setState(StreamSenderState.Deactivated);
+            this._setState(exports.StreamSenderState.Deactivated);
         }
     };
     StreamSender.prototype.stop = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                if (this._state === StreamSenderState.Closed) {
+                if (this._state === exports.StreamSenderState.Closed) {
                     return [2 /*return*/];
                 }
-                this._setState(StreamSenderState.Closed);
+                this._setState(exports.StreamSenderState.Closed);
                 return [2 /*return*/];
             });
         });
@@ -8062,7 +8054,7 @@ var RPC = /** @class */ (function () {
         };
         this._socket.on('message', this._prereceiveMessage);
         this._socket.on('dc_state', function (state) {
-            if (state === RealtimeSocketState.Connected) {
+            if (state === exports.RealtimeSocketState.Connected) {
                 _this.connected = true;
             }
         });
@@ -8102,9 +8094,9 @@ var StreamRemote = /** @class */ (function (_super) {
         _this.peerHash = peerHash;
         _this.name = name;
         _this._state = {
-            scaling: StreamRemoteScalingType.SINGLE,
+            scaling: exports.StreamRemoteScalingType.SINGLE,
             layers: [],
-            status: StreamRemoteStatus.New,
+            status: exports.StreamRemoteStatus.New,
             active: true,
         };
         return _this;
@@ -8119,11 +8111,11 @@ var StreamRemote = /** @class */ (function (_super) {
     StreamRemote.prototype.updateState = function (_state) {
         if (JSON.stringify(this._state) !== JSON.stringify(_state)) {
             this._state = _state;
-            this.emit(StreamRemoteEvent.STATE, _state);
+            this.emit(exports.StreamRemoteEvent.STATE, _state);
         }
     };
     StreamRemote.prototype.close = function () {
-        this.emit(StreamRemoteEvent.CLOSED);
+        this.emit(exports.StreamRemoteEvent.CLOSED);
     };
     return StreamRemote;
 }(TypedEventEmitter));
@@ -8198,21 +8190,21 @@ var Session = /** @class */ (function (_super) {
                         var senderTrack = _this._socket.createSenderTrack(s);
                         _this.logger.info('created sender track:', senderTrack);
                         var sender = new StreamSender(_this._rpc, senderTrack);
-                        if (senderTrack.info.kind === StreamKinds.AUDIO) {
+                        if (senderTrack.info.kind === exports.StreamKinds.AUDIO) {
                             _this._audioSenders.set(s.name, sender);
                         }
-                        if (senderTrack.info.kind === StreamKinds.VIDEO) {
+                        if (senderTrack.info.kind === exports.StreamKinds.VIDEO) {
                             _this._videoSenders.set(s.name, sender);
                         }
                     }
                 });
                 for (i = 0; i < this._cfg.receivers.video; i++) {
-                    recvrTrack = this._socket.createReceiverTrack("video_".concat(i), StreamKinds.VIDEO);
+                    recvrTrack = this._socket.createReceiverTrack("video_".concat(i), exports.StreamKinds.VIDEO);
                     receiver = new StreamReceiver(this._rpc, recvrTrack);
                     this._videoReceivers.push(receiver);
                 }
                 for (i = 0; i < this._cfg.receivers.audio; i++) {
-                    recvrTrack = this._socket.createReceiverTrack("audio_".concat(i), StreamKinds.AUDIO);
+                    recvrTrack = this._socket.createReceiverTrack("audio_".concat(i), exports.StreamKinds.AUDIO);
                     receiver = new StreamReceiver(this._rpc, recvrTrack);
                     this._audioReceivers.push(receiver);
                 }
@@ -8228,10 +8220,10 @@ var Session = /** @class */ (function (_super) {
                     case 0:
                         senderTrack = this._socket.createSenderTrack(cfg);
                         sender = new StreamSender(this._rpc, senderTrack);
-                        if (cfg.kind === StreamKinds.AUDIO) {
+                        if (cfg.kind === exports.StreamKinds.AUDIO) {
                             this._audioSenders.set(cfg.name, sender);
                         }
-                        if (cfg.kind === StreamKinds.VIDEO) {
+                        if (cfg.kind === exports.StreamKinds.VIDEO) {
                             this._videoSenders.set(cfg.name, sender);
                         }
                         return [4 /*yield*/, this.update()];
@@ -8250,10 +8242,10 @@ var Session = /** @class */ (function (_super) {
                     case 0:
                         recvrTrack = this._socket.createReceiverTrack("".concat(kind, "_").concat(this._audioReceivers.length), kind);
                         receiver = new StreamReceiver(this._rpc, recvrTrack);
-                        if (kind === StreamKinds.AUDIO) {
+                        if (kind === exports.StreamKinds.AUDIO) {
                             this._audioReceivers.push(receiver);
                         }
-                        if (kind === StreamKinds.VIDEO) {
+                        if (kind === exports.StreamKinds.VIDEO) {
                             this._videoReceivers.push(receiver);
                         }
                         return [4 /*yield*/, this.update()];
@@ -8265,7 +8257,7 @@ var Session = /** @class */ (function (_super) {
         });
     };
     Session.prototype.takeReceiver = function (kind) {
-        var receiver = kind === StreamKinds.AUDIO
+        var receiver = kind === exports.StreamKinds.AUDIO
             ? this._audioReceivers.shift()
             : this._videoReceivers.shift();
         if (!receiver) {
@@ -8275,15 +8267,15 @@ var Session = /** @class */ (function (_super) {
         return receiver;
     };
     Session.prototype.backReceiver = function (receiver) {
-        if (receiver.kind === StreamKinds.AUDIO) {
+        if (receiver.kind === exports.StreamKinds.AUDIO) {
             this._audioReceivers.push(receiver);
         }
-        if (receiver.kind === StreamKinds.VIDEO) {
+        if (receiver.kind === exports.StreamKinds.VIDEO) {
             this._videoReceivers.push(receiver);
         }
     };
     Session.prototype.getSender = function (name, kind) {
-        var sender = kind === StreamKinds.AUDIO
+        var sender = kind === exports.StreamKinds.AUDIO
             ? this._audioSenders.get(name)
             : this._videoSenders.get(name);
         if (!sender) {
@@ -8323,6 +8315,8 @@ function createSession(urls, cfg) {
     return new Session(cfg, socket, gateway);
 }
 
+exports.LatencyMode2DelayHint = LatencyMode2DelayHint;
+exports.LatencyMode2MaxPackets = LatencyMode2MaxPackets;
 exports.MediaGatewayConnector = MediaGatewayConnector;
 exports.RPC = RPC;
 exports.RealtimeSocket = RealtimeSocket;

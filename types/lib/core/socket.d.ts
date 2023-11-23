@@ -2,17 +2,9 @@ import { TypedEventEmitter } from '../utils/typed-event-emitter';
 import { StreamKinds } from '../utils/types';
 import { ReceiverTrack, SenderTrack } from './tracks';
 import type { IMediaGatewayConnector } from '../interfaces/gateway';
-import type { IRealtimeSocketCallbacks, IRealtimeSocket, IRealtimeSocketOptions } from '../interfaces/rtsocket';
+import { type IRealtimeSocketCallbacks, type IRealtimeSocket, type IRealtimeSocketOptions } from '../interfaces/rtsocket';
 import type { ISessionConfig } from '../interfaces/session';
 import type { SenderConfig } from '../interfaces/sender';
-export declare enum RealtimeSocketState {
-    Created = "created",
-    Connecting = "connecting",
-    Connected = "connected",
-    Disconnected = "disconnected",
-    Failed = "failed",
-    Closed = "closed"
-}
 export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> implements IRealtimeSocket {
     private _urls;
     private _options?;

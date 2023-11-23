@@ -73,7 +73,7 @@ TypedEventEmitter&lt;IRealtimeSocketCallbacks\&gt;.constructor
 
 #### Defined in
 
-[lib/core/socket.ts:31](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L31)
+[lib/core/socket.ts:31](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L31)
 
 ## Properties
 
@@ -83,7 +83,7 @@ TypedEventEmitter&lt;IRealtimeSocketCallbacks\&gt;.constructor
 
 #### Defined in
 
-[lib/core/socket.ts:25](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L25)
+[lib/core/socket.ts:25](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L25)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:23](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L23)
+[lib/core/socket.ts:23](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L23)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:24](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L24)
+[lib/core/socket.ts:24](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L24)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:29](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L29)
+[lib/core/socket.ts:29](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L29)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:33](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L33)
+[lib/core/socket.ts:33](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L33)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:22](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L22)
+[lib/core/socket.ts:22](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L22)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:27](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L27)
+[lib/core/socket.ts:27](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L27)
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L26)
+[lib/core/socket.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L26)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:32](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L32)
+[lib/core/socket.ts:32](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L32)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:21](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L21)
+[lib/core/socket.ts:21](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L21)
 
 ## Methods
 
@@ -203,7 +203,7 @@ Closes the socket.
 
 #### Defined in
 
-[lib/core/socket.ts:265](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L265)
+[lib/core/socket.ts:265](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L265)
 
 ___
 
@@ -232,7 +232,7 @@ A promise that resolves when the connection is established.
 
 #### Defined in
 
-[lib/core/socket.ts:110](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L110)
+[lib/core/socket.ts:110](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L110)
 
 ___
 
@@ -261,7 +261,7 @@ The created receiver track.
 
 #### Defined in
 
-[lib/core/socket.ts:186](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L186)
+[lib/core/socket.ts:186](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L186)
 
 ___
 
@@ -289,7 +289,7 @@ The created sender track.
 
 #### Defined in
 
-[lib/core/socket.ts:205](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L205)
+[lib/core/socket.ts:205](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L205)
 
 ___
 
@@ -318,7 +318,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L11)
+[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -340,7 +340,7 @@ A promise that resolves with the generated offer and metadata.
 
 #### Defined in
 
-[lib/core/socket.ts:219](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L219)
+[lib/core/socket.ts:219](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L219)
 
 ___
 
@@ -374,7 +374,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L58)
+[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -408,7 +408,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L52)
+[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -443,7 +443,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L40)
+[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -465,7 +465,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L44)
+[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -506,7 +506,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L17)
+[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -541,7 +541,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L26)
+[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -563,7 +563,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L48)
+[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -598,7 +598,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L33)
+[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -624,7 +624,7 @@ Sends data over the socket.
 
 #### Defined in
 
-[lib/core/socket.ts:256](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L256)
+[lib/core/socket.ts:256](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L256)
 
 ___
 
@@ -644,7 +644,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:170](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L170)
+[lib/core/socket.ts:170](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L170)
 
 ___
 
@@ -664,7 +664,7 @@ ___
 
 #### Defined in
 
-[lib/core/socket.ts:175](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L175)
+[lib/core/socket.ts:175](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L175)
 
 ___
 
@@ -691,4 +691,4 @@ Updates the SDP (Session Description Protocol) with the local offer and remote a
 
 #### Defined in
 
-[lib/core/socket.ts:244](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/socket.ts#L244)
+[lib/core/socket.ts:244](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/socket.ts#L244)

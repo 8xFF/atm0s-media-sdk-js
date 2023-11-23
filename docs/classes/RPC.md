@@ -46,7 +46,7 @@ Represents an interface for a RPC (Remote Procedure Call) Handler.
 
 #### Defined in
 
-[lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L43)
+[lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L43)
 
 ## Properties
 
@@ -56,7 +56,7 @@ Represents an interface for a RPC (Remote Procedure Call) Handler.
 
 #### Defined in
 
-[lib/core/rpc.ts:38](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L38)
+[lib/core/rpc.ts:38](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L38)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:36](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L36)
+[lib/core/rpc.ts:36](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L36)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:35](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L35)
+[lib/core/rpc.ts:35](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L35)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:39](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L39)
+[lib/core/rpc.ts:39](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L39)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L43)
+[lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L43)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:41](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L41)
+[lib/core/rpc.ts:41](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L41)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:37](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L37)
+[lib/core/rpc.ts:37](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L37)
 
 ## Methods
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:72](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L72)
+[lib/core/rpc.ts:72](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L72)
 
 ___
 
@@ -166,7 +166,7 @@ ___
 
 #### Defined in
 
-[lib/core/rpc.ts:52](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L52)
+[lib/core/rpc.ts:52](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L52)
 
 ___
 
@@ -192,7 +192,7 @@ Unregisters the event handler for the specified command.
 
 #### Defined in
 
-[lib/core/rpc.ts:135](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L135)
+[lib/core/rpc.ts:135](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L135)
 
 ___
 
@@ -219,7 +219,7 @@ Registers an event handler for the specified command.
 
 #### Defined in
 
-[lib/core/rpc.ts:131](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L131)
+[lib/core/rpc.ts:131](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L131)
 
 ___
 
@@ -255,4 +255,4 @@ A promise that resolves to the response from the RPC server.
 
 #### Defined in
 
-[lib/core/rpc.ts:110](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/rpc.ts#L110)
+[lib/core/rpc.ts:110](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/rpc.ts#L110)

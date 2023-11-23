@@ -38,7 +38,7 @@ A promise that resolves to a boolean indicating whether the limit was successful
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L26)
+[lib/interfaces/receiver.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L26)
 
 ___
 
@@ -56,7 +56,7 @@ A promise that resolves to a boolean indicating whether the stop was successful.
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:36](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L36)
+[lib/interfaces/receiver.ts:36](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L36)
 
 ___
 
@@ -81,4 +81,4 @@ A promise that resolves to a boolean indicating whether the switch was successfu
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:14](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L14)
+[lib/interfaces/receiver.ts:14](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L14)

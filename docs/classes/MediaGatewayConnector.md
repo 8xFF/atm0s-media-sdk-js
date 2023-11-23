@@ -43,7 +43,7 @@ Represents a media server gateway connector.
 
 #### Defined in
 
-[lib/core/gateway.ts:12](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L12)
+[lib/core/gateway.ts:12](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L12)
 
 ## Properties
 
@@ -53,7 +53,7 @@ Represents a media server gateway connector.
 
 #### Defined in
 
-[lib/core/gateway.ts:12](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L12)
+[lib/core/gateway.ts:12](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L12)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[lib/core/gateway.ts:10](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L10)
+[lib/core/gateway.ts:10](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L10)
 
 ## Accessors
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[lib/core/gateway.ts:14](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L14)
+[lib/core/gateway.ts:14](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L14)
 
 ## Methods
 
@@ -114,7 +114,7 @@ Connects to the media server using the provided configuration.
 
 #### Defined in
 
-[lib/core/gateway.ts:44](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L44)
+[lib/core/gateway.ts:44](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L44)
 
 ___
 
@@ -143,7 +143,7 @@ Sends a ice candidate update to the media server.
 
 #### Defined in
 
-[lib/core/gateway.ts:52](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L52)
+[lib/core/gateway.ts:52](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L52)
 
 ___
 
@@ -171,4 +171,4 @@ A promise that resolves to the selected media stream.
 
 #### Defined in
 
-[lib/core/gateway.ts:18](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/core/gateway.ts#L18)
+[lib/core/gateway.ts:18](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/core/gateway.ts#L18)

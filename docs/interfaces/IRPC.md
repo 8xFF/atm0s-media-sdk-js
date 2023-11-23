@@ -36,7 +36,7 @@ Unregisters the event handler for the specified command.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:29](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rpc.ts#L29)
+[lib/interfaces/rpc.ts:29](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L29)
 
 ___
 
@@ -59,7 +59,7 @@ Registers an event handler for the specified command.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:23](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rpc.ts#L23)
+[lib/interfaces/rpc.ts:23](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L23)
 
 ___
 
@@ -91,4 +91,4 @@ A promise that resolves to the response from the RPC server.
 
 #### Defined in
 
-[lib/interfaces/rpc.ts:13](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rpc.ts#L13)
+[lib/interfaces/rpc.ts:13](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rpc.ts#L13)

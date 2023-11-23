@@ -64,9 +64,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/[repositoryOwner]/[repositoryName]/issues"
+    "url": "https://github.com/8xFF/media-sdk-js/issues"
   },
-  "homepage": "https://github.com/[repositoryOwner]/[repositoryName]#readme",
+  "homepage": "https://github.com/8xFF/media-sdk-js#readme",
   "dependencies": {
     "pako": "^2.1.0",
     "ts-debounce": "^4.0.0",

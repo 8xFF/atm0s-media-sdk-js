@@ -2,6 +2,8 @@
 
 # Interface: ISessionConfig
 
+Represents the configuration for a session.
+
 ## Table of contents
 
 ### Properties
@@ -23,9 +25,11 @@
 
 • `Optional` **bitrateControlMode**: [`BitrateControlMode`](../enums/BitrateControlMode.md)
 
+Optional bitrate control mode for the session.
+
 #### Defined in
 
-[lib/interfaces/session.ts:63](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L63)
+[lib/interfaces/session.ts:113](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L113)
 
 ___
 
@@ -33,9 +37,11 @@ ___
 
 • `Optional` **codecs**: [`Codecs`](../enums/Codecs.md)[]
 
+Optional codecs for the session.
+
 #### Defined in
 
-[lib/interfaces/session.ts:62](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L62)
+[lib/interfaces/session.ts:108](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L108)
 
 ___
 
@@ -43,9 +49,11 @@ ___
 
 • `Optional` **iceServers**: [{ `credential?`: `string` ; `urls`: `string` ; `username?`: `string`  }]
 
+Optional ICE servers for the session.
+
 #### Defined in
 
-[lib/interfaces/session.ts:61](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L61)
+[lib/interfaces/session.ts:103](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L103)
 
 ___
 
@@ -53,9 +61,11 @@ ___
 
 • `Optional` **latencyMode**: `LatencyMode`
 
+Optional latency mode for the session.
+
 #### Defined in
 
-[lib/interfaces/session.ts:60](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L60)
+[lib/interfaces/session.ts:98](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L98)
 
 ___
 
@@ -63,16 +73,18 @@ ___
 
 • `Optional` **mixMinusAudio**: `Object`
 
+Optional configuration for mix-minus audio.
+
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `elements?` | [`HTMLAudioElement`, `HTMLAudioElement`, `HTMLAudioElement`] |
-| `mode` | [`MixMinusMode`](../enums/MixMinusMode.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `elements?` | [`HTMLAudioElement`, `HTMLAudioElement`, `HTMLAudioElement`] | The elements for mix-minus audio. |
+| `mode` | [`MixMinusMode`](../enums/MixMinusMode.md) | The mode for mix-minus audio. |
 
 #### Defined in
 
-[lib/interfaces/session.ts:56](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L56)
+[lib/interfaces/session.ts:84](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L84)
 
 ___
 
@@ -80,9 +92,23 @@ ___
 
 • **peerId**: `string`
 
+The ID of the peer.
+
+**`Example`**
+
+```ts
+'peer1'
+```
+
+**`Example`**
+
+```ts
+'peer2'
+```
+
 #### Defined in
 
-[lib/interfaces/session.ts:48](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L48)
+[lib/interfaces/session.ts:62](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L62)
 
 ___
 
@@ -99,7 +125,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/session.ts:51](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L51)
+[lib/interfaces/session.ts:76](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L76)
 
 ___
 
@@ -107,9 +133,23 @@ ___
 
 • **roomId**: `string`
 
+The ID of the room.
+
+**`Example`**
+
+```ts
+'room1'
+```
+
+**`Example`**
+
+```ts
+'room2'
+```
+
 #### Defined in
 
-[lib/interfaces/session.ts:47](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L47)
+[lib/interfaces/session.ts:55](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L55)
 
 ___
 
@@ -117,9 +157,17 @@ ___
 
 • **senders**: [`SenderConfig`](../README.md#senderconfig)[]
 
+Initialized Senders for the session.
+
+**`Example`**
+
+```ts
+[{ name: 'video_camera', kind: 'audio', stream: stream1 }, { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
+```
+
 #### Defined in
 
-[lib/interfaces/session.ts:50](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L50)
+[lib/interfaces/session.ts:75](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L75)
 
 ___
 
@@ -127,6 +175,9 @@ ___
 
 • **token**: `string`
 
+The token for the session.
+Can be retrieved from the media server.
+
 #### Defined in
 
-[lib/interfaces/session.ts:49](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L49)
+[lib/interfaces/session.ts:68](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L68)

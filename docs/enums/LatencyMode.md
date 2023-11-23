@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[lib/utils/types.ts:24](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L24)
+[lib/utils/types.ts:24](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L24)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:28](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L28)
+[lib/utils/types.ts:28](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L28)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:25](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L25)
+[lib/utils/types.ts:25](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L25)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:29](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L29)
+[lib/utils/types.ts:29](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L29)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L26)
+[lib/utils/types.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L26)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:27](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L27)
+[lib/utils/types.ts:27](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L27)
 
 ___
 
@@ -82,4 +82,4 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:23](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L23)
+[lib/utils/types.ts:23](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L23)

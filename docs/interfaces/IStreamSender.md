@@ -49,7 +49,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L11)
+[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -79,7 +79,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L58)
+[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -109,7 +109,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L52)
+[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -140,7 +140,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L40)
+[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -158,7 +158,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L44)
+[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -195,7 +195,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L17)
+[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -226,7 +226,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L26)
+[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -244,7 +244,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L48)
+[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -275,7 +275,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L33)
+[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -293,7 +293,7 @@ A promise that resolves when the streaming is stopped.
 
 #### Defined in
 
-[lib/interfaces/sender.ts:19](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/sender.ts#L19)
+[lib/interfaces/sender.ts:19](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L19)
 
 ▸ **stop**(): `Promise`<`void`\>
 
@@ -303,7 +303,7 @@ A promise that resolves when the streaming is stopped.
 
 #### Defined in
 
-[lib/interfaces/sender.ts:24](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/sender.ts#L24)
+[lib/interfaces/sender.ts:24](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L24)
 
 ___
 
@@ -325,7 +325,7 @@ Switches to the specified media stream.
 
 #### Defined in
 
-[lib/interfaces/sender.ts:13](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/sender.ts#L13)
+[lib/interfaces/sender.ts:13](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L13)
 
 ▸ **switch**(`stream`): `void`
 
@@ -341,4 +341,4 @@ Switches to the specified media stream.
 
 #### Defined in
 
-[lib/interfaces/sender.ts:23](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/sender.ts#L23)
+[lib/interfaces/sender.ts:23](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L23)

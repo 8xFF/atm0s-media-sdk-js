@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[lib/utils/types.ts:78](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L78)
+[lib/utils/types.ts:78](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L78)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:77](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L77)
+[lib/utils/types.ts:77](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L77)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[lib/utils/types.ts:79](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L79)
+[lib/utils/types.ts:79](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L79)

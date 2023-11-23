@@ -39,7 +39,7 @@ Callback function triggered when my stream is added.
 
 #### Defined in
 
-[lib/interfaces/session.ts:13](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L13)
+[lib/interfaces/session.ts:13](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L13)
 
 ___
 
@@ -65,7 +65,7 @@ Callback function triggered when my stream is removed.
 
 #### Defined in
 
-[lib/interfaces/session.ts:19](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L19)
+[lib/interfaces/session.ts:19](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L19)
 
 ___
 
@@ -91,7 +91,7 @@ Callback function triggered when my stream is updated.
 
 #### Defined in
 
-[lib/interfaces/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L25)
+[lib/interfaces/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L25)
 
 ___
 
@@ -117,7 +117,7 @@ Callback function triggered when a stream is added.
 
 #### Defined in
 
-[lib/interfaces/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L31)
+[lib/interfaces/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L31)
 
 ___
 
@@ -143,7 +143,7 @@ Callback function triggered when a stream is removed.
 
 #### Defined in
 
-[lib/interfaces/session.ts:37](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L37)
+[lib/interfaces/session.ts:37](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L37)
 
 ___
 
@@ -169,4 +169,4 @@ Callback function triggered when a stream is updated.
 
 #### Defined in
 
-[lib/interfaces/session.ts:43](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/session.ts#L43)
+[lib/interfaces/session.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/session.ts#L43)

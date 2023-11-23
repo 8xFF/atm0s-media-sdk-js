@@ -21,7 +21,7 @@ async function boot() {
     const params = Object.fromEntries(urlSearchParams.entries());
 
     let stream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
-    let session = atm0s.createSession(params['server'] || '', {
+    let session = Atm0s.createSession(params['server'] || '', {
         roomId: params['room'] || 'demo',
         peerId: params['peer'] || 'echo-client-lmao',
         token: params['token'],

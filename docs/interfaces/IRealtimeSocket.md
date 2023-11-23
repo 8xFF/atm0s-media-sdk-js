@@ -49,7 +49,7 @@ Closes the socket.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:85](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L85)
+[lib/interfaces/rtsocket.ts:85](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L85)
 
 ___
 
@@ -74,7 +74,7 @@ A promise that resolves when the connection is established.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:25](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L25)
+[lib/interfaces/rtsocket.ts:25](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L25)
 
 ___
 
@@ -99,7 +99,7 @@ The created receiver track.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:36](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L36)
+[lib/interfaces/rtsocket.ts:36](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L36)
 
 ___
 
@@ -123,7 +123,7 @@ The created sender track.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:43](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L43)
+[lib/interfaces/rtsocket.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L43)
 
 ___
 
@@ -148,7 +148,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L11)
+[lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -166,7 +166,7 @@ A promise that resolves with the generated offer and metadata.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:49](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L49)
+[lib/interfaces/rtsocket.ts:49](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L49)
 
 ___
 
@@ -196,7 +196,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L58)
+[lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -226,7 +226,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L52)
+[lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -257,7 +257,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L40)
+[lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -275,7 +275,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L44)
+[lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -312,7 +312,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L17)
+[lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -343,7 +343,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L26)
+[lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -361,7 +361,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L48)
+[lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -392,7 +392,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/typed-event-emitter.ts#L33)
+[lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -414,7 +414,7 @@ Sends data over the socket.
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:80](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L80)
+[lib/interfaces/rtsocket.ts:80](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L80)
 
 ___
 
@@ -437,4 +437,4 @@ Updates the SDP (Session Description Protocol) with the local offer and remote a
 
 #### Defined in
 
-[lib/interfaces/rtsocket.ts:71](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/rtsocket.ts#L71)
+[lib/interfaces/rtsocket.ts:71](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/rtsocket.ts#L71)

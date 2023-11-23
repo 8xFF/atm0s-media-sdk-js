@@ -82,7 +82,7 @@ Atm0s JS SDK
 
 #### Defined in
 
-[lib/utils/types.ts:20](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L20)
+[lib/utils/types.ts:20](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L20)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:53](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L53)
+[lib/interfaces/receiver.ts:53](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L53)
 
 ___
 
@@ -124,7 +124,7 @@ Configuration options for a sender.
 
 #### Defined in
 
-[lib/interfaces/sender.ts:43](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/sender.ts#L43)
+[lib/interfaces/sender.ts:43](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/sender.ts#L43)
 
 ## Variables
 
@@ -148,7 +148,7 @@ Mapping of latency modes to playout delay hints. Also for React Native WebRTC, m
 
 #### Defined in
 
-[lib/utils/types.ts:61](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L61)
+[lib/utils/types.ts:61](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L61)
 
 ___
 
@@ -173,7 +173,7 @@ This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
 
 #### Defined in
 
-[lib/utils/types.ts:48](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/utils/types.ts#L48)
+[lib/utils/types.ts:48](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/utils/types.ts#L48)
 
 ## Functions
 
@@ -194,4 +194,4 @@ This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
 
 #### Defined in
 
-[index.ts:7](https://github.com/8xFF/media-sdk-js/blob/633baca/src/index.ts#L7)
+[index.ts:7](https://github.com/8xFF/media-sdk-js/blob/d289714/src/index.ts#L7)

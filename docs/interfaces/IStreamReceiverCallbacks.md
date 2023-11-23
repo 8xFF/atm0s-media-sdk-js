@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:50](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L50)
+[lib/interfaces/receiver.ts:50](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L50)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[lib/interfaces/receiver.ts:49](https://github.com/8xFF/media-sdk-js/blob/633baca/src/lib/interfaces/receiver.ts#L49)
+[lib/interfaces/receiver.ts:49](https://github.com/8xFF/media-sdk-js/blob/d289714/src/lib/interfaces/receiver.ts#L49)

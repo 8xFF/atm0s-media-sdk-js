@@ -1,5 +1,5 @@
 import type { IRPC } from '../interfaces/rpc';
-import type { IRealtimeSocket } from '../interfaces/rtsocket';
+import { type IRealtimeSocket } from '../interfaces/rtsocket';
 export declare class RpcRequest {
     reqId: number;
     private method;
