@@ -35,15 +35,6 @@ export enum BitrateControlMode {
   PerStream = 'PerStream',
 }
 
-export enum StreamReceiverState {
-  NoSource = 'no_source',
-  Connecting = 'connecting',
-  Live = 'live',
-  Pause = 'paused',
-  KeyOnly = 'key_only',
-  SourceDeactived = 'source_deactived',
-}
-
 export enum MixMinusMode {
   AllAudioStreams = 'AllAudioStreams',
   ManualAudioStreams = 'ManualAudioStreams',

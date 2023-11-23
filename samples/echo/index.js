@@ -25,7 +25,6 @@ async function boot() {
         roomId: params['room'] || 'demo',
         peerId: params['peer'] || 'echo-client-lmao',
         token: params['token'],
-        custom_query: params['custom_query'],
         senders: [
             { stream: stream, name: 'audio_main', kind: 'audio' },
             { stream: stream, name: 'video_main', kind: 'video', simulcast: params['simulcast'] === 'true' }

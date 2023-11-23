@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import pako from 'pako';
-import { RealtimeSocketState } from './socket';
 import type { AnyFunction } from '../utils/types';
 import { getLogger } from '../utils/logger';
 import type { IRPC } from '../interfaces/rpc';
-import type { IRealtimeSocket } from '../interfaces/rtsocket';
+import {
+  RealtimeSocketState,
+  type IRealtimeSocket,
+} from '../interfaces/rtsocket';
 
 export class RpcRequest {
   createdAt: Date;

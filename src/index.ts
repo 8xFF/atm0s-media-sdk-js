@@ -11,3 +11,6 @@ export function createSession(urls: string | string[], cfg: ISessionConfig) {
 }
 
 export { RealtimeSocket, MediaGatewayConnector, RPC };
+
+export * from './lib/interfaces';
+export * from './lib/utils/types';

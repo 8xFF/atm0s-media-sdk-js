@@ -1,6 +1,6 @@
 {
   "out": "./docs",
-  "name": "[libraryNameWithSpacesAndUpperCases]",
+  "name": "Atm0s JS SDK",
   "plugin": ["typedoc-plugin-markdown"],
   "readme": "none",
   "tsconfig": "./tsconfig.bundle.json"

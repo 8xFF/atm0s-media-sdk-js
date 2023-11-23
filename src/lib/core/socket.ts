@@ -5,22 +5,14 @@ import pako from 'pako';
 import { ReceiverTrack, SenderTrack } from './tracks';
 import { getLogger } from '../utils/logger';
 import type { IMediaGatewayConnector } from '../interfaces/gateway';
-import type {
-  IRealtimeSocketCallbacks,
-  IRealtimeSocket,
-  IRealtimeSocketOptions,
+import {
+  type IRealtimeSocketCallbacks,
+  type IRealtimeSocket,
+  type IRealtimeSocketOptions,
+  RealtimeSocketState,
 } from '../interfaces/rtsocket';
 import type { ISessionConfig } from '../interfaces/session';
 import type { SenderConfig } from '../interfaces/sender';
-
-export enum RealtimeSocketState {
-  Created = 'created',
-  Connecting = 'connecting',
-  Connected = 'connected',
-  Disconnected = 'disconnected',
-  Failed = 'failed',
-  Closed = 'closed',
-}
 
 export class RealtimeSocket
   extends TypedEventEmitter<IRealtimeSocketCallbacks>
