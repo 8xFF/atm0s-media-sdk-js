@@ -1,10 +1,5 @@
-import { type IRealtimeSocket } from './socket';
-import type { AnyFunction } from '../utils/types';
-export interface IRPC {
-    request<DataType, ResponseType>(cmd: string, data: DataType): Promise<ResponseType>;
-    on(cmd: string, handler: AnyFunction): void;
-    off(cmd: string): void;
-}
+import type { IRPC } from '../interfaces/rpc';
+import type { IRealtimeSocket } from '../interfaces/rtsocket';
 export declare class RpcRequest {
     reqId: number;
     private method;
@@ -24,14 +19,14 @@ export declare class RPC implements IRPC {
     private _socket;
     private _reqSeed;
     private _msgDecoder;
-    private _log;
+    private logger;
     private _handlers;
     private _reqs;
     connected: boolean;
     constructor(_socket: IRealtimeSocket);
     private _prereceiveMessage;
     private _onReceiveMessage;
-    request(cmd: string, data: any): Promise<any>;
+    request<DataType, ResponseType>(cmd: string, data: DataType): Promise<ResponseType>;
     on(cmd: string, handler: (data: any) => void): void;
     off(cmd: string): void;
 }

@@ -1,22 +1,17 @@
-import type { IMediaGatewayConnector } from './gateway';
-import type { ISessionConfig } from '../utils/interface';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
-import _debug from 'debug';
-import {
-  LatencyMode,
-  LatencyMode2MaxPackets,
-  StreamKinds,
-  type SenderConfig,
-} from '../utils/types';
+import { LatencyMode2MaxPackets, StreamKinds } from '../utils/types';
 import { delay, getTrack } from '../utils/shared';
 import pako from 'pako';
-import { RTCPeerConnectionAugmented } from '../utils/rtc-peer';
 import { ReceiverTrack, SenderTrack } from './tracks';
-
-export enum RealtimeSocketEvent {
-  Message = 'message',
-  State = 'state',
-}
+import { getLogger } from '../utils/logger';
+import type { IMediaGatewayConnector } from '../interfaces/gateway';
+import type {
+  IRealtimeSocketCallbacks,
+  IRealtimeSocket,
+  IRealtimeSocketOptions,
+} from '../interfaces/rtsocket';
+import type { ISessionConfig } from '../interfaces/session';
+import type { SenderConfig } from '../interfaces/sender';
 
 export enum RealtimeSocketState {
   Created = 'created',
@@ -27,65 +22,15 @@ export enum RealtimeSocketState {
   Closed = 'closed',
 }
 
-export interface IRealtimeSocketCallbacks {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  message: (data: any) => void;
-  peer_state: (state: RealtimeSocketState) => void;
-  dc_state: (state: RealtimeSocketState) => void;
-}
-
-export interface IRealtimeSocket
-  extends TypedEventEmitter<IRealtimeSocketCallbacks> {
-  connect(
-    connector: IMediaGatewayConnector,
-    config: ISessionConfig,
-  ): Promise<void>;
-  // reconnect(connector: IMediaGatewayConnector): Promise<void>;
-
-  createReceiverTrack(id: string, kind: StreamKinds): ReceiverTrack;
-  createSenderTrack(cfg: SenderConfig): SenderTrack;
-
-  generateOffer(): Promise<{
-    offer: RTCSessionDescriptionInit;
-    meta: {
-      sdp: string;
-      senders: {
-        uuid: string;
-        label: string;
-        kind: StreamKinds;
-        screen: boolean;
-      }[];
-      receivers: {
-        audio: number;
-        video: number;
-      };
-    };
-  }>;
-
-  updateSdp(
-    localOffer: RTCSessionDescriptionInit,
-    remoteAnswerSdp: string,
-  ): void;
-
-  send(data: string | Uint8Array): void;
-
-  close(): void;
-}
-
-export interface IRealtimeSocketOptions {
-  iceServers?: RTCIceServer[];
-  latencyMode?: LatencyMode;
-}
-
 export class RealtimeSocket
   extends TypedEventEmitter<IRealtimeSocketCallbacks>
   implements IRealtimeSocket
 {
-  private _log = _debug('atm0s:realtime-socket');
+  private logger = getLogger('atm0s:realtime-socket');
   private _pConnState: RealtimeSocketState = RealtimeSocketState.Created;
   private _dcState: RealtimeSocketState = RealtimeSocketState.Created;
-  private _lc?: RTCPeerConnectionAugmented;
-  private _dc?: RTCDataChannel;
+  private _lc: RTCPeerConnection;
+  private _dc: RTCDataChannel;
   private _sendStreams = new Map<string, SenderTrack>();
   private _recvStreams = new Map<string, ReceiverTrack>();
 
@@ -106,32 +51,21 @@ export class RealtimeSocket
             LatencyMode2MaxPackets[this._options.latencyMode],
         }),
     };
-    this._lc = new RTCPeerConnectionAugmented(peerConfig);
+    this._lc = new RTCPeerConnection(peerConfig);
     this._dc = this._lc.createDataChannel('data', {
       ordered: false,
       maxPacketLifeTime: 10000,
     });
-  }
 
-  public async connect(
-    connector: IMediaGatewayConnector,
-    config: ISessionConfig,
-  ) {
-    this._log('connect :: connecting to %s', this._urls);
-    this._pConnState = RealtimeSocketState.Connecting;
-
-    const serverUrl = await connector.selectFromUrls(this._urls);
-    this._log('connect :: try connect to media server:', serverUrl);
-
-    this._lc!.ontrack = (event: RTCTrackEvent) => {
+    this._lc.ontrack = (event: RTCTrackEvent) => {
       if (event.streams.length === 0) {
-        this._log('connect :: no stream found');
+        this.logger.log('connect :: no stream found');
         return;
       }
       const stream = event.streams[0];
       const track = event.track;
 
-      this._log('connect :: received track:', track, stream);
+      this.logger.log('connect :: received track:', track, stream);
 
       for (const receiver of this._recvStreams.values()) {
         if (
@@ -140,15 +74,14 @@ export class RealtimeSocket
           receiver.info.kind === track.kind
         ) {
           receiver.stream = stream;
-          receiver.stream.addTrack(track);
-          // this.emit(RealtimeSocketEvent.Message, receiver);
+          receiver.addTrack(track);
         }
       }
     };
 
-    this._lc!.onconnectionstatechange = () => {
-      this._log('connection state changed:', this._lc!.connectionState);
-      switch (this._lc!.connectionState) {
+    this._lc.onconnectionstatechange = () => {
+      this.logger.log('connection state changed:', this._lc.connectionState);
+      switch (this._lc.connectionState) {
         case 'connected':
           this.setConnState(RealtimeSocketState.Connected);
           break;
@@ -165,27 +98,39 @@ export class RealtimeSocket
       }
     };
 
-    this._dc!.onmessage = (event) => {
-      this.emit(RealtimeSocketEvent.Message, event.data);
+    this._dc.onmessage = (event) => {
+      this.emit('message', event.data);
     };
-    this._dc!.onopen = () => {
+    this._dc.onopen = () => {
       this.setDcState(RealtimeSocketState.Connected);
-      this._log('datachannel connect :: opended');
+      this.logger.log('datachannel connect :: opended');
     };
-    this._dc!.onerror = (err) => {
+    this._dc.onerror = (err) => {
       this.setDcState(RealtimeSocketState.Failed);
-      this._log('datachannel connect :: error:', err);
+      this.logger.error('datachannel connect :: error:', err);
     };
-    this._dc!.onclose = () => {
+    this._dc.onclose = () => {
       this.setDcState(RealtimeSocketState.Closed);
-      this._log('datachannel connect :: closed');
+      this.logger.log('datachannel connect :: closed');
     };
+  }
 
-    const offer = await this._lc!.createOffer({
+  public async connect(
+    connector: IMediaGatewayConnector,
+    config: ISessionConfig,
+  ) {
+    this.logger.log('connect :: connecting to %s', this._urls);
+    this._pConnState = RealtimeSocketState.Connecting;
+
+    const serverUrl = await connector.selectFromUrls(this._urls);
+    this.logger.log('connect :: try connect to media server:', serverUrl);
+
+    const offer = await this._lc.createOffer({
       offerToReceiveAudio: true,
-      offerToReceiveVideo: false,
+      offerToReceiveVideo: true,
     });
-    this._log('connect :: created offer:', offer);
+    this.logger.log('connect :: transceivers:', this._lc.getTransceivers());
+    this.logger.log('connect :: created offer:', offer.sdp);
 
     const res = await connector.connect(serverUrl, {
       // TODO: consider remove session config dependency
@@ -193,13 +138,14 @@ export class RealtimeSocket
       peer: config.peerId,
       token: config.token,
       sdp: offer.sdp!,
-      // mix_minus_audio: config.mix_minus_audio?.mode,
-      // codecs: config.codecs,
+      mix_minus_audio: config.mixMinusAudio?.mode,
+      codecs: config.codecs,
       senders: Array.from(this._sendStreams.values()).map((s) => ({
         uuid: s.uuid,
         label: s.info.label,
         kind: s.info.kind,
         screen: s.info.screen,
+        name: s.info.name,
       })),
       receivers: {
         audio: Array.from(this._recvStreams.values()).filter(
@@ -211,20 +157,20 @@ export class RealtimeSocket
       },
     });
     if (!res.status) {
-      this._log('connect :: failed to connect:', res);
+      this.logger.error('connect :: failed to connect:', res);
       throw new Error(res.error);
     }
     const nodeId = res.data.node_id;
     const connId = res.data.conn_id;
     const sdp = res.data.sdp;
 
-    this._log('connect :: received answer:', nodeId, connId, sdp);
-    this._lc!.onicecandidate = async (ice) => {
+    this.logger.log('connect :: received answer:', nodeId, connId, sdp);
+    this._lc.onicecandidate = async (ice) => {
       if (ice && ice.candidate)
         await connector.iceCandidate(serverUrl, nodeId, connId, ice);
     };
-    this._lc!.setLocalDescription(offer);
-    this._lc!.setRemoteDescription(
+    this._lc.setLocalDescription(offer);
+    this._lc.setRemoteDescription(
       new RTCSessionDescription({ sdp, type: 'answer' }),
     );
   }
@@ -246,12 +192,16 @@ export class RealtimeSocket
   // }
 
   public createReceiverTrack(id: string, kind: StreamKinds): ReceiverTrack {
-    this._log('createReceiverTrack :: kind:', kind);
-    const stream = new MediaStream();
-    this._lc?.addTransceiver(kind, {
+    this.logger.log('createReceiverTrack :: (id, kind):', id, kind);
+    // addTransceiverWrapper(this._lc, kind, {
+    //   direction: 'recvonly',
+    // });
+
+    const transceiver = this._lc.addTransceiver(kind, {
       direction: 'recvonly',
     });
-    const track = new ReceiverTrack(stream, {
+    this.logger.debug('createReceiverTrack :: transceiver:', transceiver);
+    const track = new ReceiverTrack({
       remoteId: id,
       kind: kind,
     });
@@ -261,37 +211,21 @@ export class RealtimeSocket
   }
 
   public createSenderTrack(cfg: SenderConfig): SenderTrack {
-    this._log('createSenderTrack :: kind:', cfg.kind);
+    this.logger.log('createSenderTrack :: cfg:', cfg);
     const track = getTrack(cfg.stream, cfg.kind);
     const label = track?.label || 'not-supported';
 
-    const transceiver = this._lc?.addTransceiver(track!, {
+    const transceiver = this._lc.addTransceiver(track!, {
       direction: 'sendonly',
       streams: [cfg.stream!],
-      preferredCodecs: {
-        kind: cfg.kind,
-        codecs: cfg.preferredCodecs!,
-      },
-      simulcast: cfg.simulcast,
-      maxBitrate: cfg.maxBitrate,
-      isScreen: cfg.screen,
     });
-    const senderTrack = new SenderTrack(
-      cfg.stream || null,
-      {
-        label: label,
-        kind: cfg.kind,
-        name: cfg.name,
-        screen: !!cfg.screen,
-      },
-      transceiver,
-    );
+    const senderTrack = new SenderTrack({ ...cfg, label }, transceiver);
     this._sendStreams.set(senderTrack.uuid, senderTrack);
     return senderTrack;
   }
 
   public async generateOffer() {
-    const offer = await this._lc!.createOffer({
+    const offer = await this._lc.createOffer({
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
     });
@@ -319,21 +253,19 @@ export class RealtimeSocket
     localOffer: RTCSessionDescriptionInit,
     remoteAnswerSdp: string,
   ) {
-    this._log('updateSdp :: local offer:', localOffer);
-    this._log('updateSdp :: remote answer sdp:', remoteAnswerSdp);
-    this._lc!.setLocalDescription(localOffer);
-    this._lc!.setRemoteDescription(
+    this.logger.log('updateSdp :: local offer:', localOffer);
+    this.logger.log('updateSdp :: remote answer sdp:', remoteAnswerSdp);
+    this._lc.setLocalDescription(localOffer);
+    this._lc.setRemoteDescription(
       new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }),
     );
   }
 
-  public send(data: string | Uint8Array) {
-    const msg =
-      typeof data !== 'string' ? data : this._msg_encoder.encode(data);
+  public send(data: string) {
     if (data.length < 1000) {
-      this._dc?.send(msg);
+      this._dc?.send(data);
     } else {
-      const compressed = pako.deflate(msg);
+      const compressed = pako.deflate(this._msg_encoder.encode(data));
       this._dc?.send(compressed);
     }
   }

@@ -1,36 +1,22 @@
-import type { ReceiverTrack } from './utils/interface';
-import type { IRPC } from './core/rpc';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-export interface IStreamReceiver {
-    switch(name: string, peerId: string, priority?: number): Promise<boolean>;
-    limit(priority: number, max_spatial: number, max_temporal: number): Promise<boolean>;
-    stop(): Promise<boolean>;
-}
-export declare enum StreamReceiverState {
-    NoSource = "no_source",
-    Connecting = "connecting",
-    Live = "live",
-    Pause = "paused",
-    KeyOnly = "key_only",
-    SourceDeactived = "source_deactived"
-}
-export interface IStreamReceiverCallbacks {
-    state: (state: StreamReceiverState) => void;
-    audio_level: (level: number) => void;
-}
+import type { ReceiverTrack } from './core/tracks';
+import type { AnyFunction } from './utils/types';
+import type { StreamRemote } from './remote';
+import { type IStreamReceiverCallbacks, type IStreamReceiver } from './interfaces/receiver';
+import type { IRPC } from './interfaces/rpc';
 export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> implements IStreamReceiver {
     private _rpc;
     private _track;
     kind: string;
     remoteId: string;
-    hasTrack: boolean;
-    hasTrackPromises: Array<(value: unknown) => void>;
+    hasTrackPromises: AnyFunction[];
     private _state;
-    private _log;
+    private logger;
     constructor(_rpc: IRPC, _track: ReceiverTrack);
+    get stream(): MediaStream;
     private _setState;
     private internalReady;
-    switch(name: string, peerId: string, priority?: number): Promise<boolean>;
+    switch(remote: StreamRemote, priority?: number): Promise<boolean>;
     limit(priority: number, max_spatial: number, max_temporal: number): Promise<boolean>;
     stop(): Promise<boolean>;
 }

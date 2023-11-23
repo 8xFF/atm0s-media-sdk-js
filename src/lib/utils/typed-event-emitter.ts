@@ -1,23 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { applyMixin } from './shared';
+export class TypedEventEmitter<
+  TEvents extends Record<keyof TEvents, EventHandler>,
+> {
+  private events: { [K in keyof TEvents]?: TEvents[K][] };
 
-class EventEmitter {
-  events: any = {};
+  constructor() {
+    this.events = {};
+  }
 
-  emit(event: string, ...args: any) {
+  emit(event: keyof TEvents, ...args: Parameters<TEvents[typeof event]>) {
     for (const i of this.events[event] || []) {
-      i(...args);
+      i(args[0], args[1], args[2], args[3]);
     }
   }
 
-  on(event: string, cb: any) {
+  on<TEvent extends keyof TEvents>(
+    event: TEvent,
+    cb: TEvents[TEvent],
+  ): () => any {
     (this.events[event] = this.events[event] || []).push(cb);
     return () =>
-      (this.events[event] = this.events[event].filter((i: any) => i !== cb));
+      (this.events[event] = this.events[event]!.filter((i: any) => i !== cb));
   }
 
-  off(event: string, cb: any) {
-    this.events[event] = this.events[event].filter((i: any) => i !== cb);
+  onMany<TEvent extends keyof TEvents>(
+    events: TEvent[],
+    cb: TEvents[TEvent],
+  ): (() => any)[] {
+    return events.map((event) => this.on(event, cb));
+  }
+
+  removeListener<TEvent extends keyof TEvents>(
+    event: TEvent,
+    cb: TEvents[TEvent],
+  ) {
+    this.off(event, cb);
+  }
+
+  off<TEvent extends keyof TEvents>(event: TEvent, cb: TEvents[TEvent]) {
+    this.events[event] = this.events[event]!.filter((i: any) => i !== cb);
   }
 
   offAllListeners() {
@@ -25,19 +46,20 @@ class EventEmitter {
   }
 
   removeAllListeners() {
-    this.offAllListeners();
+    return this.offAllListeners();
   }
 
-  removeListener(event: string, cb: any) {
-    this.off(event, cb);
+  listeners<TEvent extends keyof TEvents>(
+    eventName: TEvent,
+  ): TEvents[TEvent][] | undefined {
+    return this.events[eventName];
   }
 
-  listeners(event: string) {
-    return this.events[event];
-  }
-
-  listenerCount(event: string) {
-    return this.events[event].length;
+  listenerCount<TEvent extends keyof TEvents>(event: TEvent): number {
+    if (!this.events[event]) {
+      return 0;
+    }
+    return this.events[event]!.length;
   }
 }
 
@@ -48,42 +70,3 @@ export type EventHandler =
   | ((arg1: any, arg2: any) => void)
   | ((arg1: any) => void)
   | ((...args: any[]) => void);
-
-export interface TypedEventEmitter<
-  TEvents extends Record<keyof TEvents, EventHandler>,
-> {
-  on<TEvent extends keyof TEvents>(
-    event: TEvent,
-    callback: TEvents[TEvent],
-  ): this;
-  removeListener<TEvent extends keyof TEvents>(
-    event: TEvent,
-    callback: TEvents[TEvent],
-  ): this;
-  off<TEvent extends keyof TEvents>(
-    event: TEvent,
-    callback: TEvents[TEvent],
-  ): this;
-
-  offAllListeners(): this;
-  removeAllListeners(): this;
-
-  emit<TEvent extends keyof TEvents>(
-    event: TEvent,
-    ...args: Parameters<TEvents[TEvent]>
-  ): boolean;
-
-  listeners<TEvent extends keyof TEvents>(eventName: TEvent): TEvents[TEvent][];
-  listenerCount<TEvent extends keyof TEvents>(
-    event: TEvent,
-    listener?: TEvents[TEvent],
-  ): number;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class TypedEventEmitter<
-  TEvents extends Record<keyof TEvents, EventHandler>,
-> {}
-
-// Make TypedEventEmitter inherit from EventEmitter without actually extending
-applyMixin(TypedEventEmitter, EventEmitter);

@@ -1,14 +1,10 @@
-export interface RTCRtpTransceiverInitExtended extends RTCRtpTransceiverInit {
+import type { StreamKinds } from './types';
+export interface RTCRtpTransceiverInitExtended {
+    kind: StreamKinds;
     simulcast?: boolean;
     isScreen?: boolean;
     maxBitrate?: number;
-    preferredCodecs?: {
-        kind: string;
-        codecs: string[];
-    };
+    preferredCodecs?: string[];
 }
-export declare class RTCPeerConnectionAugmented extends RTCPeerConnection {
-    constructor(configuration?: RTCConfiguration);
-    addTransceiver(trackOrKind: MediaStreamTrack | string, init?: RTCRtpTransceiverInitExtended): RTCRtpTransceiver;
-}
+export declare function addTransceiverConfigs(transceiver: RTCRtpTransceiver, init?: RTCRtpTransceiverInitExtended): RTCRtpTransceiver;
 //# sourceMappingURL=rtc-peer.d.ts.map

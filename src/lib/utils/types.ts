@@ -29,16 +29,25 @@ export enum LatencyMode {
   Smooth2000 = 'smooth-2000',
 }
 
-export type SenderConfig = {
-  stream?: MediaStream | null;
-  name: string;
-  kind: StreamKinds;
-  preferredCodecs?: Codecs[];
-  simulcast?: boolean;
-  maxBitrate?: number;
-  contentHint?: ContentHint;
-  screen?: boolean;
-};
+export enum BitrateControlMode {
+  SumBitrateWithClientSide = 'SumBitrateWithClientSide',
+  SumBitrateOnly = 'SumBitrateOnly',
+  PerStream = 'PerStream',
+}
+
+export enum StreamReceiverState {
+  NoSource = 'no_source',
+  Connecting = 'connecting',
+  Live = 'live',
+  Pause = 'paused',
+  KeyOnly = 'key_only',
+  SourceDeactived = 'source_deactived',
+}
+
+export enum MixMinusMode {
+  AllAudioStreams = 'AllAudioStreams',
+  ManualAudioStreams = 'ManualAudioStreams',
+}
 
 /**
  * Mapping of latency modes to maximum packets.
@@ -67,3 +76,22 @@ export const LatencyMode2DelayHint = {
   [LatencyMode.Smooth2000]: 2,
   [LatencyMode.Default]: undefined,
 };
+
+export enum StreamRemoteEvent {
+  STATE = 'state',
+  CLOSED = 'closed',
+}
+
+export enum StreamRemoteScalingType {
+  SINGLE = 'single',
+  SIMULCAT = 'simulcast',
+  SVC = 'svc',
+}
+
+export enum StreamRemoteStatus {
+  New = 'new',
+  Connecting = 'connecting',
+  Connected = 'connected',
+  Reconnecting = 'reconnecting',
+  Disconnected = 'disconnected',
+}

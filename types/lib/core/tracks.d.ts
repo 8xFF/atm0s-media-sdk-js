@@ -1,20 +1,25 @@
-import type { ReceiverInfo, SenderInfo } from '../utils/interface';
+import type { ReceiverInfo } from '../interfaces/receiver';
+import type { IReceiverTrackCallbacks, SenderTrackInfo } from '../interfaces/tracks';
+import { TypedEventEmitter } from '../utils/typed-event-emitter';
 export declare class SenderTrack {
-    stream: MediaStream | null;
-    info: SenderInfo;
+    info: SenderTrackInfo;
     transceiver?: RTCRtpTransceiver | undefined;
     private static seed;
     uuid: string;
-    constructor(stream: MediaStream | null, info: SenderInfo, transceiver?: RTCRtpTransceiver | undefined);
+    stream: MediaStream | null;
+    constructor(info: SenderTrackInfo, transceiver?: RTCRtpTransceiver | undefined);
     replaceStream(stream: MediaStream | null): void;
     getTrack(): MediaStreamTrack | undefined;
 }
-export declare class ReceiverTrack {
-    stream: MediaStream;
+export declare class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> {
     info: ReceiverInfo;
+    transceiver?: RTCRtpTransceiver | undefined;
     private static seed;
     uuid: string;
-    constructor(stream: MediaStream, info: ReceiverInfo);
+    hasTrack: boolean;
+    stream: MediaStream;
+    constructor(info: ReceiverInfo, transceiver?: RTCRtpTransceiver | undefined);
     getTrack(): MediaStreamTrack | undefined;
+    addTrack(track: MediaStreamTrack): void;
 }
 //# sourceMappingURL=tracks.d.ts.map

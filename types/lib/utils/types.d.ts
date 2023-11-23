@@ -23,16 +23,23 @@ export declare enum LatencyMode {
     Smooth1000 = "smooth-1000",
     Smooth2000 = "smooth-2000"
 }
-export type SenderConfig = {
-    stream?: MediaStream | null;
-    name: string;
-    kind: StreamKinds;
-    preferredCodecs?: Codecs[];
-    simulcast?: boolean;
-    maxBitrate?: number;
-    contentHint?: ContentHint;
-    screen?: boolean;
-};
+export declare enum BitrateControlMode {
+    SumBitrateWithClientSide = "SumBitrateWithClientSide",
+    SumBitrateOnly = "SumBitrateOnly",
+    PerStream = "PerStream"
+}
+export declare enum StreamReceiverState {
+    NoSource = "no_source",
+    Connecting = "connecting",
+    Live = "live",
+    Pause = "paused",
+    KeyOnly = "key_only",
+    SourceDeactived = "source_deactived"
+}
+export declare enum MixMinusMode {
+    AllAudioStreams = "AllAudioStreams",
+    ManualAudioStreams = "ManualAudioStreams"
+}
 /**
  * Mapping of latency modes to maximum packets.
  * This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
@@ -59,4 +66,20 @@ export declare const LatencyMode2DelayHint: {
     "smooth-2000": number;
     default: undefined;
 };
+export declare enum StreamRemoteEvent {
+    STATE = "state",
+    CLOSED = "closed"
+}
+export declare enum StreamRemoteScalingType {
+    SINGLE = "single",
+    SIMULCAT = "simulcast",
+    SVC = "svc"
+}
+export declare enum StreamRemoteStatus {
+    New = "new",
+    Connecting = "connecting",
+    Connected = "connected",
+    Reconnecting = "reconnecting",
+    Disconnected = "disconnected"
+}
 //# sourceMappingURL=types.d.ts.map

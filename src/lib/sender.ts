@@ -1,27 +1,13 @@
-import type { IRPC } from './core/rpc';
 import type { SenderTrack } from './core/tracks';
+import type { IRPC } from './interfaces/rpc';
+import {
+  type IStreamSenderCallbacks,
+  type IStreamSender,
+  StreamSenderState,
+} from './interfaces/sender';
+import { getLogger } from './utils/logger';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { StreamKinds } from './utils/types';
-import _debug from 'debug';
-
-export interface IStreamSender
-  extends TypedEventEmitter<IStreamSenderCallbacks> {
-  switch(stream: MediaStream): void;
-  stop(): Promise<void>;
-}
-
-export enum StreamSenderState {
-  Created = 'created',
-  Connecting = 'connecting',
-  Connected = 'connected',
-  Deactivated = 'deactived',
-  Closed = 'closed',
-}
-
-export interface IStreamSenderCallbacks {
-  state: (state: StreamSenderState) => void;
-  audio_level: (level: number) => void;
-}
 
 export class StreamSender
   extends TypedEventEmitter<IStreamSenderCallbacks>
@@ -31,7 +17,7 @@ export class StreamSender
   name: string;
 
   private _state: StreamSenderState = StreamSenderState.Created;
-  private _log = _debug('atm0s:stream-sender');
+  private logger = getLogger('atm0s:stream-sender');
   constructor(
     private _rpc: IRPC,
     private _track: SenderTrack,
@@ -44,9 +30,12 @@ export class StreamSender
         this._setState(StreamSenderState.Connected);
       }
     });
-    this._rpc.on(`remote_stream_${this.name}_audio_level`, (_, info) => {
-      this.emit('audio_level', info.level);
-    });
+    this._rpc.on(
+      `remote_stream_${this.name}_audio_level`,
+      (_: unknown, info: { level: number }) => {
+        this.emit('audio_level', info.level);
+      },
+    );
   }
 
   private _setState(state: StreamSenderState) {
@@ -55,7 +44,7 @@ export class StreamSender
   }
 
   switch(stream: MediaStream | null) {
-    this._log('switch stream', stream);
+    this.logger.log('switch stream', stream);
     this._track.replaceStream(stream);
     this._rpc.request('sender.toggle', {
       name: this.name,

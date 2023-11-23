@@ -1,19 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import pako from 'pako';
-import { RealtimeSocketState, type IRealtimeSocket } from './socket';
-import _debug from 'debug';
+import { RealtimeSocketState } from './socket';
 import type { AnyFunction } from '../utils/types';
-
-export interface IRPC {
-  request<DataType, ResponseType>(
-    cmd: string,
-    data: DataType,
-  ): Promise<ResponseType>;
-  // event<T>(cmd: string, data: T): void;
-
-  on(cmd: string, handler: AnyFunction): void;
-  off(cmd: string): void;
-}
+import { getLogger } from '../utils/logger';
+import type { IRPC } from '../interfaces/rpc';
+import type { IRealtimeSocket } from '../interfaces/rtsocket';
 
 export class RpcRequest {
   createdAt: Date;
@@ -41,7 +32,7 @@ export class RpcRequest {
 export class RPC implements IRPC {
   private _reqSeed = 0;
   private _msgDecoder = new TextDecoder();
-  private _log = _debug('atm0s:rpc');
+  private logger = getLogger('atm0s:rpc');
   private _handlers: Map<string, AnyFunction> = new Map();
   private _reqs: Map<number, RpcRequest> = new Map();
 
@@ -69,7 +60,7 @@ export class RPC implements IRPC {
     } else if (data instanceof ArrayBuffer) {
       const decompressed = pako.inflate(data);
       const msg = this._msgDecoder.decode(decompressed);
-      this._log('decompress', data.byteLength, msg, msg.length);
+      this.logger.log('decompress', data.byteLength, msg, msg.length);
       this._onReceiveMessage(msg);
     } else {
       this._onReceiveMessage(data);
@@ -77,7 +68,7 @@ export class RPC implements IRPC {
   };
 
   private _onReceiveMessage = (msg: string) => {
-    this._log('datachannel on message:', msg);
+    this.logger.log('datachannel on message:', msg);
     const json = JSON.parse(msg);
 
     const type = json.type;
@@ -109,12 +100,16 @@ export class RPC implements IRPC {
           });
         }
       } else {
-        this._log;
+        this.logger.log('RPC :: unknown req_id:', json.req_id);
       }
     }
   };
 
-  request(cmd: string, data: any): Promise<any> {
+  request<DataType, ResponseType>(
+    cmd: string,
+    data: DataType,
+  ): Promise<ResponseType> {
+    this.logger.info('request:', cmd, data);
     return new Promise((resolve, reject) => {
       const req = new RpcRequest(this._reqSeed++, cmd, data, resolve, reject);
       this._reqs.set(req.reqId, req);
