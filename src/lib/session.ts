@@ -11,14 +11,17 @@ import type { StreamRemoteState } from './interfaces/remote';
 import type { IRealtimeSocket } from './interfaces/rtsocket';
 import type { ISessionCallbacks, ISessionConfig } from './interfaces/session';
 import { StreamRemote } from './remote';
-import type { SenderConfig } from './interfaces/sender';
+import type { IStreamSender, SenderConfig } from './interfaces/sender';
+import type { IStreamReceiver } from './interfaces';
+import { StreamPublisher } from './publisher';
+import { StreamConsumer } from './consumer';
 
 export class Session extends TypedEventEmitter<ISessionCallbacks> {
-  private _audioSenders = new Map<string, StreamSender>();
-  private _videoSenders = new Map<string, StreamSender>();
+  private _audioSenders = new Map<string, IStreamSender>();
+  private _videoSenders = new Map<string, IStreamSender>();
 
-  private _audioReceivers: StreamReceiver[] = [];
-  private _videoReceivers: StreamReceiver[] = [];
+  private _audioReceivers: IStreamReceiver[] = [];
+  private _videoReceivers: IStreamReceiver[] = [];
   private _remotes = new Map<string, StreamRemote>();
 
   private logger = getLogger('atm0s:session');
@@ -45,7 +48,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     this._rpc.on('stream_removed', this.onStreamEvent);
   }
 
-  async connect() {
+  connect() {
     this.logger.info('start to connect ...');
     this._cfg.senders.map((s) => {
       if (s.stream) {
@@ -81,7 +84,15 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     return this._socket.connect(this._connector, this._cfg);
   }
 
-  async createSender(cfg: SenderConfig) {
+  createPublisher(cfg: SenderConfig) {
+    return new StreamPublisher(this, cfg);
+  }
+
+  createConsumer(remote: StreamRemote) {
+    return new StreamConsumer(this, remote);
+  }
+
+  createSender(cfg: SenderConfig) {
     const senderTrack = this._socket.createSenderTrack(cfg);
     const sender = new StreamSender(this._rpc, senderTrack);
     if (cfg.kind === StreamKinds.AUDIO) {
@@ -90,11 +101,11 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (cfg.kind === StreamKinds.VIDEO) {
       this._videoSenders.set(cfg.name, sender);
     }
-    await this.update();
+    this.update();
     return sender;
   }
 
-  async createReceiver(kind: StreamKinds) {
+  createReceiver(kind: StreamKinds) {
     const recvrTrack = this._socket.createReceiverTrack(
       `${kind}_${this._audioReceivers.length}`,
       kind,
@@ -106,7 +117,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (kind === StreamKinds.VIDEO) {
       this._videoReceivers.push(receiver);
     }
-    await this.update();
+    this.update();
     return receiver;
   }
 
@@ -122,7 +133,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     return receiver;
   }
 
-  backReceiver(receiver: StreamReceiver) {
+  backReceiver(receiver: IStreamReceiver) {
     if (receiver.kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
     }
@@ -142,18 +153,17 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     return sender;
   }
 
-  update = debounce(this.updateSdp, 500, {
+  private update = debounce(this.updateSdp, 500, {
     isImmediate: false,
   });
 
   private async updateSdp() {
     const { offer, meta } = await this._socket.generateOffer();
     this.logger.info('send updated sdp:', meta);
-    const res = await this._rpc!.request<
-      unknown,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      { status: boolean; data: any }
-    >('peer.updateSdp', meta);
+    const res = await this._rpc!.request<{ sdp: string }>(
+      'peer.updateSdp',
+      meta,
+    );
     if (!res.status) {
       this.logger.error('updateSdp :: Error response from server', res);
       throw new Error('SERVER_ERROR');

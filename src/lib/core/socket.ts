@@ -1,5 +1,10 @@
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
-import { LatencyMode2MaxPackets, StreamKinds } from '../utils/types';
+import {
+  Codecs,
+  LatencyMode2MaxPackets,
+  StreamKinds,
+  LatencyMode,
+} from '../utils/types';
 import { delay, getTrack } from '../utils/shared';
 import pako from 'pako';
 import { ReceiverTrack, SenderTrack } from './tracks';
@@ -183,22 +188,29 @@ export class RealtimeSocket
   //   // this.connect(connector);
   // }
 
-  public createReceiverTrack(id: string, kind: StreamKinds): ReceiverTrack {
+  public createReceiverTrack(
+    id: string,
+    kind: StreamKinds,
+    opts?: {
+      codecs?: Codecs[];
+      latencyMode?: LatencyMode;
+    },
+  ): ReceiverTrack {
     this.logger.log('createReceiverTrack :: (id, kind):', id, kind);
-    // addTransceiverWrapper(this._lc, kind, {
-    //   direction: 'recvonly',
-    // });
-
     const transceiver = this._lc.addTransceiver(kind, {
       direction: 'recvonly',
     });
     this.logger.debug('createReceiverTrack :: transceiver:', transceiver);
-    const track = new ReceiverTrack({
-      remoteId: id,
-      kind: kind,
-    });
+    const track = new ReceiverTrack(
+      {
+        remoteId: id,
+        kind: kind,
+        codecs: opts?.codecs,
+        latencyMode: opts?.latencyMode,
+      },
+      transceiver,
+    );
     this._recvStreams.set(track.uuid, track);
-    // TODO: Latency mode
     return track;
   }
 

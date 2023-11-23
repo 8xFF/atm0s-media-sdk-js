@@ -11,6 +11,20 @@ export interface IRealtimeSocketCallbacks {
   dc_state: (state: RealtimeSocketState) => void;
 }
 
+export type OfferMeta = {
+  sdp: string;
+  senders: {
+    uuid: string;
+    label: string;
+    kind: StreamKinds;
+    screen?: boolean;
+  }[];
+  receivers: {
+    audio: number;
+    video: number;
+  };
+};
+
 /**
  * Represents a real-time socket used for communication with a media gateway.
  */
@@ -48,19 +62,7 @@ export interface IRealtimeSocket
    */
   generateOffer(): Promise<{
     offer: RTCSessionDescriptionInit;
-    meta: {
-      sdp: string;
-      senders: {
-        uuid: string;
-        label: string;
-        kind: StreamKinds;
-        screen?: boolean;
-      }[];
-      receivers: {
-        audio: number;
-        video: number;
-      };
-    };
+    meta: OfferMeta;
   }>;
 
   /**

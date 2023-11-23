@@ -1,0 +1,1 @@
+{"version":3,"file":"publisher.d.ts","sourceRoot":"","sources":["../../../src/lib/interfaces/publisher.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAElD,MAAM,WAAW,mBAAmB;IAClC,KAAK,EAAE,CAAC,KAAK,EAAE,iBAAiB,KAAK,IAAI,CAAC;IAC1C,WAAW,EAAE,CAAC,KAAK,EAAE,MAAM,KAAK,IAAI,CAAC;CACtC"}

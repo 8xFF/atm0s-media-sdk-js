@@ -16,6 +16,34 @@ export class StreamSender
   kind: StreamKinds;
   name: string;
 
+  get state() {
+    return this._state;
+  }
+
+  get simulcast() {
+    return this._track.info.simulcast;
+  }
+
+  get maxBitrate() {
+    return this._track.info.maxBitrate;
+  }
+
+  get isScreen() {
+    return this._track.info.screen;
+  }
+
+  get uuid() {
+    return this._track.uuid;
+  }
+
+  get label() {
+    return this._track.info.label;
+  }
+
+  get stream() {
+    return this._track.stream;
+  }
+
   private _state: StreamSenderState = StreamSenderState.Created;
   private logger = getLogger('atm0s:stream-sender');
   constructor(

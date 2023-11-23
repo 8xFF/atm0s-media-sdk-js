@@ -9,6 +9,19 @@ export interface IRealtimeSocketCallbacks {
     peer_state: (state: RealtimeSocketState) => void;
     dc_state: (state: RealtimeSocketState) => void;
 }
+export type OfferMeta = {
+    sdp: string;
+    senders: {
+        uuid: string;
+        label: string;
+        kind: StreamKinds;
+        screen?: boolean;
+    }[];
+    receivers: {
+        audio: number;
+        video: number;
+    };
+};
 /**
  * Represents a real-time socket used for communication with a media gateway.
  */
@@ -39,19 +52,7 @@ export interface IRealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallba
      */
     generateOffer(): Promise<{
         offer: RTCSessionDescriptionInit;
-        meta: {
-            sdp: string;
-            senders: {
-                uuid: string;
-                label: string;
-                kind: StreamKinds;
-                screen?: boolean;
-            }[];
-            receivers: {
-                audio: number;
-                video: number;
-            };
-        };
+        meta: OfferMeta;
     }>;
     /**
      * Updates the SDP (Session Description Protocol) with the local offer and remote answer SDP.

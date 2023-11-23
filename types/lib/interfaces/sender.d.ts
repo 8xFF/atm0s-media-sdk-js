@@ -4,6 +4,13 @@ import type { Codecs, ContentHint, StreamKinds } from '../utils/types';
  * Represents a stream sender.
  */
 export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks> {
+    state: StreamSenderState;
+    stream: MediaStream | undefined | null;
+    uuid: string;
+    label: string;
+    simulcast?: boolean;
+    maxBitrate?: number;
+    isScreen?: boolean;
     /**
      * Switches to the specified media stream.
      * @param stream The media stream to switch to.
@@ -13,10 +20,6 @@ export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks>
      * Stops the streaming process.
      * @returns A promise that resolves when the streaming is stopped.
      */
-    stop(): Promise<void>;
-}
-export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks> {
-    switch(stream: MediaStream): void;
     stop(): Promise<void>;
 }
 export declare enum StreamSenderState {

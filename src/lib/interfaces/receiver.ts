@@ -1,10 +1,16 @@
 import type { StreamRemote } from '../remote';
-import type { StreamKinds } from '../utils/types';
+import type { TypedEventEmitter } from '../utils/typed-event-emitter';
+import type { Codecs, StreamKinds, LatencyMode } from '../utils/types';
 
 /**
  * Represents a stream receiver.
  */
-export interface IStreamReceiver {
+export interface IStreamReceiver
+  extends TypedEventEmitter<IStreamReceiverCallbacks> {
+  state: StreamReceiverState;
+  stream: MediaStream;
+  kind: StreamKinds;
+
   /**
    * Switches to a remote stream.
    * @param remote The remote stream to switch to.
@@ -53,4 +59,6 @@ export interface IStreamReceiverCallbacks {
 export type ReceiverInfo = {
   remoteId: string;
   kind: StreamKinds;
+  codecs?: Codecs[];
+  latencyMode?: LatencyMode;
 };

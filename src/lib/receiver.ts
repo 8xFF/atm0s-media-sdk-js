@@ -1,7 +1,7 @@
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { getLogger } from './utils/logger';
 import type { ReceiverTrack } from './core/tracks';
-import type { AnyFunction } from './utils/types';
+import type { AnyFunction, StreamKinds } from './utils/types';
 import type { StreamRemote } from './remote';
 import {
   type IStreamReceiverCallbacks,
@@ -14,11 +14,19 @@ export class StreamReceiver
   extends TypedEventEmitter<IStreamReceiverCallbacks>
   implements IStreamReceiver
 {
-  kind: string;
+  kind: StreamKinds;
   remoteId: string;
   hasTrackPromises: AnyFunction[] = [];
   private _state: StreamReceiverState = StreamReceiverState.NoSource;
   private logger = getLogger('atm0s:stream-receiver');
+
+  get state() {
+    return this._state;
+  }
+
+  get stream() {
+    return this._track.stream;
+  }
 
   constructor(
     private _rpc: IRPC,
@@ -81,10 +89,6 @@ export class StreamReceiver
     });
   }
 
-  get stream() {
-    return this._track.stream;
-  }
-
   private _setState(state: StreamReceiverState) {
     this._state = state;
     this.emit('state', state);
@@ -102,14 +106,7 @@ export class StreamReceiver
     await this.internalReady();
     if (this._track.stream) {
       this._setState(StreamReceiverState.Connecting);
-      const res = await this._rpc.request<
-        {
-          id: string;
-          priority: number;
-          remote: { peer: string; stream: string };
-        },
-        { status: boolean }
-      >('receiver.switch', {
+      const res = await this._rpc.request('receiver.switch', {
         id: this.remoteId,
         priority,
         remote: { peer: remote.peerId, stream: remote.name },
@@ -133,15 +130,12 @@ export class StreamReceiver
     this.logger.log('limit stream', priority, max_spatial, max_temporal);
     await this.internalReady();
     if (this._track.stream) {
-      const res = await this._rpc.request<unknown, { status: boolean }>(
-        'receiver.limit',
-        {
-          id: this.remoteId,
-          priority,
-          max_spatial,
-          max_temporal,
-        },
-      );
+      const res = await this._rpc.request('receiver.limit', {
+        id: this.remoteId,
+        priority,
+        max_spatial,
+        max_temporal,
+      });
       if (res.status === true) {
         return true;
       } else {
@@ -155,12 +149,9 @@ export class StreamReceiver
     if (this._state === StreamReceiverState.NoSource) {
       return true;
     }
-    const res = await this._rpc.request<{ id: string }, { status: boolean }>(
-      'receiver.disconnect',
-      {
-        id: this.remoteId,
-      },
-    );
+    const res = await this._rpc.request('receiver.disconnect', {
+      id: this.remoteId,
+    });
     if (res.status === true) {
       this._setState(StreamReceiverState.NoSource);
       return true;

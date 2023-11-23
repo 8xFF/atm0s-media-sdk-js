@@ -1,5 +1,5 @@
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
-import { StreamKinds } from '../utils/types';
+import { Codecs, StreamKinds, LatencyMode } from '../utils/types';
 import { ReceiverTrack, SenderTrack } from './tracks';
 import type { IMediaGatewayConnector } from '../interfaces/gateway';
 import { type IRealtimeSocketCallbacks, type IRealtimeSocket, type IRealtimeSocketOptions } from '../interfaces/rtsocket';
@@ -20,7 +20,10 @@ export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCal
     connect(connector: IMediaGatewayConnector, config: ISessionConfig): Promise<void>;
     private setConnState;
     private setDcState;
-    createReceiverTrack(id: string, kind: StreamKinds): ReceiverTrack;
+    createReceiverTrack(id: string, kind: StreamKinds, opts?: {
+        codecs?: Codecs[];
+        latencyMode?: LatencyMode;
+    }): ReceiverTrack;
     createSenderTrack(cfg: SenderConfig): SenderTrack;
     generateOffer(): Promise<{
         offer: RTCSessionDescriptionInit;

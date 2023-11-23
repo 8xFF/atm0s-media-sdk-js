@@ -3,9 +3,14 @@ import type {
   IReceiverTrackCallbacks,
   SenderTrackInfo,
 } from '../interfaces/tracks';
-import { addTransceiverConfigs } from '../utils/rtc-peer';
+import {
+  addTransceiverPreferredCodecs,
+  addTransceiverSimulcast,
+  configLatencyMode,
+} from '../utils/transceiver';
 import { getTrack } from '../utils/shared';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
+import { LatencyMode, StreamKinds } from '../utils/types';
 
 export class SenderTrack {
   private static seed = 0;
@@ -19,14 +24,20 @@ export class SenderTrack {
     if (info.stream) {
       this.stream = info.stream;
     }
-    if (transceiver) {
-      addTransceiverConfigs(transceiver, {
-        kind: info.kind,
-        preferredCodecs: info.preferredCodecs!,
-        simulcast: info.simulcast,
-        maxBitrate: info.maxBitrate,
-        isScreen: info.screen,
-      });
+    if (transceiver?.sender && info.kind === StreamKinds.VIDEO) {
+      if (info.simulcast) {
+        addTransceiverSimulcast(transceiver, {
+          maxBitrate: info.maxBitrate,
+          isScreen: info.screen,
+        });
+      }
+      if (info.preferredCodecs) {
+        addTransceiverPreferredCodecs(
+          transceiver,
+          info.kind,
+          info.preferredCodecs,
+        );
+      }
     }
   }
 
@@ -60,6 +71,14 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> {
     const track = this.getTrack();
     this.stream = new MediaStream();
     this.uuid = track?.id || `receiver-${info.kind}-${ReceiverTrack.seed++}`;
+    if (transceiver?.receiver) {
+      if (info.codecs && info.kind === StreamKinds.VIDEO) {
+        addTransceiverPreferredCodecs(transceiver, info.kind, info.codecs);
+      }
+      if (info.latencyMode && info.latencyMode !== LatencyMode.Default) {
+        configLatencyMode(transceiver, info.latencyMode);
+      }
+    }
   }
 
   getTrack() {

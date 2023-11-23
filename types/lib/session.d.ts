@@ -5,7 +5,11 @@ import { TypedEventEmitter } from './utils/typed-event-emitter';
 import type { IMediaGatewayConnector } from './interfaces/gateway';
 import type { IRealtimeSocket } from './interfaces/rtsocket';
 import type { ISessionCallbacks, ISessionConfig } from './interfaces/session';
-import type { SenderConfig } from './interfaces/sender';
+import { StreamRemote } from './remote';
+import type { IStreamSender, SenderConfig } from './interfaces/sender';
+import type { IStreamReceiver } from './interfaces';
+import { StreamPublisher } from './publisher';
+import { StreamConsumer } from './consumer';
 export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _cfg;
     private _socket;
@@ -19,15 +23,14 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _rpc;
     constructor(_cfg: ISessionConfig, _socket: IRealtimeSocket, _connector: IMediaGatewayConnector);
     connect(): Promise<void>;
-    createSender(cfg: SenderConfig): Promise<StreamSender>;
-    createReceiver(kind: StreamKinds): Promise<StreamReceiver>;
-    takeReceiver(kind: StreamKinds): StreamReceiver;
-    backReceiver(receiver: StreamReceiver): void;
-    getSender(name: string, kind: StreamKinds): StreamSender;
-    update: {
-        (this: unknown, ...args: [] & any[]): Promise<Promise<void>>;
-        cancel: (reason?: any) => void;
-    };
+    createPublisher(cfg: SenderConfig): StreamPublisher;
+    createConsumer(remote: StreamRemote): StreamConsumer;
+    createSender(cfg: SenderConfig): StreamSender;
+    createReceiver(kind: StreamKinds): StreamReceiver;
+    takeReceiver(kind: StreamKinds): IStreamReceiver;
+    backReceiver(receiver: IStreamReceiver): void;
+    getSender(name: string, kind: StreamKinds): IStreamSender;
+    private update;
     private updateSdp;
     private onStreamEvent;
 }
