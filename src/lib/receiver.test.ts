@@ -80,9 +80,7 @@ describe('StreamReceiver', () => {
     const result = await receiver.switch(remote);
 
     expect(result).toBe(true);
-    expect(receiver['_setState']).toHaveBeenCalledWith(
-      StreamReceiverState.Connecting,
-    );
+    expect(receiver['_setState']).toHaveBeenCalledWith(StreamReceiverState.Connecting);
     expect(rpc.request).toHaveBeenCalledWith('receiver.switch', {
       id: '123',
       priority: 50,
@@ -104,9 +102,7 @@ describe('StreamReceiver', () => {
     const result = await receiver.switch(remote);
 
     expect(result).toBe(false);
-    expect(receiver['_setState']).toHaveBeenCalledWith(
-      StreamReceiverState.NoSource,
-    );
+    expect(receiver['_setState']).toHaveBeenCalledWith(StreamReceiverState.NoSource);
     expect(rpc.request).toHaveBeenCalledWith('receiver.switch', {
       id: '123',
       priority: 50,

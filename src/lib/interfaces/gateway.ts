@@ -55,10 +55,5 @@ export interface IMediaGatewayConnector {
    * @param connId - The ID of the connection.
    * @param ice - The ICE candidate event.
    */
-  iceCandidate(
-    url: string,
-    nodeId: number,
-    connId: string,
-    ice: RTCPeerConnectionIceEvent,
-  ): void;
+  iceCandidate(url: string, nodeId: number, connId: string, ice: RTCPeerConnectionIceEvent): void;
 }

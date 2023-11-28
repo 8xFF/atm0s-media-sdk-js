@@ -5,8 +5,7 @@ import type { Codecs, StreamKinds, LatencyMode } from '../utils/types';
 /**
  * Represents a stream receiver.
  */
-export interface IStreamReceiver
-  extends TypedEventEmitter<IStreamReceiverCallbacks> {
+export interface IStreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> {
   state: StreamReceiverState;
   stream: MediaStream;
   kind: StreamKinds;
@@ -29,11 +28,7 @@ export interface IStreamReceiver
    * @param max_temporal The maximum temporal value.
    * @returns A promise that resolves to a boolean indicating whether the limit was successful.
    */
-  limit(
-    priority: number,
-    max_spatial: number,
-    max_temporal: number,
-  ): Promise<boolean>;
+  limit(priority: number, max_spatial: number, max_temporal: number): Promise<boolean>;
 
   /**
    * Stops the stream.

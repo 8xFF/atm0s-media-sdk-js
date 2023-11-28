@@ -4,8 +4,7 @@ import type { Codecs, ContentHint, StreamKinds } from '../utils/types';
 /**
  * Represents a stream sender.
  */
-export interface IStreamSender
-  extends TypedEventEmitter<IStreamSenderCallbacks> {
+export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks> {
   state: StreamSenderState;
   stream: MediaStream | undefined | null;
   uuid: string;

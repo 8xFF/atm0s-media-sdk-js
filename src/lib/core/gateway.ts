@@ -1,8 +1,4 @@
-import type {
-  IConnectConfig,
-  IConnectResponse,
-  IMediaGatewayConnector,
-} from '../interfaces/gateway';
+import type { IConnectConfig, IConnectResponse, IMediaGatewayConnector } from '../interfaces/gateway';
 import { httpGet, httpPost } from '../utils/http';
 import { getLogger } from '../utils/logger';
 
@@ -41,20 +37,12 @@ export class MediaGatewayConnector implements IMediaGatewayConnector {
     throw new Error('No available media server');
   }
 
-  async connect(
-    url: string,
-    config: IConnectConfig,
-  ): Promise<IConnectResponse> {
+  async connect(url: string, config: IConnectConfig): Promise<IConnectResponse> {
     this.logger.log('connect :: connect to media server:', url);
     return httpPost<IConnectResponse>(url + '/webrtc/connect', config);
   }
 
-  async iceCandidate(
-    url: string,
-    nodeId: number,
-    connId: string,
-    ice: RTCPeerConnectionIceEvent,
-  ) {
+  async iceCandidate(url: string, nodeId: number, connId: string, ice: RTCPeerConnectionIceEvent) {
     this.logger.log('iceCandidate :: ice candidate to media server:', url);
 
     const body = {

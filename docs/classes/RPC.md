@@ -26,9 +26,12 @@ Represents an interface for a RPC (Remote Procedure Call) Handler.
 
 ### Methods
 
-- [\_onReceiveMessage](RPC.md#_onreceivemessage)
-- [\_prereceiveMessage](RPC.md#_prereceivemessage)
+- [\_handleAnswer](RPC.md#_handleanswer)
+- [\_handleEvent](RPC.md#_handleevent)
+- [\_preprocess](RPC.md#_preprocess)
+- [\_process](RPC.md#_process)
 - [off](RPC.md#off)
+- [offAllListeners](RPC.md#offalllisteners)
 - [on](RPC.md#on)
 - [request](RPC.md#request)
 
@@ -46,17 +49,17 @@ Represents an interface for a RPC (Remote Procedure Call) Handler.
 
 #### Defined in
 
-[src/lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L43)
+[src/lib/core/rpc.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L48)
 
 ## Properties
 
 ### \_handlers
 
-• `Private` **\_handlers**: `Map`<`string`, [`AnyFunction`](../README.md#anyfunction)\>
+• `Private` **\_handlers**: `Map`<`string`, [`AnyFunction`](../README.md#anyfunction)[]\>
 
 #### Defined in
 
-[src/lib/core/rpc.ts:38](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L38)
+[src/lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L43)
 
 ___
 
@@ -66,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:36](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L36)
+[src/lib/core/rpc.ts:41](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L41)
 
 ___
 
@@ -76,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:35](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L35)
+[src/lib/core/rpc.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L40)
 
 ___
 
@@ -86,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:39](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L39)
+[src/lib/core/rpc.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L44)
 
 ___
 
@@ -96,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:43](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L43)
+[src/lib/core/rpc.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L48)
 
 ___
 
@@ -106,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:41](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L41)
+[src/lib/core/rpc.ts:46](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L46)
 
 ___
 
@@ -126,19 +129,21 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:37](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L37)
+[src/lib/core/rpc.ts:42](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L42)
 
 ## Methods
 
-### \_onReceiveMessage
+### \_handleAnswer
 
-▸ `Private` **_onReceiveMessage**(`msg`): `void`
+▸ `Private` **_handleAnswer**(`reqId`, `success`, `data`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `string` |
+| `reqId` | `number` |
+| `success` | `boolean` |
+| `data` | `any` |
 
 #### Returns
 
@@ -146,13 +151,34 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:72](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L72)
+[src/lib/core/rpc.ts:84](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L84)
 
 ___
 
-### \_prereceiveMessage
+### \_handleEvent
 
-▸ `Private` **_prereceiveMessage**(`data`): `void`
+▸ `Private` **_handleEvent**(`event`, `data`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `string` |
+| `data` | `any` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/core/rpc.ts:77](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L77)
+
+___
+
+### \_preprocess
+
+▸ `Private` **_preprocess**(`data`): `void`
 
 #### Parameters
 
@@ -166,15 +192,62 @@ ___
 
 #### Defined in
 
-[src/lib/core/rpc.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L52)
+[src/lib/core/rpc.ts:57](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L57)
+
+___
+
+### \_process
+
+▸ `Private` **_process**(`msg`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `msg` | `string` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/core/rpc.ts:104](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L104)
 
 ___
 
 ### off
 
-▸ **off**(`cmd`): `void`
+▸ **off**(`cmd`, `handler`): `void`
 
 Unregisters the event handler for the specified command.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `cmd` | `string` | The command to stop listening for. |
+| `handler` | [`AnyFunction`](../README.md#anyfunction) | - |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[IRPC](../interfaces/IRPC.md).[off](../interfaces/IRPC.md#off)
+
+#### Defined in
+
+[src/lib/core/rpc.ts:147](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L147)
+
+___
+
+### offAllListeners
+
+▸ **offAllListeners**(`cmd`): `void`
+
+Unregisters all event handlers for the specified command.
 
 #### Parameters
 
@@ -188,11 +261,11 @@ Unregisters the event handler for the specified command.
 
 #### Implementation of
 
-[IRPC](../interfaces/IRPC.md).[off](../interfaces/IRPC.md#off)
+[IRPC](../interfaces/IRPC.md).[offAllListeners](../interfaces/IRPC.md#offalllisteners)
 
 #### Defined in
 
-[src/lib/core/rpc.ts:135](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L135)
+[src/lib/core/rpc.ts:154](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L154)
 
 ___
 
@@ -207,7 +280,7 @@ Registers an event handler for the specified command.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `cmd` | `string` | The command to listen for. |
-| `handler` | (`data`: `any`) => `void` | The event handler function. |
+| `handler` | (`event`: `string`, `data`: `any`) => `void` | The event handler function. |
 
 #### Returns
 
@@ -219,13 +292,13 @@ Registers an event handler for the specified command.
 
 #### Defined in
 
-[src/lib/core/rpc.ts:131](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L131)
+[src/lib/core/rpc.ts:143](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L143)
 
 ___
 
 ### request
 
-▸ **request**<`DataType`, `ResponseType`\>(`cmd`, `data`): `Promise`<`ResponseType`\>
+▸ **request**<`T`\>(`cmd`, `data`): `Promise`<[`RpcResponse`](../README.md#rpcresponse)<`T`\>\>
 
 Sends an RPC request with the specified command and data.
 
@@ -233,19 +306,18 @@ Sends an RPC request with the specified command and data.
 
 | Name |
 | :------ |
-| `DataType` |
-| `ResponseType` |
+| `T` |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `cmd` | `string` | The command to be executed. |
-| `data` | `DataType` | The data to be sent with the request. |
+| `cmd` | keyof [`RpcRequests`](../README.md#rpcrequests) | The command to be executed. |
+| `data` | [`OfferMeta`](../README.md#offermeta) \| { `id`: `string` ; `max_spatial`: `number` ; `max_temporal`: `number` ; `priority`: `number`  } \| { `id`: `string` ; `priority`: `number` ; `remote`: { `peer`: `string` ; `stream`: `string`  }  } \| { `id`: `string`  } \| { `kind`: [`StreamKinds`](../enums/StreamKinds.md) ; `name`: `string` ; `track`: `undefined` \| ``null`` \| `string`  } | The data to be sent with the request. |
 
 #### Returns
 
-`Promise`<`ResponseType`\>
+`Promise`<[`RpcResponse`](../README.md#rpcresponse)<`T`\>\>
 
 A promise that resolves to the response from the RPC server.
 
@@ -255,4 +327,4 @@ A promise that resolves to the response from the RPC server.
 
 #### Defined in
 
-[src/lib/core/rpc.ts:110](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/rpc.ts#L110)
+[src/lib/core/rpc.ts:131](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/rpc.ts#L131)

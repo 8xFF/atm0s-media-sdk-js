@@ -63,14 +63,8 @@ describe('Sender', () => {
     sender.stop();
 
     expect(mockTrack.stop).toHaveBeenCalled();
-    expect(mockRpc.off).toHaveBeenCalledWith(
-      `remote_stream_${sender.name}_state`,
-      expect.any(Function),
-    );
-    expect(mockRpc.off).toHaveBeenCalledWith(
-      `remote_stream_${sender.name}_audio_level`,
-      expect.any(Function),
-    );
+    expect(mockRpc.off).toHaveBeenCalledWith(`remote_stream_${sender.name}_state`, expect.any(Function));
+    expect(mockRpc.off).toHaveBeenCalledWith(`remote_stream_${sender.name}_audio_level`, expect.any(Function));
     expect(mockRpc.request).toHaveBeenCalledWith('sender.toggle', {
       name: 'test-sender',
       kind: 'video',

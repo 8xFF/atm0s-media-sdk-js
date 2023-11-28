@@ -28,18 +28,14 @@ export type OfferMeta = {
 /**
  * Represents a real-time socket used for communication with a media gateway.
  */
-export interface IRealtimeSocket
-  extends TypedEventEmitter<IRealtimeSocketCallbacks> {
+export interface IRealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> {
   /**
    * Connects the socket to the media gateway using the provided connector and session configuration.
    * @param connector - The media gateway connector.
    * @param config - The session configuration.
    * @returns A promise that resolves when the connection is established.
    */
-  connect(
-    connector: IMediaGatewayConnector,
-    config: ISessionConfig,
-  ): Promise<void>;
+  connect(connector: IMediaGatewayConnector, config: ISessionConfig): Promise<void>;
 
   /**
    * Creates a `ReceiverTrack` with the specified ID and kind.
@@ -70,10 +66,7 @@ export interface IRealtimeSocket
    * @param localOffer - The local offer SDP.
    * @param remoteAnswerSdp - The remote answer SDP.
    */
-  updateSdp(
-    localOffer: RTCSessionDescriptionInit,
-    remoteAnswerSdp: string,
-  ): void;
+  updateSdp(localOffer: RTCSessionDescriptionInit, remoteAnswerSdp: string): void;
 
   /**
    * Sends data over the socket.

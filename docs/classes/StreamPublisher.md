@@ -39,6 +39,7 @@
 - [removeAllListeners](StreamPublisher.md#removealllisteners)
 - [removeListener](StreamPublisher.md#removelistener)
 - [stop](StreamPublisher.md#stop)
+- [switch](StreamPublisher.md#switch)
 
 ## Constructors
 
@@ -59,7 +60,7 @@ TypedEventEmitter&lt;IPublisherCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/publisher.ts:13](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L13)
+[src/lib/publisher.ts:13](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L13)
 
 ## Properties
 
@@ -69,7 +70,7 @@ TypedEventEmitter&lt;IPublisherCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/publisher.ts:15](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L15)
+[src/lib/publisher.ts:15](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L15)
 
 ___
 
@@ -79,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L14)
+[src/lib/publisher.ts:14](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L14)
 
 ___
 
@@ -89,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L11)
+[src/lib/publisher.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L11)
 
 ## Accessors
 
@@ -103,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:41](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L41)
+[src/lib/publisher.ts:41](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L41)
 
 ___
 
@@ -117,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:37](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L37)
+[src/lib/publisher.ts:37](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L37)
 
 ## Methods
 
@@ -142,7 +143,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -172,7 +173,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -202,7 +203,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -233,7 +234,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -251,7 +252,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -288,7 +289,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -308,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:49](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L49)
+[src/lib/publisher.ts:49](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L49)
 
 ___
 
@@ -339,7 +340,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -359,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:45](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L45)
+[src/lib/publisher.ts:45](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L45)
 
 ___
 
@@ -377,7 +378,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -408,7 +409,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -422,4 +423,24 @@ ___
 
 #### Defined in
 
-[src/lib/publisher.ts:53](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/publisher.ts#L53)
+[src/lib/publisher.ts:57](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L57)
+
+___
+
+### switch
+
+▸ **switch**(`stream`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `stream` | `MediaStream` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/publisher.ts:53](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/publisher.ts#L53)

@@ -1,7 +1,4 @@
-import type {
-  StreamRemoteScalingType,
-  StreamRemoteStatus,
-} from '../utils/types';
+import type { StreamRemoteScalingType, StreamRemoteStatus } from '../utils/types';
 
 export interface StreamRemoteState {
   scaling: StreamRemoteScalingType;

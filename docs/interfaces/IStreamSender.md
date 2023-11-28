@@ -48,7 +48,7 @@ Represents a stream sender.
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:16](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L16)
+[src/lib/interfaces/sender.ts:16](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L16)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:12](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L12)
+[src/lib/interfaces/sender.ts:12](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L12)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:15](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L15)
+[src/lib/interfaces/sender.ts:15](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L15)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L14)
+[src/lib/interfaces/sender.ts:14](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L14)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:9](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L9)
+[src/lib/interfaces/sender.ts:9](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L9)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:10](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L10)
+[src/lib/interfaces/sender.ts:10](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L10)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L11)
+[src/lib/interfaces/sender.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L11)
 
 ## Methods
 
@@ -133,7 +133,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -163,7 +163,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -193,7 +193,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -224,7 +224,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -242,7 +242,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -279,7 +279,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -310,7 +310,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -328,7 +328,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -359,7 +359,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -377,7 +377,7 @@ A promise that resolves when the streaming is stopped.
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:27](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L27)
+[src/lib/interfaces/sender.ts:27](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L27)
 
 ___
 
@@ -399,4 +399,4 @@ Switches to the specified media stream.
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:21](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L21)
+[src/lib/interfaces/sender.ts:21](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L21)

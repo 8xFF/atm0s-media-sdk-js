@@ -19,10 +19,8 @@ export function randomSSRC() {
  */
 export function randomString(size: number) {
   let text = '';
-  const possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < size; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < size; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
   return text;
 }
 
@@ -41,12 +39,10 @@ export async function delay(ms: number) {
  * Retrieves the first track of the specified kind from the given MediaStream.
  * @param stream - The MediaStream from which to retrieve the track.
  * @param kind - The kind of track to retrieve ('audio' or 'video').
- * @returns The track of the specified kind, or undefined if the stream is undefined or null, or if no track of the specified kind is found.
+ * @returns The track of the specified kind, or undefined if the stream
+ * is undefined or null, or if no track of the specified kind is found.
  */
-export function getTrack(
-  stream: MediaStream | undefined | null,
-  kind: StreamKinds,
-) {
+export function getTrack(stream: MediaStream | undefined | null, kind: StreamKinds) {
   if (!stream) {
     return undefined;
   }

@@ -73,7 +73,7 @@ TypedEventEmitter&lt;IRealtimeSocketCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/core/socket.ts:36](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L36)
+[src/lib/core/socket.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L33)
 
 ## Properties
 
@@ -83,7 +83,7 @@ TypedEventEmitter&lt;IRealtimeSocketCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/core/socket.ts:30](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L30)
+[src/lib/core/socket.ts:27](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L27)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:28](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L28)
+[src/lib/core/socket.ts:25](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L25)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:29](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L29)
+[src/lib/core/socket.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L26)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:34](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L34)
+[src/lib/core/socket.ts:31](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L31)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:38](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L38)
+[src/lib/core/socket.ts:35](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L35)
 
 ___
 
@@ -133,27 +133,27 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:27](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L27)
+[src/lib/core/socket.ts:24](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L24)
 
 ___
 
 ### \_recvStreams
 
-• `Private` **\_recvStreams**: `Map`<`string`, `ReceiverTrack`\>
+• `Private` **\_recvStreams**: `Map`<`string`, [`IReceiverTrack`](../interfaces/IReceiverTrack.md)\>
 
 #### Defined in
 
-[src/lib/core/socket.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L32)
+[src/lib/core/socket.ts:29](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L29)
 
 ___
 
 ### \_sendStreams
 
-• `Private` **\_sendStreams**: `Map`<`string`, `SenderTrack`\>
+• `Private` **\_sendStreams**: `Map`<`string`, [`ISenderTrack`](../interfaces/ISenderTrack.md)\>
 
 #### Defined in
 
-[src/lib/core/socket.ts:31](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L31)
+[src/lib/core/socket.ts:28](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L28)
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:37](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L37)
+[src/lib/core/socket.ts:34](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L34)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L26)
+[src/lib/core/socket.ts:23](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L23)
 
 ## Methods
 
@@ -203,7 +203,7 @@ Closes the socket.
 
 #### Defined in
 
-[src/lib/core/socket.ts:277](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L277)
+[src/lib/core/socket.ts:268](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L268)
 
 ___
 
@@ -232,7 +232,7 @@ A promise that resolves when the connection is established.
 
 #### Defined in
 
-[src/lib/core/socket.ts:115](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L115)
+[src/lib/core/socket.ts:106](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L106)
 
 ___
 
@@ -264,7 +264,7 @@ The created receiver track.
 
 #### Defined in
 
-[src/lib/core/socket.ts:191](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L191)
+[src/lib/core/socket.ts:182](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L182)
 
 ___
 
@@ -292,7 +292,7 @@ The created sender track.
 
 #### Defined in
 
-[src/lib/core/socket.ts:217](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L217)
+[src/lib/core/socket.ts:208](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L208)
 
 ___
 
@@ -321,7 +321,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -343,7 +343,7 @@ A promise that resolves with the generated offer and metadata.
 
 #### Defined in
 
-[src/lib/core/socket.ts:231](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L231)
+[src/lib/core/socket.ts:222](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L222)
 
 ___
 
@@ -377,7 +377,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -411,7 +411,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -446,7 +446,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -468,7 +468,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -509,7 +509,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -544,7 +544,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -566,7 +566,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -601,7 +601,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -627,7 +627,7 @@ Sends data over the socket.
 
 #### Defined in
 
-[src/lib/core/socket.ts:268](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L268)
+[src/lib/core/socket.ts:259](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L259)
 
 ___
 
@@ -647,7 +647,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:175](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L175)
+[src/lib/core/socket.ts:166](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L166)
 
 ___
 
@@ -667,7 +667,7 @@ ___
 
 #### Defined in
 
-[src/lib/core/socket.ts:180](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L180)
+[src/lib/core/socket.ts:171](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L171)
 
 ___
 
@@ -694,4 +694,4 @@ Updates the SDP (Session Description Protocol) with the local offer and remote a
 
 #### Defined in
 
-[src/lib/core/socket.ts:256](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/core/socket.ts#L256)
+[src/lib/core/socket.ts:247](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/core/socket.ts#L247)

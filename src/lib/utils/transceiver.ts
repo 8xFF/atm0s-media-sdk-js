@@ -75,12 +75,8 @@ export function addTransceiverPreferredCodecs(
     const codecs = RTCRtpSender.getCapabilities(kind)?.codecs;
     if (!codecs) return transceiver;
     codecs.sort((c1, c2) => {
-      let c1_index = (preferred as string[]).indexOf(
-        c1.mimeType.replace('video/', ''),
-      );
-      let c2_index = (preferred as string[]).indexOf(
-        c2.mimeType.replace('video/', ''),
-      );
+      let c1_index = (preferred as string[]).indexOf(c1.mimeType.replace('video/', ''));
+      let c2_index = (preferred as string[]).indexOf(c2.mimeType.replace('video/', ''));
 
       if (c1_index! < 0) c1_index = 1000;
       if (c2_index! < 0) c2_index = 1000;
@@ -97,9 +93,6 @@ export function addTransceiverPreferredCodecs(
   return transceiver;
 }
 
-export function configLatencyMode(
-  transceiver: RTCRtpTransceiver,
-  latencyMode: LatencyMode,
-) {
+export function configLatencyMode(transceiver: RTCRtpTransceiver, latencyMode: LatencyMode) {
   configReceiverLatencyMode(transceiver.receiver, latencyMode);
 }

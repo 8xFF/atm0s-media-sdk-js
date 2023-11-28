@@ -61,7 +61,7 @@ TypedEventEmitter&lt;IStreamRemoteCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/remote.ts:21](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L21)
+[src/lib/remote.ts:20](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L20)
 
 ## Properties
 
@@ -71,7 +71,7 @@ TypedEventEmitter&lt;IStreamRemoteCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/remote.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L14)
+[src/lib/remote.ts:13](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L13)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:22](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L22)
+[src/lib/remote.ts:21](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L21)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:25](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L25)
+[src/lib/remote.ts:24](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L24)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:24](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L24)
+[src/lib/remote.ts:23](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L23)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:23](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L23)
+[src/lib/remote.ts:22](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L22)
 
 ## Accessors
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:30](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L30)
+[src/lib/remote.ts:29](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L29)
 
 ## Methods
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:41](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L41)
+[src/lib/remote.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L40)
 
 ___
 
@@ -164,7 +164,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -194,7 +194,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -224,7 +224,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -255,7 +255,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -273,7 +273,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -310,7 +310,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -341,7 +341,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -359,7 +359,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -390,7 +390,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -410,4 +410,4 @@ ___
 
 #### Defined in
 
-[src/lib/remote.ts:34](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/remote.ts#L34)
+[src/lib/remote.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/remote.ts#L33)

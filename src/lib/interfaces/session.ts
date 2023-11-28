@@ -1,10 +1,5 @@
 import type { StreamRemote } from '../remote';
-import type {
-  LatencyMode,
-  Codecs,
-  MixMinusMode,
-  BitrateControlMode,
-} from '../utils/types';
+import type { LatencyMode, Codecs, MixMinusMode, BitrateControlMode } from '../utils/types';
 import type { RealtimeSocketState } from './rtsocket';
 import type { SenderConfig } from './sender';
 
@@ -87,7 +82,8 @@ export interface ISessionConfig {
 
   /**
    * Initialized Senders for the session.
-   * @example [{ name: 'video_camera', kind: 'audio', stream: stream1 }, { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
+   * @example [{ name: 'video_camera', kind: 'audio', stream: stream1 },
+   * { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
    *
    */
   senders?: SenderConfig[];

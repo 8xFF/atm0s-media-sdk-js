@@ -1,17 +1,10 @@
 import type { ISenderTrack } from './interfaces';
 import type { IRPC } from './interfaces/rpc';
-import {
-  type IStreamSenderCallbacks,
-  type IStreamSender,
-  StreamSenderState,
-} from './interfaces/sender';
+import { type IStreamSenderCallbacks, type IStreamSender, StreamSenderState } from './interfaces/sender';
 import { getLogger } from './utils/logger';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 
-export class StreamSender
-  extends TypedEventEmitter<IStreamSenderCallbacks>
-  implements IStreamSender
-{
+export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> implements IStreamSender {
   get name() {
     return this._track.info.name;
   }
@@ -56,10 +49,7 @@ export class StreamSender
   ) {
     super();
     this._rpc.on(`remote_stream_${this.name}_state`, this._handleStateChange);
-    this._rpc.on(
-      `remote_stream_${this.name}_audio_level`,
-      this._handleAudioLevelChange,
-    );
+    this._rpc.on(`remote_stream_${this.name}_audio_level`, this._handleAudioLevelChange);
   }
 
   private _handleStateChange() {
@@ -103,10 +93,7 @@ export class StreamSender
     });
     this._track.stop();
     this._rpc.off(`remote_stream_${this.name}_state`, this._handleStateChange);
-    this._rpc.off(
-      `remote_stream_${this.name}_audio_level`,
-      this._handleAudioLevelChange,
-    );
+    this._rpc.off(`remote_stream_${this.name}_audio_level`, this._handleAudioLevelChange);
     this._setState(StreamSenderState.Closed);
   }
 }

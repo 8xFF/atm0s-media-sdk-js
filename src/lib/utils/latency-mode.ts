@@ -1,10 +1,7 @@
 import { LatencyMode } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function configPeerLatencyMode(
-  config: RTCConfiguration,
-  mode?: LatencyMode,
-) {
+export function configPeerLatencyMode(config: RTCConfiguration, mode?: LatencyMode) {
   switch (mode) {
     case LatencyMode.UltraLow:
       (config as any).audioJitterBufferMaxPackets = 10; //for react native
@@ -33,10 +30,7 @@ export function configPeerLatencyMode(
   }
 }
 
-export function configReceiverLatencyMode(
-  receiver: RTCRtpReceiver,
-  mode?: LatencyMode,
-) {
+export function configReceiverLatencyMode(receiver: RTCRtpReceiver, mode?: LatencyMode) {
   switch (mode) {
     case LatencyMode.UltraLow:
       (receiver as any).playoutDelayHint = 0;

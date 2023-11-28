@@ -10,8 +10,7 @@ export default class EventEmitter {
 
   on(event: string, cb: any) {
     (this.events[event] = this.events[event] || []).push(cb);
-    return () =>
-      (this.events[event] = this.events[event].filter((i: any) => i !== cb));
+    return () => (this.events[event] = this.events[event].filter((i: any) => i !== cb));
   }
 
   off(event: string, cb: any) {

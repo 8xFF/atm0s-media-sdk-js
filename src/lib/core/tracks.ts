@@ -1,15 +1,6 @@
 import type { ReceiverInfo } from '../interfaces/receiver';
-import type {
-  IReceiverTrack,
-  IReceiverTrackCallbacks,
-  ISenderTrack,
-  SenderTrackInfo,
-} from '../interfaces/tracks';
-import {
-  addTransceiverPreferredCodecs,
-  addTransceiverSimulcast,
-  configLatencyMode,
-} from '../utils/transceiver';
+import type { IReceiverTrack, IReceiverTrackCallbacks, ISenderTrack, SenderTrackInfo } from '../interfaces/tracks';
+import { addTransceiverPreferredCodecs, addTransceiverSimulcast, configLatencyMode } from '../utils/transceiver';
 import { getTrack } from '../utils/shared';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
 import { ContentHint, LatencyMode, StreamKinds } from '../utils/types';
@@ -31,11 +22,7 @@ export class SenderTrack implements ISenderTrack {
     if (info.stream) {
       this.stream = info.stream;
     }
-    if (
-      info.contentHint &&
-      this.getTrack() &&
-      info.contentHint !== ContentHint.None
-    ) {
+    if (info.contentHint && this.getTrack() && info.contentHint !== ContentHint.None) {
       this.getTrack()!.contentHint = info.contentHint;
     }
     if (transceiver?.sender && info.kind === StreamKinds.VIDEO) {
@@ -46,11 +33,7 @@ export class SenderTrack implements ISenderTrack {
         });
       }
       if (info.preferredCodecs) {
-        addTransceiverPreferredCodecs(
-          transceiver,
-          info.kind,
-          info.preferredCodecs,
-        );
+        addTransceiverPreferredCodecs(transceiver, info.kind, info.preferredCodecs);
       }
     }
   }
@@ -61,9 +44,7 @@ export class SenderTrack implements ISenderTrack {
     }
     this.stream = stream;
     if (this.transceiver) {
-      this.transceiver.sender.replaceTrack(
-        getTrack(stream, this.info.kind) || null,
-      );
+      this.transceiver.sender.replaceTrack(getTrack(stream, this.info.kind) || null);
     }
 
     if (this.info.contentHint && this.getTrack()) {
@@ -84,10 +65,7 @@ export class SenderTrack implements ISenderTrack {
   }
 }
 
-export class ReceiverTrack
-  extends TypedEventEmitter<IReceiverTrackCallbacks>
-  implements IReceiverTrack
-{
+export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> implements IReceiverTrack {
   private static seed = 0;
   public uuid: string;
   public hasTrack: boolean = false;

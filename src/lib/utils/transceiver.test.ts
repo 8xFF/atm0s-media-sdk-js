@@ -1,7 +1,4 @@
-import {
-  addTransceiverPreferredCodecs,
-  addTransceiverSimulcast,
-} from './transceiver';
+import { addTransceiverPreferredCodecs, addTransceiverSimulcast } from './transceiver';
 import type { Codecs, StreamKinds } from './types';
 
 describe('addTransceiverSimulcast', () => {
@@ -36,9 +33,7 @@ describe('addTransceiverSimulcast', () => {
     addTransceiverSimulcast(transceiver, opts);
 
     expect(transceiver.sender.getParameters).toHaveBeenCalled();
-    expect(transceiver.sender.setParameters).toHaveBeenCalledWith(
-      expectedParameters,
-    );
+    expect(transceiver.sender.setParameters).toHaveBeenCalledWith(expectedParameters);
   });
 
   test('should set simulcast encodings for screen transceiver', () => {
@@ -55,9 +50,7 @@ describe('addTransceiverSimulcast', () => {
     addTransceiverSimulcast(transceiver, opts);
 
     expect(transceiver.sender.getParameters).toHaveBeenCalled();
-    expect(transceiver.sender.setParameters).toHaveBeenCalledWith(
-      expectedParameters,
-    );
+    expect(transceiver.sender.setParameters).toHaveBeenCalledWith(expectedParameters);
   });
 });
 
@@ -89,26 +82,16 @@ describe('addTransceiverPreferredCodecs', () => {
     const kind = 'video' as StreamKinds;
     const preferred = ['VP9', 'H264'] as Codecs[];
 
-    const codecs = [
-      { mimeType: 'video/vp9' },
-      { mimeType: 'video/h264' },
-      { mimeType: 'video/vp8' },
-    ];
+    const codecs = [{ mimeType: 'video/vp9' }, { mimeType: 'video/h264' }, { mimeType: 'video/vp8' }];
 
-    const expectedCodecs = [
-      { mimeType: 'video/vp9' },
-      { mimeType: 'video/h264' },
-      { mimeType: 'video/vp8' },
-    ];
+    const expectedCodecs = [{ mimeType: 'video/vp9' }, { mimeType: 'video/h264' }, { mimeType: 'video/vp8' }];
 
     RTCRtpSender.getCapabilities = jest.fn().mockReturnValueOnce({ codecs });
 
     addTransceiverPreferredCodecs(transceiver, kind, preferred);
 
     expect(RTCRtpSender.getCapabilities).toHaveBeenCalledWith(kind);
-    expect(transceiver.setCodecPreferences).toHaveBeenCalledWith(
-      expectedCodecs,
-    );
+    expect(transceiver.setCodecPreferences).toHaveBeenCalledWith(expectedCodecs);
   });
 
   test('should not set codec preferences if preferred codecs are not provided', () => {

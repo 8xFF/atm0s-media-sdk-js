@@ -31,18 +31,8 @@ describe('TypedEventEmitter', () => {
     emitter.emit('event1', 'arg1', 123);
     emitter.emit('event2', 'arg2', 456);
 
-    expect(event1Handler).toHaveBeenCalledWith(
-      'arg1',
-      123,
-      undefined,
-      undefined,
-    );
-    expect(event2Handler).toHaveBeenCalledWith(
-      'arg2',
-      456,
-      undefined,
-      undefined,
-    );
+    expect(event1Handler).toHaveBeenCalledWith('arg1', 123, undefined, undefined);
+    expect(event2Handler).toHaveBeenCalledWith('arg2', 456, undefined, undefined);
   });
 
   test('should remove event listener', () => {
@@ -57,12 +47,7 @@ describe('TypedEventEmitter', () => {
     emitter.emit('event2', 'arg2', 456);
 
     expect(event1Handler).not.toHaveBeenCalled();
-    expect(event2Handler).toHaveBeenCalledWith(
-      'arg2',
-      456,
-      undefined,
-      undefined,
-    );
+    expect(event2Handler).toHaveBeenCalledWith('arg2', 456, undefined, undefined);
   });
 
   test('should remove all event listeners', () => {
@@ -103,10 +88,7 @@ describe('TypedEventEmitter', () => {
     emitter.on('event1', event1Handler2);
     emitter.on('event2', event2Handler);
 
-    expect(emitter.listeners('event1')).toEqual([
-      event1Handler1,
-      event1Handler2,
-    ]);
+    expect(emitter.listeners('event1')).toEqual([event1Handler1, event1Handler2]);
     expect(emitter.listeners('event2')).toEqual([event2Handler]);
     expect(emitter.listeners('event3')).toBeUndefined();
   });
@@ -120,17 +102,7 @@ describe('TypedEventEmitter', () => {
     emitter.emit('event2', 'arg2', 456);
 
     expect(event1Handler).toHaveBeenCalledTimes(2);
-    expect(event1Handler).toHaveBeenCalledWith(
-      'arg1',
-      123,
-      undefined,
-      undefined,
-    );
-    expect(event1Handler).toHaveBeenCalledWith(
-      'arg2',
-      456,
-      undefined,
-      undefined,
-    );
+    expect(event1Handler).toHaveBeenCalledWith('arg1', 123, undefined, undefined);
+    expect(event1Handler).toHaveBeenCalledWith('arg2', 456, undefined, undefined);
   });
 });

@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/lib/utils/types.ts:2](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L2)
+[src/lib/utils/types.ts:2](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L2)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/lib/utils/types.ts:3](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L3)
+[src/lib/utils/types.ts:3](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L3)

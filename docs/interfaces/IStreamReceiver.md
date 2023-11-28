@@ -45,7 +45,7 @@ Represents a stream receiver.
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:12](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L12)
+[src/lib/interfaces/receiver.ts:12](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L12)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:10](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L10)
+[src/lib/interfaces/receiver.ts:10](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L10)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L11)
+[src/lib/interfaces/receiver.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L11)
 
 ## Methods
 
@@ -90,7 +90,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -118,7 +118,7 @@ A promise that resolves to a boolean indicating whether the limit was successful
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L32)
+[src/lib/interfaces/receiver.ts:32](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L32)
 
 ___
 
@@ -148,7 +148,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -178,7 +178,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -209,7 +209,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -227,7 +227,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -264,7 +264,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -295,7 +295,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -313,7 +313,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -344,7 +344,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -362,7 +362,7 @@ A promise that resolves to a boolean indicating whether the stop was successful.
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:42](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L42)
+[src/lib/interfaces/receiver.ts:42](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L42)
 
 ___
 
@@ -387,4 +387,4 @@ A promise that resolves to a boolean indicating whether the switch was successfu
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:20](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L20)
+[src/lib/interfaces/receiver.ts:20](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L20)

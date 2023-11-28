@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:25](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L25)
+[src/lib/interfaces/gateway.ts:25](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L25)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:30](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L30)
+[src/lib/interfaces/gateway.ts:30](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L30)
 
 ___
 
@@ -46,4 +46,4 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:24](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L24)
+[src/lib/interfaces/gateway.ts:24](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L24)

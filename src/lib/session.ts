@@ -61,19 +61,13 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
       }
     });
     for (let i = 0; i < this._cfg.receivers.video; i++) {
-      const recvrTrack = this._socket.createReceiverTrack(
-        `video_${i}`,
-        StreamKinds.VIDEO,
-      );
+      const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
       const receiver = new StreamReceiver(this._rpc, recvrTrack);
       this._videoReceivers.push(receiver);
     }
 
     for (let i = 0; i < this._cfg.receivers.audio; i++) {
-      const recvrTrack = this._socket.createReceiverTrack(
-        `audio_${i}`,
-        StreamKinds.AUDIO,
-      );
+      const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
       const receiver = new StreamReceiver(this._rpc, recvrTrack);
       this._audioReceivers.push(receiver);
     }
@@ -103,10 +97,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   }
 
   createReceiver(kind: StreamKinds) {
-    const recvrTrack = this._socket.createReceiverTrack(
-      `${kind}_${this._audioReceivers.length}`,
-      kind,
-    );
+    const recvrTrack = this._socket.createReceiverTrack(`${kind}_${this._audioReceivers.length}`, kind);
     const receiver = new StreamReceiver(this._rpc, recvrTrack);
     if (kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
@@ -119,10 +110,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   }
 
   takeReceiver(kind: StreamKinds) {
-    const receiver =
-      kind === StreamKinds.AUDIO
-        ? this._audioReceivers.shift()
-        : this._videoReceivers.shift();
+    const receiver = kind === StreamKinds.AUDIO ? this._audioReceivers.shift() : this._videoReceivers.shift();
     if (!receiver) {
       throw new Error('NO_RECEIVER');
     }
@@ -140,10 +128,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   }
 
   getSender(name: string, kind: StreamKinds) {
-    const sender =
-      kind === StreamKinds.AUDIO
-        ? this._audioSenders.get(name)
-        : this._videoSenders.get(name);
+    const sender = kind === StreamKinds.AUDIO ? this._audioSenders.get(name) : this._videoSenders.get(name);
     if (!sender) {
       throw new Error('NO_SENDER');
     }
@@ -157,10 +142,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private async updateSdp() {
     const { offer, meta } = await this._socket.generateOffer();
     this.logger.info('send updated sdp:', meta);
-    const res = await this._rpc!.request<{ sdp: string }>(
-      'peer.updateSdp',
-      meta,
-    );
+    const res = await this._rpc!.request<{ sdp: string }>('peer.updateSdp', meta);
     if (!res.status) {
       this.logger.error('updateSdp :: Error response from server', res);
       throw new Error('SERVER_ERROR');
@@ -191,12 +173,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
           remote.updateState(params.state);
           this.emit(isMyStream ? 'mystream_updated' : 'stream_updated', remote);
         } else {
-          const remote = new StreamRemote(
-            params.kind,
-            params.peer,
-            params.peer_hash,
-            params.stream,
-          );
+          const remote = new StreamRemote(params.kind, params.peer, params.peer_hash, params.stream);
           remote.updateState(params.state);
           this._remotes.set(key, remote);
           this.emit(isMyStream ? 'mystream_added' : 'stream_added', remote);

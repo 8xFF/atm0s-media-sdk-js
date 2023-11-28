@@ -23,6 +23,9 @@ const options = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
+  rules: {
+    'max-len': ['error', { code: 120 }],
+  },
 };
 
 module.exports = options;

@@ -2,6 +2,8 @@
 
 # Class: StreamConsumer
 
+Represents a stream consumer that sets up views for specific viewers and configures layer settings.
+
 ## Hierarchy
 
 - `TypedEventEmitter`<`IConsumerCallbacks`\>
@@ -18,8 +20,8 @@
 
 - [\_remote](StreamConsumer.md#_remote)
 - [\_session](StreamConsumer.md#_session)
+- [keys](StreamConsumer.md#keys)
 - [receiver](StreamConsumer.md#receiver)
-- [views](StreamConsumer.md#views)
 
 ### Accessors
 
@@ -63,7 +65,7 @@ TypedEventEmitter&lt;IConsumerCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/consumer.ts:12](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L12)
+[src/lib/consumer.ts:15](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L15)
 
 ## Properties
 
@@ -73,7 +75,7 @@ TypedEventEmitter&lt;IConsumerCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/consumer.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L14)
+[src/lib/consumer.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L17)
 
 ___
 
@@ -83,7 +85,17 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:13](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L13)
+[src/lib/consumer.ts:16](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L16)
+
+___
+
+### keys
+
+• `Private` **keys**: `Map`<`string`, `ViewInfo`\>
+
+#### Defined in
+
+[src/lib/consumer.ts:13](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L13)
 
 ___
 
@@ -93,17 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:9](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L9)
-
-___
-
-### views
-
-• `Private` **views**: `Map`<`string`, `ViewInfo`\>
-
-#### Defined in
-
-[src/lib/consumer.ts:10](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L10)
+[src/lib/consumer.ts:12](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L12)
 
 ## Accessors
 
@@ -117,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:19](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L19)
+[src/lib/consumer.ts:22](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L22)
 
 ___
 
@@ -131,21 +133,26 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:23](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L23)
+[src/lib/consumer.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L26)
 
 ## Methods
 
 ### configLayer
 
-▸ `Private` **configLayer**(): `void`
+▸ `Private` **configLayer**(): `Promise`<`void`\>
+
+Configures the layer based on the selected viewers' priorities and maximum spatial/temporal values.
+This method is only applicable for video streams.
 
 #### Returns
 
-`void`
+`Promise`<`void`\>
+
+A promise that resolves when the layer configuration is complete.
 
 #### Defined in
 
-[src/lib/consumer.ts:70](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L70)
+[src/lib/consumer.ts:99](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L99)
 
 ___
 
@@ -170,30 +177,32 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
 ### limit
 
-▸ **limit**(`viewId`, `priority?`, `maxSpatial?`, `maxTemporal?`): `void`
+▸ **limit**(`key`, `priority?`, `maxSpatial?`, `maxTemporal?`): `Promise`<`void`\>
+
+Sets the limit for a specific view by key.
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `viewId` | `string` | `undefined` |
-| `priority` | `number` | `50` |
-| `maxSpatial` | `number` | `2` |
-| `maxTemporal` | `number` | `2` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `key` | `string` | `undefined` | The key of the view to set the limit for. |
+| `priority` | `number` | `50` | The priority of the view (default: 50). |
+| `maxSpatial` | `number` | `2` | The maximum spatial limit (default: 2). |
+| `maxTemporal` | `number` | `2` | The maximum temporal limit (default: 2). |
 
 #### Returns
 
-`void`
+`Promise`<`void`\>
 
 #### Defined in
 
-[src/lib/consumer.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L44)
+[src/lib/consumer.ts:62](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L62)
 
 ___
 
@@ -223,7 +232,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -253,7 +262,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -284,7 +293,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -302,7 +311,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -339,7 +348,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -370,7 +379,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -390,7 +399,7 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:87](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L87)
+[src/lib/consumer.ts:116](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L116)
 
 ___
 
@@ -410,7 +419,7 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:91](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L91)
+[src/lib/consumer.ts:120](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L120)
 
 ___
 
@@ -428,7 +437,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -459,19 +468,23 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
 ### unview
 
-▸ **unview**(`viewerId`): `void`
+▸ **unview**(`key`): `void`
+
+Removes a key from the set of viewed keys.
+If the set becomes empty, stops the receiver and emits the 'state' event with StreamReceiverState.NoSource.
+Otherwise, reconfigures the layer.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `viewerId` | `string` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | The key to be removed from the set of viewed keys. |
 
 #### Returns
 
@@ -479,27 +492,31 @@ ___
 
 #### Defined in
 
-[src/lib/consumer.ts:54](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L54)
+[src/lib/consumer.ts:78](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L78)
 
 ___
 
 ### view
 
-▸ **view**(`viewerId`, `priority?`, `maxSpatial?`, `maxTemporal?`): `MediaStream`
+▸ **view**(`key`, `priority?`, `maxSpatial?`, `maxTemporal?`): `Promise`<`MediaStream`\>
+
+Sets up a view for a specific viewer key.
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `viewerId` | `string` | `undefined` |
-| `priority` | `number` | `50` |
-| `maxSpatial` | `number` | `2` |
-| `maxTemporal` | `number` | `2` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `key` | `string` | `undefined` | The key of the viewer. |
+| `priority` | `number` | `50` | The priority of the view (default: 50). |
+| `maxSpatial` | `number` | `2` | The maximum spatial layer for the view (default: 2). |
+| `maxTemporal` | `number` | `2` | The maximum temporal layer for the view (default: 2). |
 
 #### Returns
 
-`MediaStream`
+`Promise`<`MediaStream`\>
+
+A promise that resolves to a MediaStream object representing the view.
 
 #### Defined in
 
-[src/lib/consumer.ts:27](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/consumer.ts#L27)
+[src/lib/consumer.ts:38](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/consumer.ts#L38)

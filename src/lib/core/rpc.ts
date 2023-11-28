@@ -2,16 +2,8 @@
 import pako from 'pako';
 import type { AnyFunction } from '../utils/types';
 import { getLogger } from '../utils/logger';
-import type {
-  IRPC,
-  RpcMessage,
-  RpcRequests,
-  RpcResponse,
-} from '../interfaces/rpc';
-import {
-  RealtimeSocketState,
-  type IRealtimeSocket,
-} from '../interfaces/rtsocket';
+import type { IRPC, RpcMessage, RpcRequests, RpcResponse } from '../interfaces/rpc';
+import { RealtimeSocketState, type IRealtimeSocket } from '../interfaces/rtsocket';
 
 export class RpcRequest {
   createdAt: Date;
@@ -128,10 +120,7 @@ export class RPC implements IRPC {
     }
   };
 
-  request<T>(
-    cmd: keyof RpcRequests,
-    data: RpcRequests[typeof cmd],
-  ): Promise<RpcResponse<T>> {
+  request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>> {
     this.logger.info('request:', cmd, data);
     return new Promise((resolve, reject) => {
       const req = new RpcRequest(this._reqSeed++, cmd, data, resolve, reject);

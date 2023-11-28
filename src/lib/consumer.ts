@@ -59,12 +59,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
    * @param maxSpatial - The maximum spatial limit (default: 2).
    * @param maxTemporal - The maximum temporal limit (default: 2).
    */
-  public async limit(
-    key: string,
-    priority: number = 50,
-    maxSpatial: number = 2,
-    maxTemporal: number = 2,
-  ) {
+  public async limit(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2) {
     this.keys.set(key, { priority, maxSpatial, maxTemporal });
     await this.configLayer();
   }
@@ -106,11 +101,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
       selectedMaxSpartial = Math.max(selectedMaxSpartial, viewer.maxSpatial);
       selectedMaxTemporal = Math.max(selectedMaxTemporal, viewer.maxTemporal);
     });
-    await this.receiver?.limit(
-      selectedPriority,
-      selectedMaxSpartial,
-      selectedMaxTemporal,
-    );
+    await this.receiver?.limit(selectedPriority, selectedMaxSpartial, selectedMaxTemporal);
   }
 
   private onReceiverAudioLevelChanged = (level: number) => {

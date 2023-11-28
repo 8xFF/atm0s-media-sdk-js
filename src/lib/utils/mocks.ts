@@ -2,10 +2,7 @@
 import { RealtimeSocketState, type IRealtimeSocket } from '../interfaces';
 import { TypedEventEmitter } from './typed-event-emitter';
 
-export class MockRTSocket
-  extends TypedEventEmitter<any>
-  implements IRealtimeSocket
-{
+export class MockRTSocket extends TypedEventEmitter<any> implements IRealtimeSocket {
   private _id = 'mock-socket-id';
   private _state = RealtimeSocketState.Connecting;
 

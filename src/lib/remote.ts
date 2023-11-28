@@ -1,13 +1,6 @@
-import type {
-  IStreamRemoteCallbacks,
-  StreamRemoteState,
-} from './interfaces/remote';
+import type { IStreamRemoteCallbacks, StreamRemoteState } from './interfaces/remote';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import {
-  StreamRemoteScalingType,
-  StreamRemoteStatus,
-  type StreamKinds,
-} from './utils/types';
+import { StreamRemoteScalingType, StreamRemoteStatus, type StreamKinds } from './utils/types';
 
 export class StreamRemote extends TypedEventEmitter<IStreamRemoteCallbacks> {
   _state: StreamRemoteState = {

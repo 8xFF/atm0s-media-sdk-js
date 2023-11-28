@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:35](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L35)
+[src/lib/interfaces/sender.ts:35](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L35)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L33)
+[src/lib/interfaces/sender.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L33)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L32)
+[src/lib/interfaces/sender.ts:32](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L32)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:31](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L31)
+[src/lib/interfaces/sender.ts:31](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L31)
 
 ___
 
@@ -60,4 +60,4 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:34](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L34)
+[src/lib/interfaces/sender.ts:34](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L34)

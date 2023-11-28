@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/interfaces/remote.ts:10](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/remote.ts#L10)
+[src/lib/interfaces/remote.ts:10](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/remote.ts#L10)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/remote.ts:8](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/remote.ts#L8)
+[src/lib/interfaces/remote.ts:8](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/remote.ts#L8)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/remote.ts:7](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/remote.ts#L7)
+[src/lib/interfaces/remote.ts:7](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/remote.ts#L7)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/remote.ts:9](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/remote.ts#L9)
+[src/lib/interfaces/remote.ts:9](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/remote.ts#L9)

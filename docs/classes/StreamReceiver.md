@@ -26,17 +26,20 @@ Represents a stream receiver.
 - [\_state](StreamReceiver.md#_state)
 - [\_track](StreamReceiver.md#_track)
 - [hasTrackPromises](StreamReceiver.md#hastrackpromises)
-- [kind](StreamReceiver.md#kind)
 - [logger](StreamReceiver.md#logger)
-- [remoteId](StreamReceiver.md#remoteid)
 
 ### Accessors
 
+- [kind](StreamReceiver.md#kind)
+- [remoteId](StreamReceiver.md#remoteid)
 - [state](StreamReceiver.md#state)
 - [stream](StreamReceiver.md#stream)
 
 ### Methods
 
+- [\_handleAudioLevelChange](StreamReceiver.md#_handleaudiolevelchange)
+- [\_handleOnTrackAdded](StreamReceiver.md#_handleontrackadded)
+- [\_handleStateChange](StreamReceiver.md#_handlestatechange)
 - [\_setState](StreamReceiver.md#_setstate)
 - [emit](StreamReceiver.md#emit)
 - [internalReady](StreamReceiver.md#internalready)
@@ -63,7 +66,7 @@ Represents a stream receiver.
 | Name | Type |
 | :------ | :------ |
 | `_rpc` | [`IRPC`](../interfaces/IRPC.md) |
-| `_track` | `ReceiverTrack` |
+| `_track` | [`IReceiverTrack`](../interfaces/IReceiverTrack.md) |
 
 #### Overrides
 
@@ -71,7 +74,7 @@ TypedEventEmitter&lt;IStreamReceiverCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/receiver.ts:31](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L31)
+[src/lib/receiver.ts:37](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L37)
 
 ## Properties
 
@@ -81,7 +84,7 @@ TypedEventEmitter&lt;IStreamReceiverCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/receiver.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L32)
+[src/lib/receiver.ts:38](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L38)
 
 ___
 
@@ -91,17 +94,17 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:20](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L20)
+[src/lib/receiver.ts:18](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L18)
 
 ___
 
 ### \_track
 
-• `Private` **\_track**: `ReceiverTrack`
+• `Private` **\_track**: [`IReceiverTrack`](../interfaces/IReceiverTrack.md)
 
 #### Defined in
 
-[src/lib/receiver.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L33)
+[src/lib/receiver.ts:39](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L39)
 
 ___
 
@@ -111,21 +114,7 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:19](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L19)
-
-___
-
-### kind
-
-• **kind**: [`StreamKinds`](../enums/StreamKinds.md)
-
-#### Implementation of
-
-[IStreamReceiver](../interfaces/IStreamReceiver.md).[kind](../interfaces/IStreamReceiver.md#kind)
-
-#### Defined in
-
-[src/lib/receiver.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L17)
+[src/lib/receiver.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L17)
 
 ___
 
@@ -145,19 +134,41 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:21](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L21)
+[src/lib/receiver.ts:19](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L19)
+
+## Accessors
+
+### kind
+
+• `get` **kind**(): [`StreamKinds`](../enums/StreamKinds.md)
+
+#### Returns
+
+[`StreamKinds`](../enums/StreamKinds.md)
+
+#### Implementation of
+
+[IStreamReceiver](../interfaces/IStreamReceiver.md).[kind](../interfaces/IStreamReceiver.md#kind)
+
+#### Defined in
+
+[src/lib/receiver.ts:29](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L29)
 
 ___
 
 ### remoteId
 
-• **remoteId**: `string`
+• `get` **remoteId**(): `string`
+
+#### Returns
+
+`string`
 
 #### Defined in
 
-[src/lib/receiver.ts:18](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L18)
+[src/lib/receiver.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L33)
 
-## Accessors
+___
 
 ### state
 
@@ -173,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:23](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L23)
+[src/lib/receiver.ts:21](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L21)
 
 ___
 
@@ -191,9 +202,67 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:27](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L27)
+[src/lib/receiver.ts:25](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L25)
 
 ## Methods
+
+### \_handleAudioLevelChange
+
+▸ `Private` **_handleAudioLevelChange**(`_`, `«destructured»`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_` | `string` |
+| `«destructured»` | `Object` |
+| › `level` | `number` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/receiver.ts:60](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L60)
+
+___
+
+### \_handleOnTrackAdded
+
+▸ `Private` **_handleOnTrackAdded**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/receiver.ts:54](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L54)
+
+___
+
+### \_handleStateChange
+
+▸ `Private` **_handleStateChange**(`_`, `«destructured»`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `_` | `string` |
+| `«destructured»` | `Object` |
+| › `state` | [`StreamReceiverState`](../enums/StreamReceiverState.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/lib/receiver.ts:67](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L67)
+
+___
 
 ### \_setState
 
@@ -211,7 +280,7 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:92](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L92)
+[src/lib/receiver.ts:108](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L108)
 
 ___
 
@@ -240,7 +309,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -254,13 +323,13 @@ ___
 
 #### Defined in
 
-[src/lib/receiver.ts:97](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L97)
+[src/lib/receiver.ts:113](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L113)
 
 ___
 
 ### limit
 
-▸ **limit**(`priority`, `max_spatial`, `max_temporal`): `Promise`<`boolean`\>
+▸ **limit**(`priority`, `maxSpatial`, `maxTemporal`): `Promise`<`boolean`\>
 
 Limits the stream with the specified priority to the given maximum spatial and temporal values.
 `spatial` is a value indicating the definition clarity of the stream.
@@ -271,8 +340,8 @@ Limits the stream with the specified priority to the given maximum spatial and t
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `priority` | `number` | The priority of the stream to limit. |
-| `max_spatial` | `number` | The maximum spatial value. |
-| `max_temporal` | `number` | The maximum temporal value. |
+| `maxSpatial` | `number` | The maximum spatial value. |
+| `maxTemporal` | `number` | The maximum temporal value. |
 
 #### Returns
 
@@ -286,7 +355,7 @@ A promise that resolves to a boolean indicating whether the limit was successful
 
 #### Defined in
 
-[src/lib/receiver.ts:125](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L125)
+[src/lib/receiver.ts:141](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L141)
 
 ___
 
@@ -320,7 +389,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -354,7 +423,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -389,7 +458,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -411,7 +480,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -452,7 +521,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -487,7 +556,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -509,7 +578,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -544,7 +613,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -566,7 +635,7 @@ A promise that resolves to a boolean indicating whether the stop was successful.
 
 #### Defined in
 
-[src/lib/receiver.ts:148](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L148)
+[src/lib/receiver.ts:164](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L164)
 
 ___
 
@@ -595,4 +664,4 @@ A promise that resolves to a boolean indicating whether the switch was successfu
 
 #### Defined in
 
-[src/lib/receiver.ts:104](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/receiver.ts#L104)
+[src/lib/receiver.ts:120](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/receiver.ts#L120)

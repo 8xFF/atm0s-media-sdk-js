@@ -6,19 +6,19 @@
 
 ### Enumeration Members
 
-- [SIMULCAT](StreamRemoteScalingType.md#simulcat)
+- [SIMULCAST](StreamRemoteScalingType.md#simulcast)
 - [SINGLE](StreamRemoteScalingType.md#single)
 - [SVC](StreamRemoteScalingType.md#svc)
 
 ## Enumeration Members
 
-### SIMULCAT
+### SIMULCAST
 
-• **SIMULCAT** = ``"simulcast"``
+• **SIMULCAST** = ``"simulcast"``
 
 #### Defined in
 
-[src/lib/utils/types.ts:78](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L78)
+[src/lib/utils/types.ts:45](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L45)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/utils/types.ts:77](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L77)
+[src/lib/utils/types.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L44)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/utils/types.ts:79](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L79)
+[src/lib/utils/types.ts:46](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L46)

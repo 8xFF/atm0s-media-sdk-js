@@ -22,8 +22,7 @@ export interface ISenderTrack {
   pause(): void;
 }
 
-export interface IReceiverTrack
-  extends TypedEventEmitter<IReceiverTrackCallbacks> {
+export interface IReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> {
   uuid: string;
   info: ReceiverInfo;
   transceiver?: RTCRtpTransceiver;

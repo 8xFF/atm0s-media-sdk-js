@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:7](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L7)
+[src/lib/interfaces/gateway.ts:7](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L7)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:6](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L6)
+[src/lib/interfaces/gateway.ts:6](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L6)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:3](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L3)
+[src/lib/interfaces/gateway.ts:3](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L3)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L17)
+[src/lib/interfaces/gateway.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L17)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:2](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L2)
+[src/lib/interfaces/gateway.ts:2](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L2)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:5](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L5)
+[src/lib/interfaces/gateway.ts:5](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L5)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:8](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L8)
+[src/lib/interfaces/gateway.ts:8](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L8)
 
 ___
 
@@ -100,4 +100,4 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/gateway.ts:4](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/gateway.ts#L4)
+[src/lib/interfaces/gateway.ts:4](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/gateway.ts#L4)

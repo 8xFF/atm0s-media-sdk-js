@@ -127,11 +127,7 @@ describe('RPC', () => {
 
     rpc['_handleAnswer'](reqId, true, {});
 
-    expect(loggerMock).toHaveBeenCalledWith(
-      expect.anything(),
-      'RPC :: unknown req_id:',
-      reqId,
-    );
+    expect(loggerMock).toHaveBeenCalledWith(expect.anything(), 'RPC :: unknown req_id:', reqId);
 
     loggerMock.mockRestore();
   });
@@ -204,11 +200,7 @@ describe('RPC', () => {
 
     rpc['_process'](msg);
 
-    expect(loggerMock).toHaveBeenCalledWith(
-      expect.anything(),
-      'RPC :: unknown message type:',
-      type,
-    );
+    expect(loggerMock).toHaveBeenCalledWith(expect.anything(), 'RPC :: unknown message type:', type);
 
     loggerMock.mockRestore();
   });
@@ -242,9 +234,7 @@ describe('RPC', () => {
     const result = rpc.request(cmd, data);
 
     expect(result).toBeInstanceOf(Promise);
-    expect(socketMock.send).toHaveBeenCalledWith(
-      JSON.stringify(request.toJson()),
-    );
+    expect(socketMock.send).toHaveBeenCalledWith(JSON.stringify(request.toJson()));
   });
 
   it('should add event handler', () => {

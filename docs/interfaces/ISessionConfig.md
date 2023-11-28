@@ -29,7 +29,7 @@ Optional bitrate control mode for the session.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:113](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L113)
+[src/lib/interfaces/session.ts:131](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L131)
 
 ___
 
@@ -41,7 +41,7 @@ Optional codecs for the session.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:108](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L108)
+[src/lib/interfaces/session.ts:126](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L126)
 
 ___
 
@@ -53,19 +53,19 @@ Optional ICE servers for the session.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:103](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L103)
+[src/lib/interfaces/session.ts:121](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L121)
 
 ___
 
 ### latencyMode
 
-• `Optional` **latencyMode**: `LatencyMode`
+• `Optional` **latencyMode**: [`LatencyMode`](../enums/LatencyMode.md)
 
 Optional latency mode for the session.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:98](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L98)
+[src/lib/interfaces/session.ts:116](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L116)
 
 ___
 
@@ -84,7 +84,7 @@ Optional configuration for mix-minus audio.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:84](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L84)
+[src/lib/interfaces/session.ts:102](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L102)
 
 ___
 
@@ -108,7 +108,7 @@ The ID of the peer.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:62](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L62)
+[src/lib/interfaces/session.ts:80](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L80)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:76](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L76)
+[src/lib/interfaces/session.ts:94](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L94)
 
 ___
 
@@ -149,13 +149,13 @@ The ID of the room.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:55](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L55)
+[src/lib/interfaces/session.ts:73](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L73)
 
 ___
 
 ### senders
 
-• **senders**: [`SenderConfig`](../README.md#senderconfig)[]
+• `Optional` **senders**: [`SenderConfig`](../README.md#senderconfig)[]
 
 Initialized Senders for the session.
 
@@ -167,7 +167,7 @@ Initialized Senders for the session.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:75](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L75)
+[src/lib/interfaces/session.ts:93](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L93)
 
 ___
 
@@ -180,4 +180,4 @@ Can be retrieved from the media server.
 
 #### Defined in
 
-[src/lib/interfaces/session.ts:68](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/session.ts#L68)
+[src/lib/interfaces/session.ts:86](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/session.ts#L86)

@@ -70,7 +70,7 @@ TypedEventEmitter&lt;ISessionCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/session.ts:30](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L30)
+[src/lib/session.ts:30](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L30)
 
 ## Properties
 
@@ -80,7 +80,7 @@ TypedEventEmitter&lt;ISessionCallbacks\&gt;.constructor
 
 #### Defined in
 
-[src/lib/session.ts:23](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L23)
+[src/lib/session.ts:23](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L23)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:20](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L20)
+[src/lib/session.ts:20](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L20)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L31)
+[src/lib/session.ts:31](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L31)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L33)
+[src/lib/session.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L33)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L25)
+[src/lib/session.ts:25](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L25)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:28](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L28)
+[src/lib/session.ts:28](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L28)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:32](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L32)
+[src/lib/session.ts:32](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L32)
 
 ___
 
@@ -150,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:24](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L24)
+[src/lib/session.ts:24](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L24)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:21](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L21)
+[src/lib/session.ts:21](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L21)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:27](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L27)
+[src/lib/session.ts:27](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L27)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:156](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L156)
+[src/lib/session.ts:153](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L153)
 
 ## Methods
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:136](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L136)
+[src/lib/session.ts:133](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L133)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:51](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L51)
+[src/lib/session.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L48)
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:91](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L91)
+[src/lib/session.ts:88](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L88)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:87](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L87)
+[src/lib/session.ts:84](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L84)
 
 ___
 
@@ -305,7 +305,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:108](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L108)
+[src/lib/session.ts:105](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L105)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:95](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L95)
+[src/lib/session.ts:92](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L92)
 
 ___
 
@@ -338,7 +338,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `event` | keyof [`ISessionCallbacks`](../interfaces/ISessionCallbacks.md) |
-| `...args` | [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] |
+| `...args` | [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [stream: StreamRemote] \| [state: RealtimeSocketState] \| [state: RealtimeSocketState] |
 
 #### Returns
 
@@ -350,7 +350,7 @@ TypedEventEmitter.emit
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L11)
+[src/lib/utils/typed-event-emitter.ts:11](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L11)
 
 ___
 
@@ -371,7 +371,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:145](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L145)
+[src/lib/session.ts:142](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L142)
 
 ___
 
@@ -401,7 +401,7 @@ TypedEventEmitter.listenerCount
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L58)
+[src/lib/utils/typed-event-emitter.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L58)
 
 ___
 
@@ -431,7 +431,7 @@ TypedEventEmitter.listeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L52)
+[src/lib/utils/typed-event-emitter.ts:52](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L52)
 
 ___
 
@@ -462,7 +462,7 @@ TypedEventEmitter.off
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L40)
+[src/lib/utils/typed-event-emitter.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L40)
 
 ___
 
@@ -480,7 +480,7 @@ TypedEventEmitter.offAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L44)
+[src/lib/utils/typed-event-emitter.ts:44](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L44)
 
 ___
 
@@ -517,7 +517,7 @@ TypedEventEmitter.on
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L17)
+[src/lib/utils/typed-event-emitter.ts:17](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L17)
 
 ___
 
@@ -548,7 +548,7 @@ TypedEventEmitter.onMany
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L26)
+[src/lib/utils/typed-event-emitter.ts:26](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L26)
 
 ___
 
@@ -574,7 +574,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:175](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L175)
+[src/lib/session.ts:172](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L172)
 
 ___
 
@@ -592,7 +592,7 @@ TypedEventEmitter.removeAllListeners
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L48)
+[src/lib/utils/typed-event-emitter.ts:48](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L48)
 
 ___
 
@@ -623,7 +623,7 @@ TypedEventEmitter.removeListener
 
 #### Defined in
 
-[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/typed-event-emitter.ts#L33)
+[src/lib/utils/typed-event-emitter.ts:33](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/typed-event-emitter.ts#L33)
 
 ___
 
@@ -643,7 +643,7 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:124](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L124)
+[src/lib/session.ts:121](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L121)
 
 ___
 
@@ -657,4 +657,4 @@ ___
 
 #### Defined in
 
-[src/lib/session.ts:160](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/session.ts#L160)
+[src/lib/session.ts:157](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/session.ts#L157)

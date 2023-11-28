@@ -14,7 +14,6 @@ Atm0s JS SDK
 - [RealtimeSocketState](enums/RealtimeSocketState.md)
 - [StreamKinds](enums/StreamKinds.md)
 - [StreamReceiverState](enums/StreamReceiverState.md)
-- [StreamRemoteEvent](enums/StreamRemoteEvent.md)
 - [StreamRemoteScalingType](enums/StreamRemoteScalingType.md)
 - [StreamRemoteStatus](enums/StreamRemoteStatus.md)
 - [StreamSenderState](enums/StreamSenderState.md)
@@ -40,7 +39,9 @@ Atm0s JS SDK
 - [IRealtimeSocket](interfaces/IRealtimeSocket.md)
 - [IRealtimeSocketCallbacks](interfaces/IRealtimeSocketCallbacks.md)
 - [IRealtimeSocketOptions](interfaces/IRealtimeSocketOptions.md)
+- [IReceiverTrack](interfaces/IReceiverTrack.md)
 - [IReceiverTrackCallbacks](interfaces/IReceiverTrackCallbacks.md)
+- [ISenderTrack](interfaces/ISenderTrack.md)
 - [ISessionCallbacks](interfaces/ISessionCallbacks.md)
 - [ISessionConfig](interfaces/ISessionConfig.md)
 - [IStreamReceiver](interfaces/IStreamReceiver.md)
@@ -56,14 +57,10 @@ Atm0s JS SDK
 - [AnyFunction](README.md#anyfunction)
 - [OfferMeta](README.md#offermeta)
 - [ReceiverInfo](README.md#receiverinfo)
+- [RpcMessage](README.md#rpcmessage)
 - [RpcRequests](README.md#rpcrequests)
 - [RpcResponse](README.md#rpcresponse)
 - [SenderConfig](README.md#senderconfig)
-
-### Variables
-
-- [LatencyMode2DelayHint](README.md#latencymode2delayhint)
-- [LatencyMode2MaxPackets](README.md#latencymode2maxpackets)
 
 ### Functions
 
@@ -91,7 +88,7 @@ Atm0s JS SDK
 
 #### Defined in
 
-[src/lib/utils/types.ts:20](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L20)
+[src/lib/utils/types.ts:20](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/utils/types.ts#L20)
 
 ___
 
@@ -111,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/rtsocket.ts:14](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rtsocket.ts#L14)
+[src/lib/interfaces/rtsocket.ts:14](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/rtsocket.ts#L14)
 
 ___
 
@@ -130,7 +127,34 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/receiver.ts:59](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/receiver.ts#L59)
+[src/lib/interfaces/receiver.ts:59](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/receiver.ts#L59)
+
+___
+
+### RpcMessage
+
+Ƭ **RpcMessage**<`T`\>: `Object`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `unknown` |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `data?` | `T` |
+| `error?` | `string` |
+| `event?` | `string` |
+| `req_id?` | `number` |
+| `success?` | `boolean` |
+| `type` | ``"event"`` \| ``"answer"`` \| ``"request"`` |
+
+#### Defined in
+
+[src/lib/interfaces/rpc.ts:71](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/rpc.ts#L71)
 
 ___
 
@@ -156,14 +180,14 @@ ___
 | `receiver.switch.remote` | { `peer`: `string` ; `stream`: `string`  } |
 | `receiver.switch.remote.peer` | `string` |
 | `receiver.switch.remote.stream` | `string` |
-| `sender.toggle` | { `kind`: [`StreamKinds`](enums/StreamKinds.md) ; `name`: `string` ; `track`: `string`  } |
+| `sender.toggle` | { `kind`: [`StreamKinds`](enums/StreamKinds.md) ; `name`: `string` ; `track`: `string` \| ``null`` \| `undefined`  } |
 | `sender.toggle.kind` | [`StreamKinds`](enums/StreamKinds.md) |
 | `sender.toggle.name` | `string` |
-| `sender.toggle.track` | `string` |
+| `sender.toggle.track` | `string` \| ``null`` \| `undefined` |
 
 #### Defined in
 
-[src/lib/interfaces/rpc.ts:39](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rpc.ts#L39)
+[src/lib/interfaces/rpc.ts:46](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/rpc.ts#L46)
 
 ___
 
@@ -187,7 +211,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/rpc.ts:33](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/rpc.ts#L33)
+[src/lib/interfaces/rpc.ts:40](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/rpc.ts#L40)
 
 ___
 
@@ -212,56 +236,7 @@ Configuration options for a sender.
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:46](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L46)
-
-## Variables
-
-### LatencyMode2DelayHint
-
-• `Const` **LatencyMode2DelayHint**: `Object`
-
-Mapping of latency modes to playout delay hints. Also for React Native WebRTC, maybe?
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `default` | `undefined` |
-| `smooth-1000` | `number` |
-| `smooth-200` | `number` |
-| `smooth-2000` | `number` |
-| `smooth-500` | `number` |
-| `smooth-800` | `number` |
-| `ultra-low` | `number` |
-
-#### Defined in
-
-[src/lib/utils/types.ts:61](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L61)
-
-___
-
-### LatencyMode2MaxPackets
-
-• `Const` **LatencyMode2MaxPackets**: `Object`
-
-Mapping of latency modes to maximum packets.
-This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `default` | `undefined`[] |
-| `smooth-1000` | `number`[] |
-| `smooth-200` | `number`[] |
-| `smooth-2000` | `number`[] |
-| `smooth-500` | `number`[] |
-| `smooth-800` | `number`[] |
-| `ultra-low` | `number`[] |
-
-#### Defined in
-
-[src/lib/utils/types.ts:48](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/utils/types.ts#L48)
+[src/lib/interfaces/sender.ts:46](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L46)
 
 ## Functions
 
@@ -282,4 +257,4 @@ This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
 
 #### Defined in
 
-[src/index.ts:13](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/index.ts#L13)
+[src/index.ts:13](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/index.ts#L13)

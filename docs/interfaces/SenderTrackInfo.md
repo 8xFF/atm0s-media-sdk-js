@@ -38,7 +38,7 @@ SenderConfig.contentHint
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:88](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L88)
+[src/lib/interfaces/sender.ts:88](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L88)
 
 ___
 
@@ -54,7 +54,7 @@ SenderConfig.kind
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:58](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L58)
+[src/lib/interfaces/sender.ts:58](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L58)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/lib/interfaces/tracks.ts:8](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/tracks.ts#L8)
+[src/lib/interfaces/tracks.ts:10](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/tracks.ts#L10)
 
 ___
 
@@ -86,7 +86,7 @@ SenderConfig.maxBitrate
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:83](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L83)
+[src/lib/interfaces/sender.ts:83](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L83)
 
 ___
 
@@ -112,7 +112,7 @@ SenderConfig.name
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:53](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L53)
+[src/lib/interfaces/sender.ts:53](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L53)
 
 ___
 
@@ -135,7 +135,7 @@ SenderConfig.preferredCodecs
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:71](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L71)
+[src/lib/interfaces/sender.ts:71](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L71)
 
 ___
 
@@ -157,7 +157,7 @@ SenderConfig.screen
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:94](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L94)
+[src/lib/interfaces/sender.ts:94](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L94)
 
 ___
 
@@ -179,7 +179,7 @@ SenderConfig.simulcast
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:77](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L77)
+[src/lib/interfaces/sender.ts:77](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L77)
 
 ___
 
@@ -195,4 +195,4 @@ SenderConfig.stream
 
 #### Defined in
 
-[src/lib/interfaces/sender.ts:63](https://github.com/8xFF/media-sdk-js/blob/e00c076/src/lib/interfaces/sender.ts#L63)
+[src/lib/interfaces/sender.ts:63](https://github.com/8xFF/media-sdk-js/blob/42072f0/src/lib/interfaces/sender.ts#L63)

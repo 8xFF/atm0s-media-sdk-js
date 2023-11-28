@@ -16,10 +16,7 @@ import type { SenderConfig } from '../interfaces/sender';
 import { configPeerLatencyMode } from '../utils/latency-mode';
 import type { IReceiverTrack, ISenderTrack } from '../interfaces';
 
-export class RealtimeSocket
-  extends TypedEventEmitter<IRealtimeSocketCallbacks>
-  implements IRealtimeSocket
-{
+export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> implements IRealtimeSocket {
   private logger = getLogger('atm0s:realtime-socket');
   private _pConnState: RealtimeSocketState = RealtimeSocketState.Created;
   private _dcState: RealtimeSocketState = RealtimeSocketState.Created;
@@ -103,10 +100,7 @@ export class RealtimeSocket
     };
   }
 
-  public async connect(
-    connector: IMediaGatewayConnector,
-    config: ISessionConfig,
-  ) {
+  public async connect(connector: IMediaGatewayConnector, config: ISessionConfig) {
     this.logger.log('connect :: connecting to %s', this._urls);
     this._pConnState = RealtimeSocketState.Connecting;
 
@@ -136,12 +130,8 @@ export class RealtimeSocket
         name: s.info.name,
       })),
       receivers: {
-        audio: Array.from(this._recvStreams.values()).filter(
-          (s) => s.info.kind === StreamKinds.AUDIO,
-        ).length,
-        video: Array.from(this._recvStreams.values()).filter(
-          (s) => s.info.kind === StreamKinds.VIDEO,
-        ).length,
+        audio: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.AUDIO).length,
+        video: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.VIDEO).length,
       },
     });
     if (!res.status) {
@@ -154,13 +144,10 @@ export class RealtimeSocket
 
     this.logger.log('connect :: received answer:', nodeId, connId, sdp);
     this._lc.onicecandidate = async (ice) => {
-      if (ice && ice.candidate)
-        await connector.iceCandidate(serverUrl, nodeId, connId, ice);
+      if (ice && ice.candidate) await connector.iceCandidate(serverUrl, nodeId, connId, ice);
     };
     this._lc.setLocalDescription(offer);
-    this._lc.setRemoteDescription(
-      new RTCSessionDescription({ sdp, type: 'answer' }),
-    );
+    this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
   }
 
   private setConnState(state: RealtimeSocketState) {
@@ -233,27 +220,18 @@ export class RealtimeSocket
         screen: s.info.screen,
       })),
       receivers: {
-        audio: Array.from(this._recvStreams.values()).filter(
-          (s) => s.info.kind === StreamKinds.AUDIO,
-        ).length,
-        video: Array.from(this._recvStreams.values()).filter(
-          (s) => s.info.kind === StreamKinds.VIDEO,
-        ).length,
+        audio: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.AUDIO).length,
+        video: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.VIDEO).length,
       },
     };
     return { offer, meta };
   }
 
-  public updateSdp(
-    localOffer: RTCSessionDescriptionInit,
-    remoteAnswerSdp: string,
-  ) {
+  public updateSdp(localOffer: RTCSessionDescriptionInit, remoteAnswerSdp: string) {
     this.logger.log('updateSdp :: local offer:', localOffer);
     this.logger.log('updateSdp :: remote answer sdp:', remoteAnswerSdp);
     this._lc.setLocalDescription(localOffer);
-    this._lc.setRemoteDescription(
-      new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }),
-    );
+    this._lc.setRemoteDescription(new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }));
   }
 
   public send(data: string) {

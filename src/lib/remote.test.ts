@@ -1,9 +1,5 @@
 import { StreamRemote } from './remote';
-import {
-  StreamKinds,
-  StreamRemoteScalingType,
-  StreamRemoteStatus,
-} from './utils/types';
+import { StreamKinds, StreamRemoteScalingType, StreamRemoteStatus } from './utils/types';
 
 describe('StreamRemote', () => {
   const kind = 'video' as StreamKinds;
@@ -40,12 +36,7 @@ describe('StreamRemote', () => {
     streamRemote.updateState(newState);
 
     expect(streamRemote.state).toEqual(newState);
-    expect(stateEventCallback).toHaveBeenCalledWith(
-      newState,
-      undefined,
-      undefined,
-      undefined,
-    );
+    expect(stateEventCallback).toHaveBeenCalledWith(newState, undefined, undefined, undefined);
   });
 
   test('should emit CLOSED event when closed', () => {

@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export class TypedEventEmitter<
-  TEvents extends Record<keyof TEvents, EventHandler>,
-> {
+export class TypedEventEmitter<TEvents extends Record<keyof TEvents, EventHandler>> {
   private events: { [K in keyof TEvents]?: TEvents[K][] };
 
   constructor() {
@@ -14,26 +12,16 @@ export class TypedEventEmitter<
     }
   }
 
-  on<TEvent extends keyof TEvents>(
-    event: TEvent,
-    cb: TEvents[TEvent],
-  ): () => any {
+  on<TEvent extends keyof TEvents>(event: TEvent, cb: TEvents[TEvent]): () => any {
     (this.events[event] = this.events[event] || []).push(cb);
-    return () =>
-      (this.events[event] = this.events[event]!.filter((i: any) => i !== cb));
+    return () => (this.events[event] = this.events[event]!.filter((i: any) => i !== cb));
   }
 
-  onMany<TEvent extends keyof TEvents>(
-    events: TEvent[],
-    cb: TEvents[TEvent],
-  ): (() => any)[] {
+  onMany<TEvent extends keyof TEvents>(events: TEvent[], cb: TEvents[TEvent]): (() => any)[] {
     return events.map((event) => this.on(event, cb));
   }
 
-  removeListener<TEvent extends keyof TEvents>(
-    event: TEvent,
-    cb: TEvents[TEvent],
-  ) {
+  removeListener<TEvent extends keyof TEvents>(event: TEvent, cb: TEvents[TEvent]) {
     this.off(event, cb);
   }
 
@@ -49,9 +37,7 @@ export class TypedEventEmitter<
     return this.offAllListeners();
   }
 
-  listeners<TEvent extends keyof TEvents>(
-    eventName: TEvent,
-  ): TEvents[TEvent][] | undefined {
+  listeners<TEvent extends keyof TEvents>(eventName: TEvent): TEvents[TEvent][] | undefined {
     return this.events[eventName];
   }
 

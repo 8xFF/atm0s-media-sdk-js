@@ -12,10 +12,7 @@ export interface IRPC {
    * @param data The data to be sent with the request.
    * @returns A promise that resolves to the response from the RPC server.
    */
-  request<T>(
-    cmd: keyof RpcRequests,
-    data: RpcRequests[typeof cmd],
-  ): Promise<RpcResponse<T>>;
+  request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>>;
 
   /**
    * Registers an event handler for the specified command.
