@@ -1,7 +1,6 @@
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { getLogger } from './utils/logger';
-import type { ReceiverTrack } from './core/tracks';
-import type { AnyFunction, StreamKinds } from './utils/types';
+import type { AnyFunction } from './utils/types';
 import type { StreamRemote } from './remote';
 import {
   type IStreamReceiverCallbacks,
@@ -9,13 +8,12 @@ import {
   StreamReceiverState,
 } from './interfaces/receiver';
 import type { IRPC } from './interfaces/rpc';
+import type { IReceiverTrack } from './interfaces';
 
 export class StreamReceiver
   extends TypedEventEmitter<IStreamReceiverCallbacks>
   implements IStreamReceiver
 {
-  kind: StreamKinds;
-  remoteId: string;
   hasTrackPromises: AnyFunction[] = [];
   private _state: StreamReceiverState = StreamReceiverState.NoSource;
   private logger = getLogger('atm0s:stream-receiver');
@@ -28,66 +26,84 @@ export class StreamReceiver
     return this._track.stream;
   }
 
+  get kind() {
+    return this._track.info.kind;
+  }
+
+  get remoteId() {
+    return this._track.info.remoteId;
+  }
+
   constructor(
     private _rpc: IRPC,
-    private _track: ReceiverTrack,
+    private _track: IReceiverTrack,
   ) {
     super();
-    this.kind = this._track.info.kind;
-    this.remoteId = this._track.info.remoteId;
     this.logger.log('remoteId', this.remoteId);
     this._rpc.on(
       `local_stream_${this.remoteId}_state`,
-      (_: unknown, info: { state: StreamReceiverState }) => {
-        this._setState(info.state);
-
-        this.logger.log('on state', info);
-        switch (info.state) {
-          case 'live':
-            if (
-              [
-                StreamReceiverState.Connecting,
-                StreamReceiverState.SourceDeactived,
-                StreamReceiverState.KeyOnly,
-              ].includes(this._state)
-            ) {
-              this._setState(StreamReceiverState.Live);
-            }
-            break;
-          case 'key_only':
-            if (
-              [
-                StreamReceiverState.SourceDeactived,
-                StreamReceiverState.KeyOnly,
-              ].includes(this._state)
-            ) {
-              this._setState(StreamReceiverState.KeyOnly);
-            }
-            break;
-          case 'source_deactived':
-            if (
-              [StreamReceiverState.Live, StreamReceiverState.KeyOnly].includes(
-                this._state,
-              )
-            ) {
-              this._setState(StreamReceiverState.SourceDeactived);
-            }
-            break;
-        }
-      },
+      this._handleStateChange,
     );
     this._rpc.on(
-      `local_stream_${this.remoteId}_state`,
-      (_: unknown, info: { level: number }) => {
-        this.emit('audio_level', info.level);
-      },
+      `local_stream_${this.remoteId}_audio_level`,
+      this._handleAudioLevelChange,
     );
-    this._track.on('track_added', () => {
-      this.logger.log('track added', this._track.stream);
-      this.hasTrackPromises.forEach((resolve) => resolve(true));
-      this.hasTrackPromises = [];
-    });
+    this._track.on('track_added', this._handleOnTrackAdded);
   }
+
+  private _handleOnTrackAdded = () => {
+    this.logger.log('track added', this._track.stream);
+    this.hasTrackPromises.forEach((resolve) => resolve(true));
+    this.hasTrackPromises = [];
+  };
+
+  private _handleAudioLevelChange = (
+    _: string,
+    { level }: { level: number },
+  ) => {
+    this.emit('audio_level', level);
+  };
+
+  private _handleStateChange = (
+    _: string,
+    { state }: { state: StreamReceiverState },
+  ) => {
+    this._setState(state);
+
+    this.logger.log('on receiver state', state);
+    switch (state) {
+      case 'live':
+        if (
+          [
+            StreamReceiverState.Connecting,
+            StreamReceiverState.SourceDeactived,
+            StreamReceiverState.KeyOnly,
+          ].includes(this._state)
+        ) {
+          this._setState(StreamReceiverState.Live);
+        }
+        break;
+      case 'key_only':
+        if (
+          [
+            StreamReceiverState.SourceDeactived,
+            StreamReceiverState.KeyOnly,
+          ].includes(this._state)
+        ) {
+          this._setState(StreamReceiverState.KeyOnly);
+        }
+        break;
+      case 'source_deactived':
+        if (
+          [StreamReceiverState.Live, StreamReceiverState.KeyOnly].includes(
+            this._state,
+          )
+        ) {
+          this._setState(StreamReceiverState.SourceDeactived);
+        }
+        break;
+    }
+  };
 
   private _setState(state: StreamReceiverState) {
     this._state = state;
@@ -124,17 +140,17 @@ export class StreamReceiver
 
   async limit(
     priority: number,
-    max_spatial: number,
-    max_temporal: number,
+    maxSpatial: number,
+    maxTemporal: number,
   ): Promise<boolean> {
-    this.logger.log('limit stream', priority, max_spatial, max_temporal);
+    this.logger.log('limit stream', priority, maxSpatial, maxTemporal);
     await this.internalReady();
     if (this._track.stream) {
       const res = await this._rpc.request('receiver.limit', {
         id: this.remoteId,
         priority,
-        max_spatial,
-        max_temporal,
+        max_spatial: maxSpatial,
+        max_temporal: maxTemporal,
       });
       if (res.status === true) {
         return true;
@@ -149,6 +165,7 @@ export class StreamReceiver
     if (this._state === StreamReceiverState.NoSource) {
       return true;
     }
+    this._track.stop();
     const res = await this._rpc.request('receiver.disconnect', {
       id: this.remoteId,
     });
@@ -156,6 +173,14 @@ export class StreamReceiver
       this._setState(StreamReceiverState.NoSource);
       return true;
     }
+    this._rpc.off(
+      `local_stream_${this.remoteId}_state`,
+      this._handleStateChange,
+    );
+    this._rpc.off(
+      `local_stream_${this.remoteId}_audio_level`,
+      this._handleAudioLevelChange,
+    );
     return false;
   }
 }

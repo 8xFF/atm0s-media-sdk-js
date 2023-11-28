@@ -4,7 +4,6 @@ import type {
 } from './interfaces/remote';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import {
-  StreamRemoteEvent,
   StreamRemoteScalingType,
   StreamRemoteStatus,
   type StreamKinds,
@@ -34,11 +33,11 @@ export class StreamRemote extends TypedEventEmitter<IStreamRemoteCallbacks> {
   updateState(_state: StreamRemoteState) {
     if (JSON.stringify(this._state) !== JSON.stringify(_state)) {
       this._state = _state;
-      this.emit(StreamRemoteEvent.STATE, _state);
+      this.emit('state', _state);
     }
   }
 
   close() {
-    this.emit(StreamRemoteEvent.CLOSED);
+    this.emit('closed');
   }
 }

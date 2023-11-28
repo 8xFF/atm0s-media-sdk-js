@@ -1,4 +1,4 @@
-import type { StreamKinds } from './types';
+import { type StreamKinds } from './types';
 /**
  * Generates a random SSRC (Synchronization Source) number.
  *
@@ -20,7 +20,11 @@ export declare function randomString(size: number): string;
  * @returns A promise that resolves after the specified delay.
  */
 export declare function delay(ms: number): Promise<unknown>;
-export type Constructor<T = {}> = new (...args: unknown[]) => T;
-export declare function applyMixin(target: Constructor, mixin: Constructor, includeConstructor?: boolean): void;
+/**
+ * Retrieves the first track of the specified kind from the given MediaStream.
+ * @param stream - The MediaStream from which to retrieve the track.
+ * @param kind - The kind of track to retrieve ('audio' or 'video').
+ * @returns The track of the specified kind, or undefined if the stream is undefined or null, or if no track of the specified kind is found.
+ */
 export declare function getTrack(stream: MediaStream | undefined | null, kind: StreamKinds): MediaStreamTrack | undefined;
 //# sourceMappingURL=shared.d.ts.map

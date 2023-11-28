@@ -11,6 +11,7 @@ export declare class StreamPublisher extends TypedEventEmitter<IPublisherCallbac
     get localStream(): MediaStream | undefined | null;
     private onState;
     private onAudioLevel;
+    switch(stream: MediaStream): void;
     stop(): void;
 }
 //# sourceMappingURL=publisher.d.ts.map

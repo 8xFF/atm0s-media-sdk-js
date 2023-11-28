@@ -1,4 +1,4 @@
-import type { StreamKinds } from './types';
+import { type StreamKinds } from './types';
 
 /**
  * Generates a random SSRC (Synchronization Source) number.
@@ -37,41 +37,12 @@ export async function delay(ms: number) {
   });
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type Constructor<T = {}> = new (...args: unknown[]) => T;
-
-export function applyMixin(
-  target: Constructor,
-  mixin: Constructor,
-  includeConstructor = false,
-): void {
-  // Figure out the inheritance chain of the mixin
-  const inheritanceChain: Constructor[] = [mixin];
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const current = inheritanceChain[0];
-    const base = Object.getPrototypeOf(current);
-    if (base?.prototype) {
-      inheritanceChain.unshift(base);
-    } else {
-      break;
-    }
-  }
-  for (const ctor of inheritanceChain) {
-    for (const prop of Object.getOwnPropertyNames(ctor.prototype)) {
-      // Do not override the constructor
-      if (includeConstructor || prop !== 'constructor') {
-        Object.defineProperty(
-          target.prototype,
-          prop,
-          Object.getOwnPropertyDescriptor(ctor.prototype, prop) ??
-            Object.create(null),
-        );
-      }
-    }
-  }
-}
-
+/**
+ * Retrieves the first track of the specified kind from the given MediaStream.
+ * @param stream - The MediaStream from which to retrieve the track.
+ * @param kind - The kind of track to retrieve ('audio' or 'video').
+ * @returns The track of the specified kind, or undefined if the stream is undefined or null, or if no track of the specified kind is found.
+ */
 export function getTrack(
   stream: MediaStream | undefined | null,
   kind: StreamKinds,

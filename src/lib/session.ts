@@ -33,11 +33,8 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _connector: IMediaGatewayConnector,
   ) {
     super();
-    // this._socket.on('message', (data) => {
-    //   console.log('message', data);
-    // });
     this._socket.on('peer_state', (data) => {
-      console.log('state', data);
+      this.emit('peer_state', data);
     });
     this._socket.on('dc_state', (data) => {
       console.log('dc_state', data);
@@ -50,7 +47,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   connect() {
     this.logger.info('start to connect ...');
-    this._cfg.senders.map((s) => {
+    this._cfg.senders?.map((s) => {
       if (s.stream) {
         const senderTrack = this._socket.createSenderTrack(s);
         this.logger.info('created sender track:', senderTrack);

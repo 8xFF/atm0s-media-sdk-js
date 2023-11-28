@@ -1,4 +1,5 @@
-import { StreamKinds, type Codecs, LatencyMode2DelayHint } from './types';
+import { configReceiverLatencyMode } from './latency-mode';
+import { StreamKinds, type Codecs } from './types';
 import { LatencyMode } from './types';
 
 export interface RTCRtpTransceiverInitExtended {
@@ -9,6 +10,14 @@ export interface RTCRtpTransceiverInitExtended {
   preferredCodecs?: Codecs[];
 }
 
+/**
+ * Adds simulcast settings to an RTCRtpTransceiver.
+ * @param transceiver - The RTCRtpTransceiver to add simulcast settings to.
+ * @param opts - Optional parameters for simulcast settings.
+ * @param opts.maxBitrate - The maximum bitrate for the simulcast streams.
+ * @param opts.isScreen - Indicates whether the simulcast is for screen sharing.
+ * @returns The modified RTCRtpTransceiver with simulcast settings.
+ */
 export function addTransceiverSimulcast(
   transceiver: RTCRtpTransceiver,
   opts?: { maxBitrate?: number; isScreen?: boolean },
@@ -50,19 +59,26 @@ export function addTransceiverSimulcast(
   return transceiver;
 }
 
+/**
+ * Adds preferred codecs to the given RTCRtpTransceiver based on the specified kind of stream.
+ * @param transceiver - The RTCRtpTransceiver to add preferred codecs to.
+ * @param kind - The kind of stream (e.g., "audio" or "video").
+ * @param preferred - An array of preferred codecs.
+ * @returns The modified RTCRtpTransceiver with the preferred codecs added.
+ */
 export function addTransceiverPreferredCodecs(
   transceiver: RTCRtpTransceiver,
   kind: StreamKinds,
-  preffered: Codecs[],
+  preferred: Codecs[],
 ): RTCRtpTransceiver {
-  if (preffered && preffered.length > 0) {
+  if (preferred && preferred.length > 0) {
     const codecs = RTCRtpSender.getCapabilities(kind)?.codecs;
     if (!codecs) return transceiver;
     codecs.sort((c1, c2) => {
-      let c1_index = (preffered as string[]).indexOf(
+      let c1_index = (preferred as string[]).indexOf(
         c1.mimeType.replace('video/', ''),
       );
-      let c2_index = (preffered as string[]).indexOf(
+      let c2_index = (preferred as string[]).indexOf(
         c2.mimeType.replace('video/', ''),
       );
 
@@ -85,7 +101,5 @@ export function configLatencyMode(
   transceiver: RTCRtpTransceiver,
   latencyMode: LatencyMode,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (transceiver.receiver as any).playoutDelayHint =
-    LatencyMode2DelayHint[latencyMode];
+  configReceiverLatencyMode(transceiver.receiver, latencyMode);
 }

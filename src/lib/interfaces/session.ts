@@ -1,5 +1,11 @@
 import type { StreamRemote } from '../remote';
-import type { BitrateControlMode, Codecs, MixMinusMode } from '../utils/types';
+import type {
+  LatencyMode,
+  Codecs,
+  MixMinusMode,
+  BitrateControlMode,
+} from '../utils/types';
+import type { RealtimeSocketState } from './rtsocket';
 import type { SenderConfig } from './sender';
 
 /**
@@ -41,6 +47,18 @@ export interface ISessionCallbacks {
    * @param stream The updated stream.
    */
   stream_updated: (stream: StreamRemote) => void;
+
+  /**
+   * Callback function triggered when the peer state changes.
+   * @param state The new state of the peer.
+   */
+  peer_state: (state: RealtimeSocketState) => void;
+
+  /**
+   * Callback function triggered when the data channel state changes.
+   * @param state The new state of the data channel.
+   */
+  dc_state: (state: RealtimeSocketState) => void;
 }
 
 /**
@@ -72,7 +90,7 @@ export interface ISessionConfig {
    * @example [{ name: 'video_camera', kind: 'audio', stream: stream1 }, { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
    *
    */
-  senders: SenderConfig[];
+  senders?: SenderConfig[];
   receivers: {
     audio: number;
     video: number;

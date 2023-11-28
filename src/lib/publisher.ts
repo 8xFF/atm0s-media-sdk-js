@@ -50,6 +50,10 @@ export class StreamPublisher extends TypedEventEmitter<IPublisherCallbacks> {
     this.emit('audio_level', level);
   };
 
+  switch(stream: MediaStream) {
+    this.sender?.switch(stream);
+  }
+
   stop() {
     if (this.sender) {
       this.emit('state', StreamSenderState.Closed);

@@ -2,19 +2,20 @@ async function onMyStreamAdded(stream) {
   if (stream.kind == 'video') {
     let element = document.getElementById('my_video');
     if (element.consumer) {
-      element.consumer.unview('main');
+      await element.consumer.unview('main');
     }
     let consumer = window.bluesea_session.createConsumer(stream);
-    element.srcObject = consumer.view('main');
+    element.srcObject = await consumer.view('main');
     element.consumer = consumer;
   }
   // if (stream.kind == 'audio') {
   //   let element = document.getElementById('my_audio');
   //   if (element.consumer) {
-  //     element.consumer.unview('main');
+  //     await element.consumer.unview('main');
   //   }
   //   let consumer = window.bluesea_session.createConsumer(stream);
-  //   element.srcObject = consumer.view('main');
+  //   // element.srcObject = await consumer.view('main');
+  //   // await consumer.view('main');
   //   element.consumer = consumer;
   // }
 }
@@ -39,11 +40,11 @@ async function boot() {
         kind: 'video',
         simulcast: true,
       },
-      // {
-      //   stream: video_stream,
-      //   name: 'audio_main',
-      //   kind: 'audio',
-      // },
+      {
+        stream: video_stream,
+        name: 'audio_main',
+        kind: 'audio',
+      },
     ],
     receivers: {
       audio: 1,

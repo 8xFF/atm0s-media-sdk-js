@@ -1,4 +1,4 @@
-import type { SenderTrack } from './core/tracks';
+import type { ISenderTrack } from './interfaces';
 import type { IRPC } from './interfaces/rpc';
 import {
   type IStreamSenderCallbacks,
@@ -7,14 +7,14 @@ import {
 } from './interfaces/sender';
 import { getLogger } from './utils/logger';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import { StreamKinds } from './utils/types';
 
 export class StreamSender
   extends TypedEventEmitter<IStreamSenderCallbacks>
   implements IStreamSender
 {
-  kind: StreamKinds;
-  name: string;
+  get name() {
+    return this._track.info.name;
+  }
 
   get state() {
     return this._state;
@@ -44,26 +44,32 @@ export class StreamSender
     return this._track.stream;
   }
 
+  get kind() {
+    return this._track.info.kind;
+  }
+
   private _state: StreamSenderState = StreamSenderState.Created;
   private logger = getLogger('atm0s:stream-sender');
   constructor(
     private _rpc: IRPC,
-    private _track: SenderTrack,
+    private _track: ISenderTrack,
   ) {
     super();
-    this.kind = this._track.info.kind;
-    this.name = this._track.info.name;
-    this._rpc.on(`remote_stream_${this.name}_state`, () => {
-      if (this._state === StreamSenderState.Connecting) {
-        this._setState(StreamSenderState.Connected);
-      }
-    });
+    this._rpc.on(`remote_stream_${this.name}_state`, this._handleStateChange);
     this._rpc.on(
       `remote_stream_${this.name}_audio_level`,
-      (_: unknown, info: { level: number }) => {
-        this.emit('audio_level', info.level);
-      },
+      this._handleAudioLevelChange,
     );
+  }
+
+  private _handleStateChange() {
+    if (this._state === StreamSenderState.Connecting) {
+      this._setState(StreamSenderState.Connected);
+    }
+  }
+
+  private _handleAudioLevelChange(_: string, { level }: { level: number }) {
+    this.emit('audio_level', level);
   }
 
   private _setState(state: StreamSenderState) {
@@ -72,12 +78,12 @@ export class StreamSender
   }
 
   switch(stream: MediaStream | null) {
-    this.logger.log('switch stream', stream);
+    this.logger.debug('switch stream', stream);
     this._track.replaceStream(stream);
     this._rpc.request('sender.toggle', {
       name: this.name,
       kind: this.kind,
-      track: this._track.uuid,
+      track: this._track.trackId,
     });
     if (stream) {
       this._setState(StreamSenderState.Connected);
@@ -90,6 +96,17 @@ export class StreamSender
     if (this._state === StreamSenderState.Closed) {
       return;
     }
+    this._rpc.request('sender.toggle', {
+      name: this.name,
+      kind: this.kind,
+      track: null,
+    });
+    this._track.stop();
+    this._rpc.off(`remote_stream_${this.name}_state`, this._handleStateChange);
+    this._rpc.off(
+      `remote_stream_${this.name}_audio_level`,
+      this._handleAudioLevelChange,
+    );
     this._setState(StreamSenderState.Closed);
   }
 }

@@ -34,5 +34,5 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx"
-  ]
+, "src/lib/core/gateway.test.ts"  ]
 }

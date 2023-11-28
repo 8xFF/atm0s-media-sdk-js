@@ -2,7 +2,12 @@
 import pako from 'pako';
 import type { AnyFunction } from '../utils/types';
 import { getLogger } from '../utils/logger';
-import type { IRPC } from '../interfaces/rpc';
+import type {
+  IRPC,
+  RpcMessage,
+  RpcRequests,
+  RpcResponse,
+} from '../interfaces/rpc';
 import {
   RealtimeSocketState,
   type IRealtimeSocket,
@@ -35,13 +40,13 @@ export class RPC implements IRPC {
   private _reqSeed = 0;
   private _msgDecoder = new TextDecoder();
   private logger = getLogger('atm0s:rpc');
-  private _handlers: Map<string, AnyFunction> = new Map();
+  private _handlers: Map<string, AnyFunction[]> = new Map();
   private _reqs: Map<number, RpcRequest> = new Map();
 
   connected = false;
 
   constructor(private _socket: IRealtimeSocket) {
-    this._socket.on('message', this._prereceiveMessage);
+    this._socket.on('message', this._preprocess);
     this._socket.on('dc_state', (state) => {
       if (state === RealtimeSocketState.Connected) {
         this.connected = true;
@@ -49,68 +54,84 @@ export class RPC implements IRPC {
     });
   }
 
-  private _prereceiveMessage = (data: any) => {
+  private _preprocess = (data: any) => {
     if (data instanceof Blob) {
       const reader = new FileReader();
       reader.onload = () => {
         const compressed = new Uint8Array(reader.result as ArrayBuffer);
         const decompressed = pako.inflate(compressed);
         const msg = this._msgDecoder.decode(decompressed);
-        this._onReceiveMessage(msg);
+        this._process(msg);
       };
       reader.readAsArrayBuffer(data);
     } else if (data instanceof ArrayBuffer) {
       const decompressed = pako.inflate(data);
       const msg = this._msgDecoder.decode(decompressed);
       this.logger.log('decompress', data.byteLength, msg, msg.length);
-      this._onReceiveMessage(msg);
+      this._process(msg);
     } else {
-      this._onReceiveMessage(data);
+      this._process(data);
     }
   };
 
-  private _onReceiveMessage = (msg: string) => {
+  private _handleEvent = (event: string, data: any) => {
+    const handlers = this._handlers.get(event);
+    if (handlers) {
+      handlers.map((h) => h(event, data));
+    }
+  };
+
+  private _handleAnswer = (reqId: number, success: boolean, data: any) => {
+    const req = this._reqs.get(reqId);
+    if (req) {
+      if (success === true) {
+        req.resolve({
+          status: true,
+          data,
+        });
+      } else {
+        req.resolve({
+          status: false,
+          error: data,
+        });
+      }
+      this._reqs.delete(reqId);
+    } else {
+      this.logger.log('RPC :: unknown req_id:', reqId);
+    }
+  };
+
+  private _process = (msg: string) => {
     this.logger.log('datachannel on message:', msg);
-    const json = JSON.parse(msg);
+    const json: RpcMessage = JSON.parse(msg);
 
     const type = json.type;
-    if (type === 'event') {
-      const handler = this._handlers.get(json.event);
-      if (handler) {
-        handler(json.event, json.data);
-      }
-    } else if (type === 'request') {
-      this._socket.send(
-        JSON.stringify({
-          type: 'answer',
-          status: false,
-          error: 'NOT_SUPPORT',
-        }),
-      );
-    } else if (type === 'answer') {
-      const req = this._reqs.get(json.req_id);
-      if (req) {
-        if (json.success === true) {
-          req.resolve({
-            status: true,
-            data: json.data,
-          });
-        } else {
-          req.resolve({
+    switch (type) {
+      case 'event':
+        this._handleEvent(json.event!, json.data);
+        break;
+      case 'answer':
+        this._handleAnswer(json.req_id!, json.success!, json.data);
+        break;
+      case 'request':
+        this._socket.send(
+          JSON.stringify({
+            type: 'answer',
             status: false,
-            error: json.error,
-          });
-        }
-      } else {
-        this.logger.log('RPC :: unknown req_id:', json.req_id);
-      }
+            error: 'NOT_SUPPORT',
+          }),
+        );
+        break;
+      default:
+        this.logger.log('RPC :: unknown message type:', type);
+        break;
     }
   };
 
-  request<DataType, ResponseType>(
-    cmd: string,
-    data: DataType,
-  ): Promise<ResponseType> {
+  request<T>(
+    cmd: keyof RpcRequests,
+    data: RpcRequests[typeof cmd],
+  ): Promise<RpcResponse<T>> {
     this.logger.info('request:', cmd, data);
     return new Promise((resolve, reject) => {
       const req = new RpcRequest(this._reqSeed++, cmd, data, resolve, reject);
@@ -119,20 +140,18 @@ export class RPC implements IRPC {
     });
   }
 
-  // event(cmd: string, data: any): void {
-  //   const event = {
-  //     req_id: this.reqId,
-  //     type: 'request',
-  //     request: this.method,
-  //     data: this.params,
-  //   };
-  // }
-
-  on(cmd: string, handler: (data: any) => void): void {
-    this._handlers.set(cmd, handler);
+  on(cmd: string, handler: (event: string, data: any) => void): void {
+    this._handlers.set(cmd, [...(this._handlers.get(cmd) || []), handler]);
   }
 
-  off(cmd: string): void {
+  off(cmd: string, handler: AnyFunction): void {
+    this._handlers.set(
+      cmd,
+      (this._handlers.get(cmd) || []).filter((h) => h !== handler),
+    );
+  }
+
+  offAllListeners(cmd: string): void {
     this._handlers.delete(cmd);
   }
 }

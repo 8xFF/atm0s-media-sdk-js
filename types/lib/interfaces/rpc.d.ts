@@ -16,12 +16,17 @@ export interface IRPC {
      * @param cmd The command to listen for.
      * @param handler The event handler function.
      */
-    on(cmd: string, handler: AnyFunction): void;
+    on(cmd: string, handler: (event: string, data: any) => void): void;
     /**
      * Unregisters the event handler for the specified command.
      * @param cmd The command to stop listening for.
      */
-    off(cmd: string): void;
+    off(cmd: string, handler: AnyFunction): void;
+    /**
+     * Unregisters all event handlers for the specified command.
+     * @param cmd The command to stop listening for.
+     */
+    offAllListeners(cmd: string): void;
 }
 export type RpcResponse<T> = {
     status: boolean;
@@ -50,7 +55,15 @@ export type RpcRequests = {
     'sender.toggle': {
         name: string;
         kind: StreamKinds;
-        track: string;
+        track: string | null | undefined;
     };
+};
+export type RpcMessage<T = unknown> = {
+    type: 'event' | 'answer' | 'request';
+    event?: string;
+    req_id?: number;
+    success?: boolean;
+    data?: T;
+    error?: string;
 };
 //# sourceMappingURL=rpc.d.ts.map

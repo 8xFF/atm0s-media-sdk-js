@@ -222,7 +222,7 @@
                     switch (_b.label) {
                         case 0:
                             if (typeof urls === 'string') {
-                                return [2 /*return*/, (this._url = urls)];
+                                urls = [urls];
                             }
                             waiting_urls = {};
                             _b.label = 1;
@@ -271,7 +271,7 @@
         MediaGatewayConnector.prototype.connect = function (url, config) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    this.logger.log('connect :: connect to media server:', this._url);
+                    this.logger.log('connect :: connect to media server:', url);
                     return [2 /*return*/, httpPost(url + '/webrtc/connect', config)];
                 });
             });
@@ -364,7 +364,6 @@
         return TypedEventEmitter;
     }());
 
-    var _a, _b;
     exports.StreamKinds = void 0;
     (function (StreamKinds) {
         StreamKinds["AUDIO"] = "audio";
@@ -404,41 +403,10 @@
         MixMinusMode["AllAudioStreams"] = "AllAudioStreams";
         MixMinusMode["ManualAudioStreams"] = "ManualAudioStreams";
     })(exports.MixMinusMode || (exports.MixMinusMode = {}));
-    /**
-     * Mapping of latency modes to maximum packets.
-     * This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
-     *
-     */
-    var LatencyMode2MaxPackets = (_a = {},
-        _a[exports.LatencyMode.UltraLow] = [10, 10],
-        _a[exports.LatencyMode.Smooth200] = [20, 20],
-        _a[exports.LatencyMode.Smooth500] = [25, 25],
-        _a[exports.LatencyMode.Smooth800] = [40, 40],
-        _a[exports.LatencyMode.Smooth1000] = [50, 50],
-        _a[exports.LatencyMode.Smooth2000] = [100, 100],
-        _a[exports.LatencyMode.Default] = [undefined, undefined],
-        _a);
-    /**
-     * Mapping of latency modes to playout delay hints. Also for React Native WebRTC, maybe?
-     */
-    var LatencyMode2DelayHint = (_b = {},
-        _b[exports.LatencyMode.UltraLow] = 0,
-        _b[exports.LatencyMode.Smooth200] = 0.2,
-        _b[exports.LatencyMode.Smooth500] = 0.5,
-        _b[exports.LatencyMode.Smooth800] = 0.8,
-        _b[exports.LatencyMode.Smooth1000] = 1,
-        _b[exports.LatencyMode.Smooth2000] = 2,
-        _b[exports.LatencyMode.Default] = undefined,
-        _b);
-    exports.StreamRemoteEvent = void 0;
-    (function (StreamRemoteEvent) {
-        StreamRemoteEvent["STATE"] = "state";
-        StreamRemoteEvent["CLOSED"] = "closed";
-    })(exports.StreamRemoteEvent || (exports.StreamRemoteEvent = {}));
     exports.StreamRemoteScalingType = void 0;
     (function (StreamRemoteScalingType) {
         StreamRemoteScalingType["SINGLE"] = "single";
-        StreamRemoteScalingType["SIMULCAT"] = "simulcast";
+        StreamRemoteScalingType["SIMULCAST"] = "simulcast";
         StreamRemoteScalingType["SVC"] = "svc";
     })(exports.StreamRemoteScalingType || (exports.StreamRemoteScalingType = {}));
     exports.StreamRemoteStatus = void 0;
@@ -464,6 +432,12 @@
             });
         });
     }
+    /**
+     * Retrieves the first track of the specified kind from the given MediaStream.
+     * @param stream - The MediaStream from which to retrieve the track.
+     * @param kind - The kind of track to retrieve ('audio' or 'video').
+     * @returns The track of the specified kind, or undefined if the stream is undefined or null, or if no track of the specified kind is found.
+     */
     function getTrack(stream, kind) {
         if (!stream) {
             return undefined;
@@ -7352,6 +7326,66 @@
     	constants: constants_1
     };
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    function configPeerLatencyMode(config, mode) {
+        switch (mode) {
+            case exports.LatencyMode.UltraLow:
+                config.audioJitterBufferMaxPackets = 10; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 10;
+                break;
+            case exports.LatencyMode.Smooth200:
+                config.audioJitterBufferMaxPackets = 20; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 20;
+                break;
+            case exports.LatencyMode.Smooth500:
+                config.audioJitterBufferMaxPackets = 25; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 25;
+                break;
+            case exports.LatencyMode.Smooth800:
+                config.audioJitterBufferMaxPackets = 40; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 40;
+                break;
+            case exports.LatencyMode.Smooth1000:
+                config.audioJitterBufferMaxPackets = 50; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 50;
+                break;
+            case exports.LatencyMode.Smooth2000:
+                config.audioJitterBufferMaxPackets = 100; //for react native
+                config.rtcAudioJitterBufferMaxPackets = 100;
+                break;
+        }
+    }
+    function configReceiverLatencyMode(receiver, mode) {
+        switch (mode) {
+            case exports.LatencyMode.UltraLow:
+                receiver.playoutDelayHint = 0;
+                break;
+            case exports.LatencyMode.Smooth200:
+                receiver.playoutDelayHint = 0.2;
+                break;
+            case exports.LatencyMode.Smooth500:
+                receiver.playoutDelayHint = 0.5;
+                break;
+            case exports.LatencyMode.Smooth800:
+                receiver.playoutDelayHint = 0.8;
+                break;
+            case exports.LatencyMode.Smooth1000:
+                receiver.playoutDelayHint = 1;
+                break;
+            case exports.LatencyMode.Smooth2000:
+                receiver.playoutDelayHint = 2;
+                break;
+        }
+    }
+
+    /**
+     * Adds simulcast settings to an RTCRtpTransceiver.
+     * @param transceiver - The RTCRtpTransceiver to add simulcast settings to.
+     * @param opts - Optional parameters for simulcast settings.
+     * @param opts.maxBitrate - The maximum bitrate for the simulcast streams.
+     * @param opts.isScreen - Indicates whether the simulcast is for screen sharing.
+     * @returns The modified RTCRtpTransceiver with simulcast settings.
+     */
     function addTransceiverSimulcast(transceiver, opts) {
         if (transceiver && transceiver.sender) {
             var parameters = transceiver.sender.getParameters();
@@ -7375,15 +7409,22 @@
         }
         return transceiver;
     }
-    function addTransceiverPreferredCodecs(transceiver, kind, preffered) {
+    /**
+     * Adds preferred codecs to the given RTCRtpTransceiver based on the specified kind of stream.
+     * @param transceiver - The RTCRtpTransceiver to add preferred codecs to.
+     * @param kind - The kind of stream (e.g., "audio" or "video").
+     * @param preferred - An array of preferred codecs.
+     * @returns The modified RTCRtpTransceiver with the preferred codecs added.
+     */
+    function addTransceiverPreferredCodecs(transceiver, kind, preferred) {
         var _a;
-        if (preffered && preffered.length > 0) {
+        if (preferred && preferred.length > 0) {
             var codecs = (_a = RTCRtpSender.getCapabilities(kind)) === null || _a === void 0 ? void 0 : _a.codecs;
             if (!codecs)
                 return transceiver;
             codecs.sort(function (c1, c2) {
-                var c1_index = preffered.indexOf(c1.mimeType.replace('video/', ''));
-                var c2_index = preffered.indexOf(c2.mimeType.replace('video/', ''));
+                var c1_index = preferred.indexOf(c1.mimeType.replace('video/', ''));
+                var c2_index = preferred.indexOf(c2.mimeType.replace('video/', ''));
                 if (c1_index < 0)
                     c1_index = 1000;
                 if (c2_index < 0)
@@ -7401,9 +7442,7 @@
         return transceiver;
     }
     function configLatencyMode(transceiver, latencyMode) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        transceiver.receiver.playoutDelayHint =
-            LatencyMode2DelayHint[latencyMode];
+        configReceiverLatencyMode(transceiver.receiver, latencyMode);
     }
 
     var SenderTrack = /** @class */ (function () {
@@ -7414,6 +7453,11 @@
             this.uuid = "sender-".concat(info.kind, "-").concat(SenderTrack.seed++);
             if (info.stream) {
                 this.stream = info.stream;
+            }
+            if (info.contentHint &&
+                this.getTrack() &&
+                info.contentHint !== exports.ContentHint.None) {
+                this.getTrack().contentHint = info.contentHint;
             }
             if ((transceiver === null || transceiver === void 0 ? void 0 : transceiver.sender) && info.kind === exports.StreamKinds.VIDEO) {
                 if (info.simulcast) {
@@ -7427,6 +7471,14 @@
                 }
             }
         }
+        Object.defineProperty(SenderTrack.prototype, "trackId", {
+            get: function () {
+                var _a;
+                return (_a = this.getTrack()) === null || _a === void 0 ? void 0 : _a.id;
+            },
+            enumerable: false,
+            configurable: true
+        });
         SenderTrack.prototype.replaceStream = function (stream) {
             if (stream === this.stream) {
                 return;
@@ -7435,9 +7487,20 @@
             if (this.transceiver) {
                 this.transceiver.sender.replaceTrack(getTrack(stream, this.info.kind) || null);
             }
+            if (this.info.contentHint && this.getTrack()) {
+                this.getTrack().contentHint = this.info.contentHint;
+            }
         };
         SenderTrack.prototype.getTrack = function () {
             return getTrack(this.stream, this.info.kind);
+        };
+        SenderTrack.prototype.stop = function () {
+            var _a;
+            (_a = this.stream) === null || _a === void 0 ? void 0 : _a.getTracks().forEach(function (track) { return track.stop(); });
+        };
+        SenderTrack.prototype.pause = function () {
+            var _a;
+            (_a = this.stream) === null || _a === void 0 ? void 0 : _a.getTracks().forEach(function (track) { return (track.enabled = false); });
         };
         SenderTrack.seed = 0;
         return SenderTrack;
@@ -7462,6 +7525,14 @@
             }
             return _this;
         }
+        Object.defineProperty(ReceiverTrack.prototype, "trackId", {
+            get: function () {
+                var _a;
+                return (_a = this.getTrack()) === null || _a === void 0 ? void 0 : _a.id;
+            },
+            enumerable: false,
+            configurable: true
+        });
         ReceiverTrack.prototype.getTrack = function () {
             return getTrack(this.stream, this.info.kind);
         };
@@ -7469,6 +7540,12 @@
             this.stream.addTrack(track);
             this.hasTrack = true;
             this.emit('track_added', track);
+        };
+        ReceiverTrack.prototype.stop = function () {
+            this.stream.getTracks().forEach(function (track) { return track.stop(); });
+        };
+        ReceiverTrack.prototype.pause = function () {
+            this.stream.getTracks().forEach(function (track) { return (track.enabled = false); });
         };
         ReceiverTrack.seed = 0;
         return ReceiverTrack;
@@ -7497,11 +7574,10 @@
             _this._sendStreams = new Map();
             _this._recvStreams = new Map();
             _this._msg_encoder = new TextEncoder();
-            var peerConfig = __assign({ iceServers: ((_a = _this._options) === null || _a === void 0 ? void 0 : _a.iceServers) || [] }, (((_b = _this._options) === null || _b === void 0 ? void 0 : _b.latencyMode) &&
-                _this._options.latencyMode in LatencyMode2MaxPackets && {
-                audioJitterBufferMaxPackets: LatencyMode2MaxPackets[_this._options.latencyMode],
-                rtcAudioJitterBufferMaxPackets: LatencyMode2MaxPackets[_this._options.latencyMode],
-            }));
+            var peerConfig = {
+                iceServers: ((_a = _this._options) === null || _a === void 0 ? void 0 : _a.iceServers) || [],
+            };
+            configPeerLatencyMode(peerConfig, (_b = _this._options) === null || _b === void 0 ? void 0 : _b.latencyMode);
             _this._lc = new RTCPeerConnection(peerConfig);
             _this._dc = _this._lc.createDataChannel('data', {
                 ordered: false,
@@ -7764,13 +7840,20 @@
             _this.hasTrackPromises = [];
             _this._state = exports.StreamReceiverState.NoSource;
             _this.logger = getLogger('atm0s:stream-receiver');
-            _this.kind = _this._track.info.kind;
-            _this.remoteId = _this._track.info.remoteId;
-            _this.logger.log('remoteId', _this.remoteId);
-            _this._rpc.on("local_stream_".concat(_this.remoteId, "_state"), function (_, info) {
-                _this._setState(info.state);
-                _this.logger.log('on state', info);
-                switch (info.state) {
+            _this._handleOnTrackAdded = function () {
+                _this.logger.log('track added', _this._track.stream);
+                _this.hasTrackPromises.forEach(function (resolve) { return resolve(true); });
+                _this.hasTrackPromises = [];
+            };
+            _this._handleAudioLevelChange = function (_, _a) {
+                var level = _a.level;
+                _this.emit('audio_level', level);
+            };
+            _this._handleStateChange = function (_, _a) {
+                var state = _a.state;
+                _this._setState(state);
+                _this.logger.log('on receiver state', state);
+                switch (state) {
                     case 'live':
                         if ([
                             exports.StreamReceiverState.Connecting,
@@ -7794,15 +7877,11 @@
                         }
                         break;
                 }
-            });
-            _this._rpc.on("local_stream_".concat(_this.remoteId, "_state"), function (_, info) {
-                _this.emit('audio_level', info.level);
-            });
-            _this._track.on('track_added', function () {
-                _this.logger.log('track added', _this._track.stream);
-                _this.hasTrackPromises.forEach(function (resolve) { return resolve(true); });
-                _this.hasTrackPromises = [];
-            });
+            };
+            _this.logger.log('remoteId', _this.remoteId);
+            _this._rpc.on("local_stream_".concat(_this.remoteId, "_state"), _this._handleStateChange);
+            _this._rpc.on("local_stream_".concat(_this.remoteId, "_audio_level"), _this._handleAudioLevelChange);
+            _this._track.on('track_added', _this._handleOnTrackAdded);
             return _this;
         }
         Object.defineProperty(StreamReceiver.prototype, "state", {
@@ -7815,6 +7894,20 @@
         Object.defineProperty(StreamReceiver.prototype, "stream", {
             get: function () {
                 return this._track.stream;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(StreamReceiver.prototype, "kind", {
+            get: function () {
+                return this._track.info.kind;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(StreamReceiver.prototype, "remoteId", {
+            get: function () {
+                return this._track.info.remoteId;
             },
             enumerable: false,
             configurable: true
@@ -7868,13 +7961,13 @@
                 });
             });
         };
-        StreamReceiver.prototype.limit = function (priority, max_spatial, max_temporal) {
+        StreamReceiver.prototype.limit = function (priority, maxSpatial, maxTemporal) {
             return __awaiter(this, void 0, void 0, function () {
                 var res;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            this.logger.log('limit stream', priority, max_spatial, max_temporal);
+                            this.logger.log('limit stream', priority, maxSpatial, maxTemporal);
                             return [4 /*yield*/, this.internalReady()];
                         case 1:
                             _a.sent();
@@ -7882,8 +7975,8 @@
                             return [4 /*yield*/, this._rpc.request('receiver.limit', {
                                     id: this.remoteId,
                                     priority: priority,
-                                    max_spatial: max_spatial,
-                                    max_temporal: max_temporal,
+                                    max_spatial: maxSpatial,
+                                    max_temporal: maxTemporal,
                                 })];
                         case 2:
                             res = _a.sent();
@@ -7907,6 +8000,7 @@
                             if (this._state === exports.StreamReceiverState.NoSource) {
                                 return [2 /*return*/, true];
                             }
+                            this._track.stop();
                             return [4 /*yield*/, this._rpc.request('receiver.disconnect', {
                                     id: this.remoteId,
                                 })];
@@ -7916,6 +8010,8 @@
                                 this._setState(exports.StreamReceiverState.NoSource);
                                 return [2 /*return*/, true];
                             }
+                            this._rpc.off("local_stream_".concat(this.remoteId, "_state"), this._handleStateChange);
+                            this._rpc.off("local_stream_".concat(this.remoteId, "_audio_level"), this._handleAudioLevelChange);
                             return [2 /*return*/, false];
                     }
                 });
@@ -7941,18 +8037,17 @@
             _this._track = _track;
             _this._state = exports.StreamSenderState.Created;
             _this.logger = getLogger('atm0s:stream-sender');
-            _this.kind = _this._track.info.kind;
-            _this.name = _this._track.info.name;
-            _this._rpc.on("remote_stream_".concat(_this.name, "_state"), function () {
-                if (_this._state === exports.StreamSenderState.Connecting) {
-                    _this._setState(exports.StreamSenderState.Connected);
-                }
-            });
-            _this._rpc.on("remote_stream_".concat(_this.name, "_audio_level"), function (_, info) {
-                _this.emit('audio_level', info.level);
-            });
+            _this._rpc.on("remote_stream_".concat(_this.name, "_state"), _this._handleStateChange);
+            _this._rpc.on("remote_stream_".concat(_this.name, "_audio_level"), _this._handleAudioLevelChange);
             return _this;
         }
+        Object.defineProperty(StreamSender.prototype, "name", {
+            get: function () {
+                return this._track.info.name;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(StreamSender.prototype, "state", {
             get: function () {
                 return this._state;
@@ -8002,17 +8097,33 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(StreamSender.prototype, "kind", {
+            get: function () {
+                return this._track.info.kind;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        StreamSender.prototype._handleStateChange = function () {
+            if (this._state === exports.StreamSenderState.Connecting) {
+                this._setState(exports.StreamSenderState.Connected);
+            }
+        };
+        StreamSender.prototype._handleAudioLevelChange = function (_, _a) {
+            var level = _a.level;
+            this.emit('audio_level', level);
+        };
         StreamSender.prototype._setState = function (state) {
             this._state = state;
             this.emit('state', state);
         };
         StreamSender.prototype.switch = function (stream) {
-            this.logger.log('switch stream', stream);
+            this.logger.debug('switch stream', stream);
             this._track.replaceStream(stream);
             this._rpc.request('sender.toggle', {
                 name: this.name,
                 kind: this.kind,
-                track: this._track.uuid,
+                track: this._track.trackId,
             });
             if (stream) {
                 this._setState(exports.StreamSenderState.Connected);
@@ -8027,6 +8138,14 @@
                     if (this._state === exports.StreamSenderState.Closed) {
                         return [2 /*return*/];
                     }
+                    this._rpc.request('sender.toggle', {
+                        name: this.name,
+                        kind: this.kind,
+                        track: null,
+                    });
+                    this._track.stop();
+                    this._rpc.off("remote_stream_".concat(this.name, "_state"), this._handleStateChange);
+                    this._rpc.off("remote_stream_".concat(this.name, "_audio_level"), this._handleAudioLevelChange);
                     this._setState(exports.StreamSenderState.Closed);
                     return [2 /*return*/];
                 });
@@ -8037,7 +8156,6 @@
 
     function r(r,e,n){var i,t,o;void 0===e&&(e=50),void 0===n&&(n={});var a=null!=(i=n.isImmediate)&&i,u=null!=(t=n.callback)&&t,c=n.maxWait,v=Date.now(),l=[];function f(){if(void 0!==c){var r=Date.now()-v;if(r+e>=c)return c-r}return e}var d=function(){var e=[].slice.call(arguments),n=this;return new Promise(function(i,t){var c=a&&void 0===o;if(void 0!==o&&clearTimeout(o),o=setTimeout(function(){if(o=void 0,v=Date.now(),!a){var i=r.apply(n,e);u&&u(i),l.forEach(function(r){return (0, r.resolve)(i)}),l=[];}},f()),c){var d=r.apply(n,e);return u&&u(d),i(d)}l.push({resolve:i,reject:t});})};return d.cancel=function(r){void 0!==o&&clearTimeout(o),l.forEach(function(e){return (0, e.reject)(r)}),l=[];},d}
 
-    /* eslint-disable @typescript-eslint/no-explicit-any */
     var RpcRequest = /** @class */ (function () {
         function RpcRequest(reqId, method, params, resolve, reject) {
             this.reqId = reqId;
@@ -8067,14 +8185,14 @@
             this._handlers = new Map();
             this._reqs = new Map();
             this.connected = false;
-            this._prereceiveMessage = function (data) {
+            this._preprocess = function (data) {
                 if (data instanceof Blob) {
                     var reader_1 = new FileReader();
                     reader_1.onload = function () {
                         var compressed = new Uint8Array(reader_1.result);
                         var decompressed = pako.inflate(compressed);
                         var msg = _this._msgDecoder.decode(decompressed);
-                        _this._onReceiveMessage(msg);
+                        _this._process(msg);
                     };
                     reader_1.readAsArrayBuffer(data);
                 }
@@ -8082,51 +8200,63 @@
                     var decompressed = pako.inflate(data);
                     var msg = _this._msgDecoder.decode(decompressed);
                     _this.logger.log('decompress', data.byteLength, msg, msg.length);
-                    _this._onReceiveMessage(msg);
+                    _this._process(msg);
                 }
                 else {
-                    _this._onReceiveMessage(data);
+                    _this._process(data);
                 }
             };
-            this._onReceiveMessage = function (msg) {
+            this._handleEvent = function (event, data) {
+                var handlers = _this._handlers.get(event);
+                if (handlers) {
+                    handlers.map(function (h) { return h(event, data); });
+                }
+            };
+            this._handleAnswer = function (reqId, success, data) {
+                var req = _this._reqs.get(reqId);
+                if (req) {
+                    if (success === true) {
+                        req.resolve({
+                            status: true,
+                            data: data,
+                        });
+                    }
+                    else {
+                        req.resolve({
+                            status: false,
+                            error: data,
+                        });
+                    }
+                    _this._reqs.delete(reqId);
+                }
+                else {
+                    _this.logger.log('RPC :: unknown req_id:', reqId);
+                }
+            };
+            this._process = function (msg) {
                 _this.logger.log('datachannel on message:', msg);
                 var json = JSON.parse(msg);
                 var type = json.type;
-                if (type === 'event') {
-                    var handler = _this._handlers.get(json.event);
-                    if (handler) {
-                        handler(json.event, json.data);
-                    }
-                }
-                else if (type === 'request') {
-                    _this._socket.send(JSON.stringify({
-                        type: 'answer',
-                        status: false,
-                        error: 'NOT_SUPPORT',
-                    }));
-                }
-                else if (type === 'answer') {
-                    var req = _this._reqs.get(json.req_id);
-                    if (req) {
-                        if (json.success === true) {
-                            req.resolve({
-                                status: true,
-                                data: json.data,
-                            });
-                        }
-                        else {
-                            req.resolve({
-                                status: false,
-                                error: json.error,
-                            });
-                        }
-                    }
-                    else {
-                        _this.logger.log('RPC :: unknown req_id:', json.req_id);
-                    }
+                switch (type) {
+                    case 'event':
+                        _this._handleEvent(json.event, json.data);
+                        break;
+                    case 'answer':
+                        _this._handleAnswer(json.req_id, json.success, json.data);
+                        break;
+                    case 'request':
+                        _this._socket.send(JSON.stringify({
+                            type: 'answer',
+                            status: false,
+                            error: 'NOT_SUPPORT',
+                        }));
+                        break;
+                    default:
+                        _this.logger.log('RPC :: unknown message type:', type);
+                        break;
                 }
             };
-            this._socket.on('message', this._prereceiveMessage);
+            this._socket.on('message', this._preprocess);
             this._socket.on('dc_state', function (state) {
                 if (state === exports.RealtimeSocketState.Connected) {
                     _this.connected = true;
@@ -8142,18 +8272,13 @@
                 _this._socket.send(JSON.stringify(req.toJson()));
             });
         };
-        // event(cmd: string, data: any): void {
-        //   const event = {
-        //     req_id: this.reqId,
-        //     type: 'request',
-        //     request: this.method,
-        //     data: this.params,
-        //   };
-        // }
         RPC.prototype.on = function (cmd, handler) {
-            this._handlers.set(cmd, handler);
+            this._handlers.set(cmd, __spreadArray(__spreadArray([], __read((this._handlers.get(cmd) || [])), false), [handler], false));
         };
-        RPC.prototype.off = function (cmd) {
+        RPC.prototype.off = function (cmd, handler) {
+            this._handlers.set(cmd, (this._handlers.get(cmd) || []).filter(function (h) { return h !== handler; }));
+        };
+        RPC.prototype.offAllListeners = function (cmd) {
             this._handlers.delete(cmd);
         };
         return RPC;
@@ -8185,11 +8310,11 @@
         StreamRemote.prototype.updateState = function (_state) {
             if (JSON.stringify(this._state) !== JSON.stringify(_state)) {
                 this._state = _state;
-                this.emit(exports.StreamRemoteEvent.STATE, _state);
+                this.emit('state', _state);
             }
         };
         StreamRemote.prototype.close = function () {
-            this.emit(exports.StreamRemoteEvent.CLOSED);
+            this.emit('closed');
         };
         return StreamRemote;
     }(TypedEventEmitter));
@@ -8236,6 +8361,10 @@
             enumerable: false,
             configurable: true
         });
+        StreamPublisher.prototype.switch = function (stream) {
+            var _a;
+            (_a = this.sender) === null || _a === void 0 ? void 0 : _a.switch(stream);
+        };
         StreamPublisher.prototype.stop = function () {
             var _a;
             if (this.sender) {
@@ -8249,13 +8378,16 @@
         return StreamPublisher;
     }(TypedEventEmitter));
 
+    /**
+     * Represents a stream consumer that sets up views for specific viewers and configures layer settings.
+     */
     var StreamConsumer = /** @class */ (function (_super) {
         __extends(StreamConsumer, _super);
         function StreamConsumer(_session, _remote) {
             var _this = _super.call(this) || this;
             _this._session = _session;
             _this._remote = _remote;
-            _this.views = new Map();
+            _this.keys = new Map();
             _this.onReceiverAudioLevelChanged = function (level) {
                 _this.emit('audio_level', level);
             };
@@ -8280,30 +8412,72 @@
             enumerable: false,
             configurable: true
         });
-        StreamConsumer.prototype.view = function (viewerId, priority, maxSpatial, maxTemporal) {
+        /**
+         * Sets up a view for a specific viewer key.
+         * @param key - The key of the viewer.
+         * @param priority - The priority of the view (default: 50).
+         * @param maxSpatial - The maximum spatial layer for the view (default: 2).
+         * @param maxTemporal - The maximum temporal layer for the view (default: 2).
+         * @returns A promise that resolves to a MediaStream object representing the view.
+         */
+        StreamConsumer.prototype.view = function (key, priority, maxSpatial, maxTemporal) {
             if (priority === void 0) { priority = 50; }
             if (maxSpatial === void 0) { maxSpatial = 2; }
             if (maxTemporal === void 0) { maxTemporal = 2; }
-            this.views.set(viewerId, { priority: priority, maxSpatial: maxSpatial, maxTemporal: maxTemporal });
-            if (!this.receiver) {
-                this.receiver = this._session.takeReceiver(this._remote.kind);
-                this.receiver.on('state', this.onReceiverStateChanged);
-                this.receiver.on('audio_level', this.onReceiverAudioLevelChanged);
-                this.receiver.switch(this._remote, priority);
-            }
-            this.configLayer();
-            return this.receiver.stream;
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.keys.set(key, { priority: priority, maxSpatial: maxSpatial, maxTemporal: maxTemporal });
+                            if (!!this.receiver) return [3 /*break*/, 2];
+                            this.receiver = this._session.takeReceiver(this._remote.kind);
+                            this.receiver.on('state', this.onReceiverStateChanged);
+                            this.receiver.on('audio_level', this.onReceiverAudioLevelChanged);
+                            return [4 /*yield*/, this.receiver.switch(this._remote, priority)];
+                        case 1:
+                            _a.sent();
+                            _a.label = 2;
+                        case 2: return [4 /*yield*/, this.configLayer()];
+                        case 3:
+                            _a.sent();
+                            return [2 /*return*/, this.receiver.stream];
+                    }
+                });
+            });
         };
-        StreamConsumer.prototype.limit = function (viewId, priority, maxSpatial, maxTemporal) {
+        /**
+         * Sets the limit for a specific view by key.
+         * @param key - The key of the view to set the limit for.
+         * @param priority - The priority of the view (default: 50).
+         * @param maxSpatial - The maximum spatial limit (default: 2).
+         * @param maxTemporal - The maximum temporal limit (default: 2).
+         */
+        StreamConsumer.prototype.limit = function (key, priority, maxSpatial, maxTemporal) {
             if (priority === void 0) { priority = 50; }
             if (maxSpatial === void 0) { maxSpatial = 2; }
             if (maxTemporal === void 0) { maxTemporal = 2; }
-            this.views.set(viewId, { priority: priority, maxSpatial: maxSpatial, maxTemporal: maxTemporal });
-            this.configLayer();
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.keys.set(key, { priority: priority, maxSpatial: maxSpatial, maxTemporal: maxTemporal });
+                            return [4 /*yield*/, this.configLayer()];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
         };
-        StreamConsumer.prototype.unview = function (viewerId) {
-            this.views.delete(viewerId);
-            if (this.views.size == 0) {
+        /**
+         * Removes a key from the set of viewed keys.
+         * If the set becomes empty, stops the receiver and emits the 'state' event with StreamReceiverState.NoSource.
+         * Otherwise, reconfigures the layer.
+         * @param key - The key to be removed from the set of viewed keys.
+         */
+        StreamConsumer.prototype.unview = function (key) {
+            this.keys.delete(key);
+            if (this.keys.size === 0) {
                 if (this.receiver) {
                     this.receiver.off('state', this.onReceiverStateChanged);
                     this.receiver.off('audio_level', this.onReceiverAudioLevelChanged);
@@ -8317,19 +8491,35 @@
                 this.configLayer();
             }
         };
+        /**
+         * Configures the layer based on the selected viewers' priorities and maximum spatial/temporal values.
+         * This method is only applicable for video streams.
+         * @returns {Promise<void>} A promise that resolves when the layer configuration is complete.
+         */
         StreamConsumer.prototype.configLayer = function () {
             var _a;
-            if (this._remote.kind !== exports.StreamKinds.VIDEO)
-                return;
-            var selectedPriority = 0;
-            var selectedMaxSpartial = 0;
-            var selectedMaxTemporal = 0;
-            Array.from(this.views.values()).map(function (viewer) {
-                selectedPriority = Math.max(selectedPriority, viewer.priority);
-                selectedMaxSpartial = Math.max(selectedMaxSpartial, viewer.maxSpatial);
-                selectedMaxTemporal = Math.max(selectedMaxTemporal, viewer.maxTemporal);
+            return __awaiter(this, void 0, void 0, function () {
+                var selectedPriority, selectedMaxSpartial, selectedMaxTemporal;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (this._remote.kind !== exports.StreamKinds.VIDEO)
+                                return [2 /*return*/];
+                            selectedPriority = 0;
+                            selectedMaxSpartial = 0;
+                            selectedMaxTemporal = 0;
+                            Array.from(this.keys.values()).map(function (viewer) {
+                                selectedPriority = Math.max(selectedPriority, viewer.priority);
+                                selectedMaxSpartial = Math.max(selectedMaxSpartial, viewer.maxSpatial);
+                                selectedMaxTemporal = Math.max(selectedMaxTemporal, viewer.maxTemporal);
+                            });
+                            return [4 /*yield*/, ((_a = this.receiver) === null || _a === void 0 ? void 0 : _a.limit(selectedPriority, selectedMaxSpartial, selectedMaxTemporal))];
+                        case 1:
+                            _b.sent();
+                            return [2 /*return*/];
+                    }
+                });
             });
-            (_a = this.receiver) === null || _a === void 0 ? void 0 : _a.limit(selectedPriority, selectedMaxSpartial, selectedMaxTemporal);
         };
         return StreamConsumer;
     }(TypedEventEmitter));
@@ -8378,11 +8568,8 @@
                         break;
                 }
             };
-            // this._socket.on('message', (data) => {
-            //   console.log('message', data);
-            // });
             _this._socket.on('peer_state', function (data) {
-                console.log('state', data);
+                _this.emit('peer_state', data);
             });
             _this._socket.on('dc_state', function (data) {
                 console.log('dc_state', data);
@@ -8395,8 +8582,9 @@
         }
         Session.prototype.connect = function () {
             var _this = this;
+            var _a;
             this.logger.info('start to connect ...');
-            this._cfg.senders.map(function (s) {
+            (_a = this._cfg.senders) === null || _a === void 0 ? void 0 : _a.map(function (s) {
                 if (s.stream) {
                     var senderTrack = _this._socket.createSenderTrack(s);
                     _this.logger.info('created sender track:', senderTrack);
@@ -8510,8 +8698,6 @@
         return new Session(cfg, socket, gateway);
     }
 
-    exports.LatencyMode2DelayHint = LatencyMode2DelayHint;
-    exports.LatencyMode2MaxPackets = LatencyMode2MaxPackets;
     exports.MediaGatewayConnector = MediaGatewayConnector;
     exports.RPC = RPC;
     exports.RealtimeSocket = RealtimeSocket;

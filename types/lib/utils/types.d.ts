@@ -32,39 +32,9 @@ export declare enum MixMinusMode {
     AllAudioStreams = "AllAudioStreams",
     ManualAudioStreams = "ManualAudioStreams"
 }
-/**
- * Mapping of latency modes to maximum packets.
- * This is to configure Audio Jitter Buffer Max Packets for React Native WebRTC.
- *
- */
-export declare const LatencyMode2MaxPackets: {
-    "ultra-low": number[];
-    "smooth-200": number[];
-    "smooth-500": number[];
-    "smooth-800": number[];
-    "smooth-1000": number[];
-    "smooth-2000": number[];
-    default: undefined[];
-};
-/**
- * Mapping of latency modes to playout delay hints. Also for React Native WebRTC, maybe?
- */
-export declare const LatencyMode2DelayHint: {
-    "ultra-low": number;
-    "smooth-200": number;
-    "smooth-500": number;
-    "smooth-800": number;
-    "smooth-1000": number;
-    "smooth-2000": number;
-    default: undefined;
-};
-export declare enum StreamRemoteEvent {
-    STATE = "state",
-    CLOSED = "closed"
-}
 export declare enum StreamRemoteScalingType {
     SINGLE = "single",
-    SIMULCAT = "simulcast",
+    SIMULCAST = "simulcast",
     SVC = "svc"
 }
 export declare enum StreamRemoteStatus {

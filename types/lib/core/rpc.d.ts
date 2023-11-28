@@ -1,4 +1,5 @@
-import type { IRPC } from '../interfaces/rpc';
+import type { AnyFunction } from '../utils/types';
+import type { IRPC, RpcRequests, RpcResponse } from '../interfaces/rpc';
 import { type IRealtimeSocket } from '../interfaces/rtsocket';
 export declare class RpcRequest {
     reqId: number;
@@ -24,10 +25,13 @@ export declare class RPC implements IRPC {
     private _reqs;
     connected: boolean;
     constructor(_socket: IRealtimeSocket);
-    private _prereceiveMessage;
-    private _onReceiveMessage;
-    request<DataType, ResponseType>(cmd: string, data: DataType): Promise<ResponseType>;
-    on(cmd: string, handler: (data: any) => void): void;
-    off(cmd: string): void;
+    private _preprocess;
+    private _handleEvent;
+    private _handleAnswer;
+    private _process;
+    request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>>;
+    on(cmd: string, handler: (event: string, data: any) => void): void;
+    off(cmd: string, handler: AnyFunction): void;
+    offAllListeners(cmd: string): void;
 }
 //# sourceMappingURL=rpc.d.ts.map

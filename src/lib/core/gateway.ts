@@ -17,7 +17,7 @@ export class MediaGatewayConnector implements IMediaGatewayConnector {
 
   public async selectFromUrls(urls: string | string[]): Promise<string> {
     if (typeof urls === 'string') {
-      return (this._url = urls);
+      urls = [urls];
     }
 
     const waiting_urls: { [url: string]: boolean } = {};
@@ -45,7 +45,7 @@ export class MediaGatewayConnector implements IMediaGatewayConnector {
     url: string,
     config: IConnectConfig,
   ): Promise<IConnectResponse> {
-    this.logger.log('connect :: connect to media server:', this._url);
+    this.logger.log('connect :: connect to media server:', url);
     return httpPost<IConnectResponse>(url + '/webrtc/connect', config);
   }
 

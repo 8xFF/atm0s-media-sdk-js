@@ -1,10 +1,5 @@
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
-import {
-  Codecs,
-  LatencyMode2MaxPackets,
-  StreamKinds,
-  LatencyMode,
-} from '../utils/types';
+import { Codecs, StreamKinds, LatencyMode } from '../utils/types';
 import { delay, getTrack } from '../utils/shared';
 import pako from 'pako';
 import { ReceiverTrack, SenderTrack } from './tracks';
@@ -18,6 +13,8 @@ import {
 } from '../interfaces/rtsocket';
 import type { ISessionConfig } from '../interfaces/session';
 import type { SenderConfig } from '../interfaces/sender';
+import { configPeerLatencyMode } from '../utils/latency-mode';
+import type { IReceiverTrack, ISenderTrack } from '../interfaces';
 
 export class RealtimeSocket
   extends TypedEventEmitter<IRealtimeSocketCallbacks>
@@ -28,8 +25,8 @@ export class RealtimeSocket
   private _dcState: RealtimeSocketState = RealtimeSocketState.Created;
   private _lc: RTCPeerConnection;
   private _dc: RTCDataChannel;
-  private _sendStreams = new Map<string, SenderTrack>();
-  private _recvStreams = new Map<string, ReceiverTrack>();
+  private _sendStreams = new Map<string, ISenderTrack>();
+  private _recvStreams = new Map<string, IReceiverTrack>();
 
   private _msg_encoder = new TextEncoder();
 
@@ -40,14 +37,8 @@ export class RealtimeSocket
     super();
     const peerConfig: RTCConfiguration = {
       iceServers: this._options?.iceServers || [],
-      ...(this._options?.latencyMode &&
-        this._options.latencyMode in LatencyMode2MaxPackets && {
-          audioJitterBufferMaxPackets:
-            LatencyMode2MaxPackets[this._options.latencyMode],
-          rtcAudioJitterBufferMaxPackets:
-            LatencyMode2MaxPackets[this._options.latencyMode],
-        }),
     };
+    configPeerLatencyMode(peerConfig, this._options?.latencyMode);
     this._lc = new RTCPeerConnection(peerConfig);
     this._dc = this._lc.createDataChannel('data', {
       ordered: false,

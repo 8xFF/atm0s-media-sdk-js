@@ -6,16 +6,18 @@
  * @type {import('ts-jest').JestConfigWithTsJest}
  */
 const options = {
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.tsx?$': [
+    '^.+\\.ts?$': [
       'ts-jest',
       {
         isolatedModules: true,
-        useESM: true
+        useESM: true,
       },
     ],
   },
-  resolver: 'ts-jest-resolver'
+  resolver: 'ts-jest-resolver',
+  setupFiles: ['./jest.setup.ts'],
 };
 
 module.exports = options;

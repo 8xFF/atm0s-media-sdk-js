@@ -1,6 +1,8 @@
 import type { ReceiverInfo } from '../interfaces/receiver';
 import type {
+  IReceiverTrack,
   IReceiverTrackCallbacks,
+  ISenderTrack,
   SenderTrackInfo,
 } from '../interfaces/tracks';
 import {
@@ -10,12 +12,17 @@ import {
 } from '../utils/transceiver';
 import { getTrack } from '../utils/shared';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
-import { LatencyMode, StreamKinds } from '../utils/types';
+import { ContentHint, LatencyMode, StreamKinds } from '../utils/types';
 
-export class SenderTrack {
+export class SenderTrack implements ISenderTrack {
   private static seed = 0;
   public uuid: string;
   public stream: MediaStream | null = null;
+
+  get trackId() {
+    return this.getTrack()?.id;
+  }
+
   constructor(
     public info: SenderTrackInfo,
     public transceiver?: RTCRtpTransceiver,
@@ -23,6 +30,13 @@ export class SenderTrack {
     this.uuid = `sender-${info.kind}-${SenderTrack.seed++}`;
     if (info.stream) {
       this.stream = info.stream;
+    }
+    if (
+      info.contentHint &&
+      this.getTrack() &&
+      info.contentHint !== ContentHint.None
+    ) {
+      this.getTrack()!.contentHint = info.contentHint;
     }
     if (transceiver?.sender && info.kind === StreamKinds.VIDEO) {
       if (info.simulcast) {
@@ -51,18 +65,36 @@ export class SenderTrack {
         getTrack(stream, this.info.kind) || null,
       );
     }
+
+    if (this.info.contentHint && this.getTrack()) {
+      this.getTrack()!.contentHint = this.info.contentHint;
+    }
   }
 
   getTrack() {
     return getTrack(this.stream, this.info.kind);
   }
+
+  stop() {
+    this.stream?.getTracks().forEach((track) => track.stop());
+  }
+
+  pause() {
+    this.stream?.getTracks().forEach((track) => (track.enabled = false));
+  }
 }
 
-export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> {
+export class ReceiverTrack
+  extends TypedEventEmitter<IReceiverTrackCallbacks>
+  implements IReceiverTrack
+{
   private static seed = 0;
   public uuid: string;
   public hasTrack: boolean = false;
   public stream: MediaStream;
+  get trackId() {
+    return this.getTrack()?.id;
+  }
   constructor(
     public info: ReceiverInfo,
     public transceiver?: RTCRtpTransceiver,
@@ -89,5 +121,13 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> {
     this.stream.addTrack(track);
     this.hasTrack = true;
     this.emit('track_added', track);
+  }
+
+  stop() {
+    this.stream.getTracks().forEach((track) => track.stop());
+  }
+
+  pause() {
+    this.stream.getTracks().forEach((track) => (track.enabled = false));
   }
 }
