@@ -5,7 +5,7 @@ async function onMyStreamAdded(stream) {
       await element.consumer.unview('main');
     }
     let consumer = window.bluesea_session.createConsumer(stream);
-    element.srcObject = await consumer.view('main');
+    element.srcObject = consumer.view('main');
     element.consumer = consumer;
   }
   // if (stream.kind == 'audio') {

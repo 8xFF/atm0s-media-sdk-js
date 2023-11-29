@@ -33,22 +33,19 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
    * @param priority - The priority of the view (default: 50).
    * @param maxSpatial - The maximum spatial layer for the view (default: 2).
    * @param maxTemporal - The maximum temporal layer for the view (default: 2).
-   * @returns A promise that resolves to a MediaStream object representing the view.
+   * @returns The MediaStream of the view.
    */
-  public async view(
-    key: string,
-    priority: number = 50,
-    maxSpatial: number = 2,
-    maxTemporal: number = 2,
-  ): Promise<MediaStream> {
+  public view(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2): MediaStream {
     this.keys.set(key, { priority, maxSpatial, maxTemporal });
     if (!this.receiver) {
       this.receiver = this._session.takeReceiver(this._remote.kind);
       this.receiver.on('state', this.onReceiverStateChanged);
       this.receiver.on('audio_level', this.onReceiverAudioLevelChanged);
-      await this.receiver.switch(this._remote, priority);
+      this.receiver.on('track_added', this.onAddTrack);
+
+      this.receiver.switch(this._remote, priority);
     }
-    await this.configLayer();
+    this.configLayer();
     return this.receiver.stream;
   }
 
@@ -59,9 +56,9 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
    * @param maxSpatial - The maximum spatial limit (default: 2).
    * @param maxTemporal - The maximum temporal limit (default: 2).
    */
-  public async limit(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2) {
+  public limit(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2) {
     this.keys.set(key, { priority, maxSpatial, maxTemporal });
-    await this.configLayer();
+    this.configLayer();
   }
 
   /**
@@ -77,7 +74,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
         this.receiver.off('state', this.onReceiverStateChanged);
         this.receiver.off('audio_level', this.onReceiverAudioLevelChanged);
         this.emit('state', StreamReceiverState.NoSource);
-        this.receiver.stop();
+        this.receiver.disconnect();
         this._session.backReceiver(this.receiver);
         this.receiver = undefined;
       }
@@ -89,9 +86,8 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
   /**
    * Configures the layer based on the selected viewers' priorities and maximum spatial/temporal values.
    * This method is only applicable for video streams.
-   * @returns {Promise<void>} A promise that resolves when the layer configuration is complete.
    */
-  private async configLayer() {
+  private configLayer() {
     if (this._remote.kind !== StreamKinds.VIDEO) return;
     let selectedPriority = 0;
     let selectedMaxSpartial = 0;
@@ -101,7 +97,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
       selectedMaxSpartial = Math.max(selectedMaxSpartial, viewer.maxSpatial);
       selectedMaxTemporal = Math.max(selectedMaxTemporal, viewer.maxTemporal);
     });
-    await this.receiver?.limit(selectedPriority, selectedMaxSpartial, selectedMaxTemporal);
+    this.receiver?.limit(selectedPriority, selectedMaxSpartial, selectedMaxTemporal);
   }
 
   private onReceiverAudioLevelChanged = (level: number) => {
@@ -110,5 +106,9 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
 
   private onReceiverStateChanged = (state: StreamReceiverState) => {
     this.emit('state', state);
+  };
+
+  private onAddTrack = (track: MediaStreamTrack) => {
+    this.emit('track_added', track);
   };
 }

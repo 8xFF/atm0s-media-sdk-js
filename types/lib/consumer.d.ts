@@ -20,9 +20,9 @@ export declare class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks
      * @param priority - The priority of the view (default: 50).
      * @param maxSpatial - The maximum spatial layer for the view (default: 2).
      * @param maxTemporal - The maximum temporal layer for the view (default: 2).
-     * @returns A promise that resolves to a MediaStream object representing the view.
+     * @returns The MediaStream of the view.
      */
-    view(key: string, priority?: number, maxSpatial?: number, maxTemporal?: number): Promise<MediaStream>;
+    view(key: string, priority?: number, maxSpatial?: number, maxTemporal?: number): MediaStream;
     /**
      * Sets the limit for a specific view by key.
      * @param key - The key of the view to set the limit for.
@@ -30,7 +30,7 @@ export declare class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks
      * @param maxSpatial - The maximum spatial limit (default: 2).
      * @param maxTemporal - The maximum temporal limit (default: 2).
      */
-    limit(key: string, priority?: number, maxSpatial?: number, maxTemporal?: number): Promise<void>;
+    limit(key: string, priority?: number, maxSpatial?: number, maxTemporal?: number): void;
     /**
      * Removes a key from the set of viewed keys.
      * If the set becomes empty, stops the receiver and emits the 'state' event with StreamReceiverState.NoSource.
@@ -41,10 +41,10 @@ export declare class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks
     /**
      * Configures the layer based on the selected viewers' priorities and maximum spatial/temporal values.
      * This method is only applicable for video streams.
-     * @returns {Promise<void>} A promise that resolves when the layer configuration is complete.
      */
     private configLayer;
     private onReceiverAudioLevelChanged;
     private onReceiverStateChanged;
+    private onAddTrack;
 }
 //# sourceMappingURL=consumer.d.ts.map

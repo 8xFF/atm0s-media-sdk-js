@@ -34,6 +34,7 @@ export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCal
                 label: string;
                 kind: StreamKinds;
                 screen: boolean | undefined;
+                name: string;
             }[];
             receivers: {
                 audio: number;

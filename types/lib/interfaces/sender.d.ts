@@ -8,6 +8,8 @@ export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks>
     stream: MediaStream | undefined | null;
     uuid: string;
     label: string;
+    name: string;
+    kind: StreamKinds;
     simulcast?: boolean;
     maxBitrate?: number;
     isScreen?: boolean;
@@ -32,6 +34,7 @@ export declare enum StreamSenderState {
 export interface IStreamSenderCallbacks {
     state: (state: StreamSenderState) => void;
     audio_level: (level: number) => void;
+    stopped: (sender: IStreamSender) => void;
 }
 /**
  * Configuration options for a sender.

@@ -22,6 +22,6 @@ export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCal
     private internalReady;
     switch(remote: StreamRemote, priority?: number): Promise<boolean>;
     limit(priority: number, maxSpatial: number, maxTemporal: number): Promise<boolean>;
-    stop(): Promise<boolean>;
+    disconnect(): Promise<boolean>;
 }
 //# sourceMappingURL=receiver.d.ts.map

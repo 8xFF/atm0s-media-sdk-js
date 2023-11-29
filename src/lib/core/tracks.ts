@@ -1,11 +1,17 @@
 import type { ReceiverInfo } from '../interfaces/receiver';
-import type { IReceiverTrack, IReceiverTrackCallbacks, ISenderTrack, SenderTrackInfo } from '../interfaces/tracks';
+import type {
+  IReceiverTrack,
+  IReceiverTrackCallbacks,
+  ISenderTrack,
+  ISenderTrackCallbacks,
+  SenderTrackInfo,
+} from '../interfaces/tracks';
 import { addTransceiverPreferredCodecs, addTransceiverSimulcast, configLatencyMode } from '../utils/transceiver';
 import { getTrack } from '../utils/shared';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
 import { ContentHint, LatencyMode, StreamKinds } from '../utils/types';
 
-export class SenderTrack implements ISenderTrack {
+export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implements ISenderTrack {
   private static seed = 0;
   public uuid: string;
   public stream: MediaStream | null = null;
@@ -16,8 +22,10 @@ export class SenderTrack implements ISenderTrack {
 
   constructor(
     public info: SenderTrackInfo,
+    private catalog: Map<string, ISenderTrack>,
     public transceiver?: RTCRtpTransceiver,
   ) {
+    super();
     this.uuid = `sender-${info.kind}-${SenderTrack.seed++}`;
     if (info.stream) {
       this.stream = info.stream;
@@ -36,6 +44,7 @@ export class SenderTrack implements ISenderTrack {
         addTransceiverPreferredCodecs(transceiver, info.kind, info.preferredCodecs);
       }
     }
+    this.catalog.set(this.uuid, this);
   }
 
   replaceStream(stream: MediaStream | null) {
@@ -58,6 +67,8 @@ export class SenderTrack implements ISenderTrack {
 
   stop() {
     this.stream?.getTracks().forEach((track) => track.stop());
+    this.emit('stopped', this.uuid);
+    this.catalog.delete(this.uuid);
   }
 
   pause() {
@@ -75,6 +86,7 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
   }
   constructor(
     public info: ReceiverInfo,
+    private catalog: Map<string, IReceiverTrack>,
     public transceiver?: RTCRtpTransceiver,
   ) {
     super();
@@ -89,6 +101,7 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
         configLatencyMode(transceiver, info.latencyMode);
       }
     }
+    this.catalog.set(this.uuid, this);
   }
 
   getTrack() {
@@ -103,6 +116,7 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
 
   stop() {
     this.stream.getTracks().forEach((track) => track.stop());
+    this.catalog.delete(this.uuid);
   }
 
   pause() {

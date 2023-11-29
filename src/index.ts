@@ -7,6 +7,7 @@ import { StreamReceiver } from './lib/receiver';
 import { StreamConsumer } from './lib/consumer';
 import { StreamPublisher } from './lib/publisher';
 import { StreamRemote } from './lib/remote';
+import { StreamConsumerPair } from './lib/consumer-pair';
 
 import type { ISessionConfig } from './lib/interfaces/session';
 
@@ -25,6 +26,7 @@ export {
   StreamReceiver,
   StreamPublisher,
   StreamConsumer,
+  StreamConsumerPair,
   StreamRemote,
 };
 

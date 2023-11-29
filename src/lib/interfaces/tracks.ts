@@ -4,6 +4,11 @@ import type { SenderConfig } from './sender';
 
 export interface IReceiverTrackCallbacks {
   track_added: (track: MediaStreamTrack) => void;
+  stopped: (uuid: string) => void;
+}
+
+export interface ISenderTrackCallbacks {
+  stopped: (uuid: string) => void;
 }
 
 export interface SenderTrackInfo extends SenderConfig {

@@ -44,4 +44,10 @@ export declare enum StreamRemoteStatus {
     Reconnecting = "reconnecting",
     Disconnected = "disconnected"
 }
+export type RemoteStreamQuality = {
+    peer: number;
+    name: string;
+    kind: StreamKinds;
+    mos: number;
+};
 //# sourceMappingURL=types.d.ts.map

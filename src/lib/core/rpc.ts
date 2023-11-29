@@ -59,7 +59,6 @@ export class RPC implements IRPC {
     } else if (data instanceof ArrayBuffer) {
       const decompressed = pako.inflate(data);
       const msg = this._msgDecoder.decode(decompressed);
-      this.logger.log('decompress', data.byteLength, msg, msg.length);
       this._process(msg);
     } else {
       this._process(data);
