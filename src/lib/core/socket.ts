@@ -115,7 +115,6 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.log('connect :: created offer:', offer.sdp);
 
     const res = await connector.connect(serverUrl, {
-      // TODO: consider remove session config dependency
       room: config.roomId,
       peer: config.peerId,
       token: config.token,
@@ -186,9 +185,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
         codecs: opts?.codecs,
         latencyMode: opts?.latencyMode,
       },
+      this._recvStreams,
       transceiver,
     );
-    this._recvStreams.set(track.uuid, track);
     return track;
   }
 
@@ -201,8 +200,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       direction: 'sendonly',
       streams: [cfg.stream!],
     });
-    const senderTrack = new SenderTrack({ ...cfg, label }, transceiver);
-    this._sendStreams.set(senderTrack.uuid, senderTrack);
+    const senderTrack = new SenderTrack({ ...cfg, label }, this._sendStreams, transceiver);
     return senderTrack;
   }
 
@@ -218,6 +216,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
         label: s.info.label,
         kind: s.info.kind,
         screen: s.info.screen,
+        name: s.info.name,
       })),
       receivers: {
         audio: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.AUDIO).length,
@@ -228,17 +227,19 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   }
 
   public updateSdp(localOffer: RTCSessionDescriptionInit, remoteAnswerSdp: string) {
-    this.logger.log('updateSdp :: local offer:', localOffer);
+    this.logger.log('updateSdp :: local offer:', localOffer.sdp);
     this.logger.log('updateSdp :: remote answer sdp:', remoteAnswerSdp);
     this._lc.setLocalDescription(localOffer);
     this._lc.setRemoteDescription(new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }));
   }
 
   public send(data: string) {
+    this.logger.debug('send :: data:', data);
     if (data.length < 1000) {
       this._dc?.send(data);
     } else {
       const compressed = pako.deflate(this._msg_encoder.encode(data));
+      this.logger.debug('compress for sending', data.length, compressed.length);
       this._dc?.send(compressed);
     }
   }

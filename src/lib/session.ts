@@ -27,6 +27,8 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private logger = getLogger('atm0s:session');
   private _rpc: IRPC;
 
+  public disconnected = false;
+
   constructor(
     private _cfg: ISessionConfig,
     private _socket: IRealtimeSocket,
@@ -43,15 +45,13 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     this._rpc.on('stream_added', this.onStreamEvent);
     this._rpc.on('stream_updated', this.onStreamEvent);
     this._rpc.on('stream_removed', this.onStreamEvent);
-  }
-
-  connect() {
-    this.logger.info('start to connect ...');
     this._cfg.senders?.map((s) => {
       if (s.stream) {
         const senderTrack = this._socket.createSenderTrack(s);
         this.logger.info('created sender track:', senderTrack);
         const sender = new StreamSender(this._rpc, senderTrack);
+        sender.on('stopped', this._onSenderStopped);
+
         if (senderTrack.info.kind === StreamKinds.AUDIO) {
           this._audioSenders.set(s.name, sender);
         }
@@ -71,8 +71,28 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
       const receiver = new StreamReceiver(this._rpc, recvrTrack);
       this._audioReceivers.push(receiver);
     }
+  }
 
+  connect() {
+    this.logger.info('start to connect ...');
     return this._socket.connect(this._connector, this._cfg);
+  }
+
+  private _onSenderStopped = (sender: IStreamSender) => {
+    this.logger.info('sender stopped:', sender.name);
+    if (sender.kind === StreamKinds.AUDIO) {
+      this._audioSenders.delete(sender.name);
+    }
+    if (sender.kind === StreamKinds.VIDEO) {
+      this._videoSenders.delete(sender.name);
+    }
+    this.update();
+  };
+
+  async disconnect() {
+    this.disconnected = true;
+    // this.mix_minus_default?.releaseElements();
+    this._socket?.close();
   }
 
   createPublisher(cfg: SenderConfig) {
@@ -86,6 +106,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   createSender(cfg: SenderConfig) {
     const senderTrack = this._socket.createSenderTrack(cfg);
     const sender = new StreamSender(this._rpc, senderTrack);
+    sender.on('stopped', this._onSenderStopped);
     if (cfg.kind === StreamKinds.AUDIO) {
       this._audioSenders.set(cfg.name, sender);
     }
@@ -127,7 +148,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     }
   }
 
-  getSender(name: string, kind: StreamKinds) {
+  getSender(kind: StreamKinds, name: string) {
     const sender = kind === StreamKinds.AUDIO ? this._audioSenders.get(name) : this._videoSenders.get(name);
     if (!sender) {
       throw new Error('NO_SENDER');

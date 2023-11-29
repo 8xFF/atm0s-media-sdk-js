@@ -24,7 +24,8 @@ export declare function delay(ms: number): Promise<unknown>;
  * Retrieves the first track of the specified kind from the given MediaStream.
  * @param stream - The MediaStream from which to retrieve the track.
  * @param kind - The kind of track to retrieve ('audio' or 'video').
- * @returns The track of the specified kind, or undefined if the stream is undefined or null, or if no track of the specified kind is found.
+ * @returns The track of the specified kind, or undefined if the stream
+ * is undefined or null, or if no track of the specified kind is found.
  */
 export declare function getTrack(stream: MediaStream | undefined | null, kind: StreamKinds): MediaStreamTrack | undefined;
 //# sourceMappingURL=shared.d.ts.map

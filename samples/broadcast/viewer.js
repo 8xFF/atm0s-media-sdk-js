@@ -3,10 +3,10 @@ async function onStreamAdded(stream) {
   if (stream.kind == 'audio') {
     let element = document.getElementById('remote_audio');
     if (element.consumer) {
-      await element.consumer.unview('main');
+      element.consumer.unview('main');
     }
     let consumer = window.bluesea_session.createConsumer(stream);
-    const view = await consumer.view('main');
+    const view = consumer.view('main');
     element.srcObject = view;
     element.consumer = consumer;
   }
@@ -14,10 +14,10 @@ async function onStreamAdded(stream) {
   if (stream.kind == 'video') {
     let element = document.getElementById('remote_video');
     if (element.consumer) {
-      await element.consumer.unview('main');
+      element.consumer.unview('main');
     }
     let consumer = window.bluesea_session.createConsumer(stream);
-    const view = await consumer.view('main');
+    const view = consumer.view('main');
     element.srcObject = view;
     element.consumer = consumer;
   }

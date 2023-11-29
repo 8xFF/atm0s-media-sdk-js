@@ -7,7 +7,7 @@ import type { StreamKinds } from './utils/types';
 describe('StreamReceiver', () => {
   let rpc: any;
   let track: IReceiverTrack;
-  let receiver: any;
+  let receiver: StreamReceiver;
 
   beforeEach(() => {
     rpc = {
@@ -68,7 +68,7 @@ describe('StreamReceiver', () => {
 
   test('should switch stream and return true if successful', async () => {
     receiver['_setState'] = jest.fn();
-    receiver['_track'].stream = {};
+    receiver['_track'].stream = {} as any;
     receiver['_track'].hasTrack = true;
 
     rpc.request.mockResolvedValueOnce({ status: true });
@@ -90,7 +90,7 @@ describe('StreamReceiver', () => {
 
   test('should switch stream and return false if unsuccessful', async () => {
     receiver['_setState'] = jest.fn();
-    receiver['_track'].stream = {};
+    receiver['_track'].stream = {} as any;
     receiver['_track'].hasTrack = true;
 
     rpc.request.mockResolvedValueOnce({ status: false });
@@ -111,7 +111,7 @@ describe('StreamReceiver', () => {
   });
 
   test('should limit stream and return true if successful', async () => {
-    receiver['_track'].stream = {};
+    receiver['_track'].stream = {} as any;
     receiver['_track'].hasTrack = true;
 
     rpc.request.mockResolvedValueOnce({ status: true });
@@ -128,7 +128,7 @@ describe('StreamReceiver', () => {
   });
 
   test('should limit stream and return false if unsuccessful', async () => {
-    receiver['_track'].stream = {};
+    receiver['_track'].stream = {} as any;
     receiver['_track'].hasTrack = true;
 
     rpc.request.mockResolvedValueOnce({ status: false });
@@ -144,12 +144,12 @@ describe('StreamReceiver', () => {
     });
   });
 
-  test('should stop stream and return true if successful', async () => {
+  test('should disconnect stream and return true if successful', async () => {
     receiver['_state'] = StreamReceiverState.Live;
 
     rpc.request.mockResolvedValueOnce({ status: true });
 
-    const result = await receiver.stop();
+    const result = await receiver.disconnect();
 
     expect(result).toBe(true);
     expect(receiver.state).toBe(StreamReceiverState.NoSource);
@@ -158,12 +158,12 @@ describe('StreamReceiver', () => {
     });
   });
 
-  test('should stop stream and return false if unsuccessful', async () => {
+  test('should disconnect stream and return false if unsuccessful', async () => {
     receiver['_state'] = StreamReceiverState.Live;
 
     rpc.request.mockResolvedValueOnce({ status: false });
 
-    const result = await receiver.stop();
+    const result = await receiver.disconnect();
 
     expect(receiver.state).toBe(StreamReceiverState.Live);
     expect(result).toBe(false);

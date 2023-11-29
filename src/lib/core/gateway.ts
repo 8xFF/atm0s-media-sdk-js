@@ -13,7 +13,7 @@ export class MediaGatewayConnector implements IMediaGatewayConnector {
 
   public async selectFromUrls(urls: string | string[]): Promise<string> {
     if (typeof urls === 'string') {
-      urls = [urls];
+      return urls;
     }
 
     const waiting_urls: { [url: string]: boolean } = {};

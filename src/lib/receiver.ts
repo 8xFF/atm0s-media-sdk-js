@@ -38,8 +38,9 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
     this._track.on('track_added', this._handleOnTrackAdded);
   }
 
-  private _handleOnTrackAdded = () => {
+  private _handleOnTrackAdded = (track: MediaStreamTrack) => {
     this.logger.log('track added', this._track.stream);
+    this.emit('track_added', track);
     this.hasTrackPromises.forEach((resolve) => resolve(true));
     this.hasTrackPromises = [];
   };
@@ -127,20 +128,18 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
     return false;
   }
 
-  async stop() {
+  async disconnect() {
     if (this._state === StreamReceiverState.NoSource) {
       return true;
     }
-    this._track.stop();
     const res = await this._rpc.request('receiver.disconnect', {
       id: this.remoteId,
     });
-    if (res.status === true) {
-      this._setState(StreamReceiverState.NoSource);
-      return true;
+    if (res.status === false) {
+      return false;
     }
-    this._rpc.off(`local_stream_${this.remoteId}_state`, this._handleStateChange);
-    this._rpc.off(`local_stream_${this.remoteId}_audio_level`, this._handleAudioLevelChange);
-    return false;
+    this._setState(StreamReceiverState.NoSource);
+    this.emit('disconnected', this);
+    return true;
   }
 }

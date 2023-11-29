@@ -52,15 +52,15 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
     this._rpc.on(`remote_stream_${this.name}_audio_level`, this._handleAudioLevelChange);
   }
 
-  private _handleStateChange() {
+  private _handleStateChange = () => {
     if (this._state === StreamSenderState.Connecting) {
       this._setState(StreamSenderState.Connected);
     }
-  }
+  };
 
-  private _handleAudioLevelChange(_: string, { level }: { level: number }) {
+  private _handleAudioLevelChange = (_: string, { level }: { level: number }) => {
     this.emit('audio_level', level);
-  }
+  };
 
   private _setState(state: StreamSenderState) {
     this._state = state;
@@ -95,5 +95,6 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
     this._rpc.off(`remote_stream_${this.name}_state`, this._handleStateChange);
     this._rpc.off(`remote_stream_${this.name}_audio_level`, this._handleAudioLevelChange);
     this._setState(StreamSenderState.Closed);
+    this.emit('stopped', this);
   }
 }

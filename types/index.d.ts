@@ -7,9 +7,10 @@ import { StreamReceiver } from './lib/receiver';
 import { StreamConsumer } from './lib/consumer';
 import { StreamPublisher } from './lib/publisher';
 import { StreamRemote } from './lib/remote';
+import { StreamConsumerPair } from './lib/consumer-pair';
 import type { ISessionConfig } from './lib/interfaces/session';
 export declare function createSession(urls: string | string[], cfg: ISessionConfig): Session;
-export { RealtimeSocket, MediaGatewayConnector, RPC, Session, StreamSender, StreamReceiver, StreamPublisher, StreamConsumer, StreamRemote, };
+export { RealtimeSocket, MediaGatewayConnector, RPC, Session, StreamSender, StreamReceiver, StreamPublisher, StreamConsumer, StreamConsumerPair, StreamRemote, };
 export * from './lib/interfaces';
 export * from './lib/utils/types';
 //# sourceMappingURL=index.d.ts.map

@@ -1,6 +1,6 @@
 import type { StreamRemote } from '../remote';
 import type { TypedEventEmitter } from '../utils/typed-event-emitter';
-import type { Codecs, StreamKinds, LatencyMode } from '../utils/types';
+import type { Codecs, StreamKinds, LatencyMode, RemoteStreamQuality } from '../utils/types';
 
 /**
  * Represents a stream receiver.
@@ -9,6 +9,7 @@ export interface IStreamReceiver extends TypedEventEmitter<IStreamReceiverCallba
   state: StreamReceiverState;
   stream: MediaStream;
   kind: StreamKinds;
+  remoteId: string;
 
   /**
    * Switches to a remote stream.
@@ -34,7 +35,7 @@ export interface IStreamReceiver extends TypedEventEmitter<IStreamReceiverCallba
    * Stops the stream.
    * @returns A promise that resolves to a boolean indicating whether the stop was successful.
    */
-  stop(): Promise<boolean>;
+  disconnect(): Promise<boolean>;
 }
 
 export enum StreamReceiverState {
@@ -49,6 +50,9 @@ export enum StreamReceiverState {
 export interface IStreamReceiverCallbacks {
   state: (state: StreamReceiverState) => void;
   audio_level: (level: number) => void;
+  disconnected: (receiver: IStreamReceiver) => void;
+  track_added: (track: MediaStreamTrack) => void;
+  quality: (quality: RemoteStreamQuality) => void;
 }
 
 export type ReceiverInfo = {

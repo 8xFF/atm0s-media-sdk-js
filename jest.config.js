@@ -18,6 +18,8 @@ const options = {
   },
   resolver: 'ts-jest-resolver',
   setupFiles: ['./jest.setup.ts'],
+  collectCoverage: true,
+  coverageReporters: ['text', 'cobertura'],
 };
 
 module.exports = options;

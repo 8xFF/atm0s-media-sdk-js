@@ -11,7 +11,7 @@ export class StreamPublisher extends TypedEventEmitter<IPublisherCallbacks> {
     private _senderConfig: SenderConfig,
   ) {
     super();
-    this.sender = this._session.getSender(this._senderConfig.name, this._senderConfig.kind);
+    this.sender = this._session.getSender(this._senderConfig.kind, this._senderConfig.name);
     if (!this.sender) {
       if (this._senderConfig.stream) {
         this.sender = this._session.createSender(this._senderConfig);

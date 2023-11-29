@@ -70,7 +70,8 @@ export interface ISessionConfig {
     token: string;
     /**
      * Initialized Senders for the session.
-     * @example [{ name: 'video_camera', kind: 'audio', stream: stream1 }, { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
+     * @example [{ name: 'video_camera', kind: 'audio', stream: stream1 },
+     * { name: 'screen', kind: 'video', stream: stream2, screen: true }}]
      *
      */
     senders?: SenderConfig[];
