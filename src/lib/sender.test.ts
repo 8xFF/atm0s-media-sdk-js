@@ -41,6 +41,7 @@ describe('Sender', () => {
       name: 'test-sender',
       kind: 'video',
       track: mockTrack.trackId,
+      label: 'test-sender',
     });
     expect(sender.state).toEqual(StreamSenderState.Connected);
   });
@@ -54,6 +55,7 @@ describe('Sender', () => {
       name: 'test-sender',
       kind: 'video',
       track: undefined,
+      label: 'test-sender',
     });
     expect(sender.state).toEqual(StreamSenderState.Deactivated);
   });
