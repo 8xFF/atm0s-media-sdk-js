@@ -1,10 +1,11 @@
 # Atm0s Media JS SDK
 
 [![Continuous Integrations](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml)
-[![License](https://badgen.net/github/license/8xFF/media-sdk-js)](./LICENSE)
+[![codecov](https://codecov.io/gh/8xFF/atm0s-media-sdk-js/graph/badge.svg?token=7kSkd0P72m)](https://codecov.io/gh/8xFF/atm0s-media-sdk-js)
+<!-- [![License](https://badgen.net/github/license/8xFF/media-sdk-js)](./LICENSE)
 [![Package tree-shaking](https://badgen.net/bundlephobia/tree-shaking/atm0s-sdk-js)](https://bundlephobia.com/package/atm0s-sdk-js)
 [![Package minified & gzipped size](https://badgen.net/bundlephobia/minzip/atm0s-sdk-js)](https://bundlephobia.com/package/atm0s-sdk-js)
-[![Package dependency count](https://badgen.net/bundlephobia/dependency-count/reactatm0s-sdk-js)](https://bundlephobia.com/package/atm0s-sdk-js)
+[![Package dependency count](https://badgen.net/bundlephobia/dependency-count/reactatm0s-sdk-js)](https://bundlephobia.com/package/atm0s-sdk-js) -->
 
 ## Installation
 
