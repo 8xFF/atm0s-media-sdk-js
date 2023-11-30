@@ -1,0 +1,51 @@
+name: Publish Alpha
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  setup:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.trim.outputs.version }}
+    steps:
+      - id: trim
+        run: echo "version=${TAG:1}" >> $GITHUB_OUTPUT
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - name: 'Checkout the repository'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Setup Node.js and npm'
+        uses: './.github/actions/setup'
+
+      - name: 'Generate package.json'
+        run: npm run config:prerelease -- ${{ needs.setup.outputs.version }}
+
+      - name: 'Pack npm package'
+        run: npm pack
+
+      - name: 'Publish to npm'
+        run: npm publish --tag alpha --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Upload NPM package file
+        id: upload-npm-package-file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.setup.outputs.version }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ format('8xff-atm0s-media-js-{0}.tgz', needs.setup.outputs.version) }}
+          asset_name: ${{ format('8xff-atm0s-media-js-{0}.tgz', needs.setup.outputs.version) }}
+          asset_content_type: application/gzip
