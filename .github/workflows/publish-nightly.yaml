@@ -1,0 +1,25 @@
+name: Nighly publish to npm
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [publish-nightly]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout the repository'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Setup Node.js and npm'
+        uses: './.github/actions/setup'
+
+      - name: 'Generate nightly package.json'
+        run: npm run config:nightly
+
+      - run: npm publish --tag nightly
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

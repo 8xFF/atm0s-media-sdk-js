@@ -1,7 +1,7 @@
 {
-  "name": "atm0s-media-js",
-  "version": "0.0.0",
-  "description": "",
+  "name": "@8xff/atm0s-media-js",
+  "version": "0.1.0",
+  "description": "Provide a intuitive way to interact with Atm0s Media Server in Vanilla Javascript",
   "cdn": "dist/index.umd.js",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -53,16 +53,15 @@
     "lint": "eslint \"*/**/*.{ts,js,json}\"",
     "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
     "build": "rollup --config ./rollup.config.mjs",
-    "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build",
+    "config:nightly": "node ./scripts/configure-nightly.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/8xFF/media-sdk-js.git"
   },
   "keywords": [],
-  "author": {
-    "name": "Luong Ngoc Minh"
-  },
+  "author": "Luong Ngoc Minh",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/8xFF/media-sdk-js/issues"
@@ -72,5 +71,8 @@
     "pako": "^2.1.0",
     "ts-debounce": "^4.0.0",
     "tslib": "^2.6.2"
+  },
+  "directories": {
+    "doc": "docs"
   }
 }
