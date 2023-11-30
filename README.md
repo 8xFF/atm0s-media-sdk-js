@@ -1,4 +1,4 @@
-# Atm0s JS SDK
+# Atm0s Media JS SDK
 
 [![Continuous Integrations](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml)
 [![License](https://badgen.net/github/license/8xFF/media-sdk-js)](./LICENSE)
