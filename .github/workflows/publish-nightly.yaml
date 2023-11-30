@@ -20,6 +20,6 @@ jobs:
       - name: 'Generate nightly package.json'
         run: npm run config:nightly
 
-      - run: npm publish --tag nightly
+      - run: npm publish --tag nightly --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
