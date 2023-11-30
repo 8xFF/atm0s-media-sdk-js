@@ -1,7 +1,7 @@
 {
-  "name": "@8xff/atm0s-media",
+  "name": "@8xff/atm0s-media-js",
   "version": "0.1.0",
-  "description": "Provide a intuitive way to interact with Atm0s Media Server",
+  "description": "Provide a intuitive way to interact with Atm0s Media Server in Vanilla Javascript",
   "cdn": "dist/index.umd.js",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
