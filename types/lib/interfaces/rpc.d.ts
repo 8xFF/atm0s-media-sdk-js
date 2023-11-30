@@ -55,7 +55,8 @@ export type RpcRequests = {
     'sender.toggle': {
         name: string;
         kind: StreamKinds;
-        track: string | null | undefined;
+        track?: string | null;
+        label?: string | null;
     };
 };
 export type RpcMessage<T = unknown> = {

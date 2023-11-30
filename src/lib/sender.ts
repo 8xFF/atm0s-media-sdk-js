@@ -74,6 +74,7 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
       name: this.name,
       kind: this.kind,
       track: this._track.trackId,
+      label: this.label,
     });
     if (stream) {
       this._setState(StreamSenderState.Connected);
