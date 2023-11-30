@@ -54,7 +54,7 @@
     "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
     "build": "rollup --config ./rollup.config.mjs",
     "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build",
-    "config:nightly": "node ./scripts/configure-nightly.js"
+    "config:nightly": "node ./scripts/configure-nightly.mjs"
   },
   "repository": {
     "type": "git",
