@@ -20,9 +20,8 @@ jobs:
       - name: 'Execute the lint script'
         run: 'npm run lint'
 
-
   test:
-    name: 'Run unit tests with Jest'
+    name: 'Run unit tests with Jest and upload Coverage'
     runs-on: 'ubuntu-latest'
     steps:
       - name: 'Checkout the repository'
@@ -33,6 +32,11 @@ jobs:
 
       - name: 'Execute the test script'
         run: 'npm run test'
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   bundle:
     name: 'Bundle package with Rollup.js'
