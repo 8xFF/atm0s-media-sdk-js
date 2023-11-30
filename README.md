@@ -11,10 +11,10 @@
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
-npm install atm0s-sdk-js --save
+npm install @8xff/atm0s-media-js --save
 
 # For Yarn, use the command below.
-yarn add atm0s-sdk-js
+yarn add @8xff/atm0s-media-js
 ```
 
 ### Installation from CDN
@@ -23,10 +23,10 @@ This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
 
 ```html
 <!-- For UNPKG use the code below. -->
-<script src="https://unpkg.com/atm0s-sdk-js"></script>
+<script src="https://unpkg.com/@8xff/atm0s-media-js"></script>
 
 <!-- For JSDelivr use the code below. -->
-<script src="https://cdn.jsdelivr.net/npm/atm0s-sdk-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@8xff/atm0s-media-js"></script>
 
 <script>
   // UMD module is exposed through the "Atm0s" global variable.
