@@ -1,8 +1,6 @@
 name: Nighly publish to npm
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch: {}
   repository_dispatch:
     types: [publish-nightly]
@@ -18,7 +16,7 @@ jobs:
         uses: './.github/actions/setup'
 
       - name: 'Generate nightly package.json'
-        run: npm run config:nightly
+        run: npm run config:prerelease -- nightly
 
       - run: npm publish --tag nightly --access public
         env:
