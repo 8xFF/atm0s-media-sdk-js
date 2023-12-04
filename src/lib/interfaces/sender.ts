@@ -8,7 +8,7 @@ export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks>
   state: StreamSenderState;
   stream: MediaStream | undefined | null;
   uuid: string;
-  label: string;
+  label?: string;
   name: string;
   kind: StreamKinds;
 
@@ -16,10 +16,10 @@ export interface IStreamSender extends TypedEventEmitter<IStreamSenderCallbacks>
   maxBitrate?: number;
   isScreen?: boolean;
   /**
-   * Switches to the specified media stream.
+   * Replace the current stream with the specified media stream.
    * @param stream The media stream to switch to.
    */
-  switch(stream: MediaStream): void;
+  switch(stream: MediaStream | null, label?: string): void;
 
   /**
    * Stops the streaming process.
@@ -94,4 +94,10 @@ export type SenderConfig = {
    * @default false
    */
   screen?: boolean;
+
+  /**
+   * The custom label of the sender.
+   * @default track.label if not provided.
+   */
+  label?: string;
 };

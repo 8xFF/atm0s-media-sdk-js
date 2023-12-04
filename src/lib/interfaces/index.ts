@@ -6,3 +6,5 @@ export * from './sender';
 export * from './remote';
 export * from './receiver';
 export * from './tracks';
+export * from './publisher';
+export * from './consumer';

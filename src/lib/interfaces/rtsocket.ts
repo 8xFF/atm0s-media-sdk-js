@@ -9,6 +9,7 @@ export interface IRealtimeSocketCallbacks {
   message: <T>(data: T) => void;
   peer_state: (state: RealtimeSocketState) => void;
   dc_state: (state: RealtimeSocketState) => void;
+  ice_state: (state: RTCIceConnectionState) => void;
 }
 
 export type OfferMeta = {
@@ -90,6 +91,8 @@ export enum RealtimeSocketState {
   Connecting = 'connecting',
   Connected = 'connected',
   Disconnected = 'disconnected',
+  Reconnected = 'reconnected',
+  Reconnecting = 'reconnecting',
   Failed = 'failed',
   Closed = 'closed',
 }

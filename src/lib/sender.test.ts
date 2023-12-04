@@ -21,6 +21,10 @@ describe('Sender', () => {
         screen: false,
         label: 'test-sender',
       },
+      kind: 'video',
+      name: 'test-sender',
+      screen: false,
+      label: 'test-sender',
       uuid: 'test-uuid',
       trackId: 'test-track-id',
       stream: new MediaStream(),
@@ -36,7 +40,7 @@ describe('Sender', () => {
 
     sender.switch(mockStream);
 
-    expect(mockTrack.replaceStream).toHaveBeenCalledWith(mockStream);
+    expect(mockTrack.replaceStream).toHaveBeenCalledWith(mockStream, undefined);
     expect(mockRpc.request).toHaveBeenCalledWith('sender.toggle', {
       name: 'test-sender',
       kind: 'video',
@@ -50,7 +54,7 @@ describe('Sender', () => {
     mockTrack.trackId = undefined;
     sender.switch(null);
 
-    expect(mockTrack.replaceStream).toHaveBeenCalledWith(null);
+    expect(mockTrack.replaceStream).toHaveBeenCalledWith(null, undefined);
     expect(mockRpc.request).toHaveBeenCalledWith('sender.toggle', {
       name: 'test-sender',
       kind: 'video',
@@ -58,6 +62,15 @@ describe('Sender', () => {
       label: 'test-sender',
     });
     expect(sender.state).toEqual(StreamSenderState.Deactivated);
+  });
+
+  test('should switch stream and update state when stream is provided with label', () => {
+    const mockStream = new MediaStream();
+
+    sender.switch(mockStream, 'test-label-2');
+
+    expect(mockTrack.replaceStream).toHaveBeenCalledWith(mockStream, 'test-label-2');
+    expect(sender.state).toEqual(StreamSenderState.Connected);
   });
 
   test('should stop stream', () => {

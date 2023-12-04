@@ -26,6 +26,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   private _recvStreams = new Map<string, IReceiverTrack>();
 
   private _msg_encoder = new TextEncoder();
+  private _connected = false;
 
   constructor(
     private _urls: string | string[],
@@ -83,11 +84,27 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       }
     };
 
+    this._lc.oniceconnectionstatechange = () => {
+      this.logger.log('ice connection state changed:', this._lc.iceConnectionState);
+      switch (this._lc.iceConnectionState) {
+        case 'connected':
+          if (this._connected) {
+            this.setConnState(RealtimeSocketState.Reconnected);
+          }
+          break;
+        case 'disconnected':
+          this.setConnState(RealtimeSocketState.Reconnecting);
+          // TODO: Restart ICE
+          break;
+      }
+    };
+
     this._dc.onmessage = (event) => {
       this.emit('message', event.data);
     };
     this._dc.onopen = () => {
       this.setDcState(RealtimeSocketState.Connected);
+      this._connected = true;
       this.logger.log('datachannel connect :: opended');
     };
     this._dc.onerror = (err) => {
@@ -123,10 +140,10 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       codecs: config.codecs,
       senders: Array.from(this._sendStreams.values()).map((s) => ({
         uuid: s.uuid,
-        label: s.info.label,
-        kind: s.info.kind,
-        screen: s.info.screen,
-        name: s.info.name,
+        label: s.label!,
+        kind: s.kind,
+        screen: s.screen,
+        name: s.name,
       })),
       receivers: {
         audio: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.AUDIO).length,
@@ -213,10 +230,10 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       sdp: offer.sdp!,
       senders: Array.from(this._sendStreams.values()).map((s) => ({
         uuid: s.uuid,
-        label: s.info.label,
-        kind: s.info.kind,
-        screen: s.info.screen,
-        name: s.info.name,
+        label: s.label!,
+        kind: s.kind,
+        screen: s.screen,
+        name: s.name,
       })),
       receivers: {
         audio: Array.from(this._recvStreams.values()).filter((s) => s.info.kind === StreamKinds.AUDIO).length,

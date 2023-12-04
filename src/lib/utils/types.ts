@@ -1,3 +1,5 @@
+import type { ISessionCallbacks } from '../interfaces';
+
 export enum StreamKinds {
   AUDIO = 'audio',
   VIDEO = 'video',
@@ -59,4 +61,7 @@ export type RemoteStreamQuality = {
   name: string;
   kind: StreamKinds;
   mos: number;
+  slot?: number;
 };
+
+export type SessionEvent = keyof ISessionCallbacks;

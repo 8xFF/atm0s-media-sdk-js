@@ -1,4 +1,4 @@
-import { MediaGatewayConnector } from './lib/core/gateway';
+import { MediaGatewayConnector as Atm0s } from './lib/core/gateway';
 import { RealtimeSocket } from './lib/core/socket';
 import { Session } from './lib/session';
 import { RPC } from './lib/core/rpc';
@@ -10,7 +10,7 @@ import { StreamRemote } from './lib/remote';
 import { StreamConsumerPair } from './lib/consumer-pair';
 import type { ISessionConfig } from './lib/interfaces/session';
 export declare function createSession(urls: string | string[], cfg: ISessionConfig): Session;
-export { RealtimeSocket, MediaGatewayConnector, RPC, Session, StreamSender, StreamReceiver, StreamPublisher, StreamConsumer, StreamConsumerPair, StreamRemote, };
+export { RealtimeSocket, Atm0s as MediaGatewayConnector, RPC, Session, StreamSender, StreamReceiver, StreamPublisher, StreamConsumer, StreamConsumerPair, StreamRemote, };
 export * from './lib/interfaces';
 export * from './lib/utils/types';
 //# sourceMappingURL=index.d.ts.map

@@ -2,10 +2,11 @@ name: Publish Alpha
 
 on:
   release:
-    types: [prereleased]
+    types: [published]
 
 jobs:
   setup:
+    if: 'github.event.release.prerelease'
     permissions:
       contents: none
     runs-on: ubuntu-latest

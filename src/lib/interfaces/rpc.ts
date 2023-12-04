@@ -6,6 +6,7 @@ import type { OfferMeta } from './rtsocket';
  * Represents an interface for a RPC (Remote Procedure Call) Handler.
  */
 export interface IRPC {
+  connected: boolean;
   /**
    * Sends an RPC request with the specified command and data.
    * @param cmd The command to be executed.
@@ -63,6 +64,15 @@ export type RpcRequests = {
     kind: StreamKinds;
     track?: string | null;
     label?: string | null;
+  };
+
+  'mix_minus.add': {
+    id: string;
+    remote: { peer: string; stream: string };
+  };
+  'mix_minus.remove': {
+    id: string;
+    remote: { peer: string; stream: string };
   };
 };
 
