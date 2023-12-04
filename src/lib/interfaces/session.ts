@@ -54,6 +54,27 @@ export interface ISessionCallbacks {
    * @param state The new state of the data channel.
    */
   dc_state: (state: RealtimeSocketState) => void;
+
+  /**
+   * Callback function triggered when the session is disconnected.
+   * @param reason The reason for the disconnection.
+   */
+  disconnected: (reason: string) => void;
+
+  /**
+   * Callback function triggered when the session is reconnected.
+   */
+  reconnected: () => void;
+
+  /**
+   * Callback function triggered when the session is reconnected.
+   */
+  reconnecting: () => void;
+
+  /**
+   * Callback function triggered when the session is connected.
+   */
+  connected: () => void;
 }
 
 /**

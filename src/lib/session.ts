@@ -15,6 +15,8 @@ import type { IStreamSender, SenderConfig } from './interfaces/sender';
 import type { IStreamReceiver } from './interfaces';
 import { StreamPublisher } from './publisher';
 import { StreamConsumer } from './consumer';
+import { StreamConsumerPair } from './consumer-pair';
+import { ReceiverMixMinusAudio } from './receiver-mix-minus';
 
 export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private _audioSenders = new Map<string, IStreamSender>();
@@ -26,6 +28,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   private logger = getLogger('atm0s:session');
   private _rpc: IRPC;
+  private _mixminus?: ReceiverMixMinusAudio;
 
   public disconnected = false;
 
@@ -35,13 +38,46 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _connector: IMediaGatewayConnector,
   ) {
     super();
-    this._socket.on('peer_state', (data) => {
-      this.emit('peer_state', data);
+    this._socket.on('peer_state', (state) => {
+      this.emit('peer_state', state);
+      switch (state) {
+        case 'failed':
+        case 'closed':
+          this.logger.info('peer disconnected:', state);
+          this.disconnected = true;
+          this._mixminus?.releaseElements();
+          this.emit('disconnected', state);
+          break;
+        case 'reconnected':
+          this.logger.info('peer reconnected:', state);
+          this.emit('reconnected', state);
+          break;
+        case 'reconnecting':
+          this.logger.info('peer reconnecting:', state);
+          this.emit('reconnecting', state);
+          break;
+      }
     });
-    this._socket.on('dc_state', (data) => {
-      console.log('dc_state', data);
+    this._socket.on('dc_state', (state) => {
+      this.emit('dc_state', state);
+      switch (state) {
+        case 'connected':
+          this.emit('connected');
+          if (this._cfg.mixMinusAudio) {
+            this._mixminus?.connect();
+          }
+          break;
+        case 'disconnected':
+          this.logger.info('data channel disconnected:', state);
+          this.emit('disconnected', state);
+          this._socket.close();
+          break;
+      }
     });
     this._rpc = new RPC(this._socket);
+    if (_cfg.mixMinusAudio) {
+      this._mixminus = new ReceiverMixMinusAudio('default', this, this._rpc);
+    }
     this._rpc.on('stream_added', this.onStreamEvent);
     this._rpc.on('stream_updated', this.onStreamEvent);
     this._rpc.on('stream_removed', this.onStreamEvent);
@@ -52,10 +88,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
         const sender = new StreamSender(this._rpc, senderTrack);
         sender.on('stopped', this._onSenderStopped);
 
-        if (senderTrack.info.kind === StreamKinds.AUDIO) {
+        if (senderTrack.kind === StreamKinds.AUDIO) {
           this._audioSenders.set(s.name, sender);
         }
-        if (senderTrack.info.kind === StreamKinds.VIDEO) {
+        if (senderTrack.kind === StreamKinds.VIDEO) {
           this._videoSenders.set(s.name, sender);
         }
       }
@@ -91,7 +127,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   async disconnect() {
     this.disconnected = true;
-    // this.mix_minus_default?.releaseElements();
+    this._mixminus?.releaseElements();
     this._socket?.close();
   }
 
@@ -101,6 +137,12 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   createConsumer(remote: StreamRemote) {
     return new StreamConsumer(this, remote);
+  }
+
+  createConsumerPair(peerId: string, audioName: string, videoName: string) {
+    const audioConsumer = this.createConsumer(new StreamRemote(StreamKinds.AUDIO, peerId, '', audioName));
+    const videoConsumer = this.createConsumer(new StreamRemote(StreamKinds.VIDEO, peerId, '', videoName));
+    return new StreamConsumerPair(videoConsumer, audioConsumer);
   }
 
   createSender(cfg: SenderConfig) {
@@ -137,6 +179,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     }
     // this.update();
     return receiver;
+  }
+
+  getMixMinusAudio(): ReceiverMixMinusAudio | undefined {
+    return this._mixminus;
   }
 
   backReceiver(receiver: IStreamReceiver) {

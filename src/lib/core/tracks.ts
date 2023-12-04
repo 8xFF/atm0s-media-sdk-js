@@ -4,24 +4,42 @@ import type {
   IReceiverTrackCallbacks,
   ISenderTrack,
   ISenderTrackCallbacks,
-  SenderTrackInfo,
 } from '../interfaces/tracks';
 import { addTransceiverPreferredCodecs, addTransceiverSimulcast, configLatencyMode } from '../utils/transceiver';
 import { getTrack } from '../utils/shared';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
 import { ContentHint, LatencyMode, StreamKinds } from '../utils/types';
+import type { SenderConfig } from '../interfaces';
 
 export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implements ISenderTrack {
   private static seed = 0;
   public uuid: string;
   public stream: MediaStream | null = null;
+  public get label() {
+    return this.trackId ? this.info.label || this.getTrack()?.label || 'unknown' : undefined;
+  }
+  public get name() {
+    return this.info.name;
+  }
+  public get kind() {
+    return this.info.kind;
+  }
+  public get screen() {
+    return this.info.screen;
+  }
+  public get simulcast() {
+    return this.info.simulcast;
+  }
+  public get maxBitrate() {
+    return this.info.maxBitrate;
+  }
 
   get trackId() {
     return this.getTrack()?.id;
   }
 
   constructor(
-    public info: SenderTrackInfo,
+    private info: SenderConfig,
     private catalog: Map<string, ISenderTrack>,
     public transceiver?: RTCRtpTransceiver,
   ) {
@@ -36,24 +54,30 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
     if (transceiver?.sender && info.kind === StreamKinds.VIDEO) {
       if (info.simulcast) {
         addTransceiverSimulcast(transceiver, {
-          maxBitrate: info.maxBitrate,
-          isScreen: info.screen,
+          maxBitrate: this.maxBitrate,
+          isScreen: this.screen,
         });
       }
       if (info.preferredCodecs) {
-        addTransceiverPreferredCodecs(transceiver, info.kind, info.preferredCodecs);
+        addTransceiverPreferredCodecs(transceiver, this.kind, info.preferredCodecs);
       }
     }
     this.catalog.set(this.uuid, this);
   }
 
-  replaceStream(stream: MediaStream | null) {
-    if (stream === this.stream) {
+  replaceStream(stream: MediaStream | null, label?: string) {
+    console.log('replaceStream', stream, label);
+    if (label && label !== this.info.label) {
+      this.info.label = label;
+    }
+    if (this.stream && stream === this.stream) {
       return;
     }
     this.stream = stream;
     if (this.transceiver) {
       this.transceiver.sender.replaceTrack(getTrack(stream, this.info.kind) || null);
+    } else {
+      this.uuid = `sender-${this.kind}-${SenderTrack.seed++}`;
     }
 
     if (this.info.contentHint && this.getTrack()) {
@@ -62,7 +86,7 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
   }
 
   getTrack() {
-    return getTrack(this.stream, this.info.kind);
+    return getTrack(this.stream, this.kind);
   }
 
   stop() {
@@ -83,6 +107,12 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
   public stream: MediaStream;
   get trackId() {
     return this.getTrack()?.id;
+  }
+  get kind() {
+    return this.info.kind;
+  }
+  get remoteId() {
+    return this.info.remoteId;
   }
   constructor(
     public info: ReceiverInfo,

@@ -43,8 +43,8 @@ export class StreamPublisher extends TypedEventEmitter<IPublisherCallbacks> {
     this.emit('audio_level', level);
   };
 
-  switch(stream: MediaStream) {
-    this.sender?.switch(stream);
+  switch(stream: MediaStream | null, label?: string) {
+    this.sender?.switch(stream, label);
   }
 
   stop() {

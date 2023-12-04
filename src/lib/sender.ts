@@ -6,7 +6,7 @@ import { TypedEventEmitter } from './utils/typed-event-emitter';
 
 export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> implements IStreamSender {
   get name() {
-    return this._track.info.name;
+    return this._track.name;
   }
 
   get state() {
@@ -14,15 +14,15 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
   }
 
   get simulcast() {
-    return this._track.info.simulcast;
+    return this._track.simulcast;
   }
 
   get maxBitrate() {
-    return this._track.info.maxBitrate;
+    return this._track.maxBitrate;
   }
 
   get isScreen() {
-    return this._track.info.screen;
+    return this._track.screen;
   }
 
   get uuid() {
@@ -30,7 +30,7 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
   }
 
   get label() {
-    return this._track.info.label;
+    return this._track.label;
   }
 
   get stream() {
@@ -38,7 +38,7 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
   }
 
   get kind() {
-    return this._track.info.kind;
+    return this._track.kind;
   }
 
   private _state: StreamSenderState = StreamSenderState.Created;
@@ -67,9 +67,9 @@ export class StreamSender extends TypedEventEmitter<IStreamSenderCallbacks> impl
     this.emit('state', state);
   }
 
-  switch(stream: MediaStream | null) {
+  switch(stream: MediaStream | null, label?: string) {
     this.logger.debug('switch stream', stream);
-    this._track.replaceStream(stream);
+    this._track.replaceStream(stream, label);
     this._rpc.request('sender.toggle', {
       name: this.name,
       kind: this.kind,

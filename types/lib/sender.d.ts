@@ -11,7 +11,7 @@ export declare class StreamSender extends TypedEventEmitter<IStreamSenderCallbac
     get maxBitrate(): number | undefined;
     get isScreen(): boolean | undefined;
     get uuid(): string;
-    get label(): string;
+    get label(): string | undefined;
     get stream(): MediaStream | null;
     get kind(): import("..").StreamKinds;
     private _state;
@@ -20,7 +20,7 @@ export declare class StreamSender extends TypedEventEmitter<IStreamSenderCallbac
     private _handleStateChange;
     private _handleAudioLevelChange;
     private _setState;
-    switch(stream: MediaStream | null): void;
+    switch(stream: MediaStream | null, label?: string): void;
     stop(): Promise<void>;
 }
 //# sourceMappingURL=sender.d.ts.map

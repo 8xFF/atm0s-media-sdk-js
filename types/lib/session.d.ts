@@ -10,6 +10,8 @@ import type { IStreamSender, SenderConfig } from './interfaces/sender';
 import type { IStreamReceiver } from './interfaces';
 import { StreamPublisher } from './publisher';
 import { StreamConsumer } from './consumer';
+import { StreamConsumerPair } from './consumer-pair';
+import { ReceiverMixMinusAudio } from './receiver-mix-minus';
 export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _cfg;
     private _socket;
@@ -21,6 +23,7 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _remotes;
     private logger;
     private _rpc;
+    private _mixminus?;
     disconnected: boolean;
     constructor(_cfg: ISessionConfig, _socket: IRealtimeSocket, _connector: IMediaGatewayConnector);
     connect(): Promise<void>;
@@ -28,9 +31,11 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     disconnect(): Promise<void>;
     createPublisher(cfg: SenderConfig): StreamPublisher;
     createConsumer(remote: StreamRemote): StreamConsumer;
+    createConsumerPair(peerId: string, audioName: string, videoName: string): StreamConsumerPair;
     createSender(cfg: SenderConfig): StreamSender;
     createReceiver(kind: StreamKinds): StreamReceiver;
     takeReceiver(kind: StreamKinds): IStreamReceiver;
+    getMixMinusAudio(): ReceiverMixMinusAudio | undefined;
     backReceiver(receiver: IStreamReceiver): void;
     getSender(kind: StreamKinds, name: string): IStreamSender;
     private update;
