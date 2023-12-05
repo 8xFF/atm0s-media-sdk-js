@@ -2,7 +2,7 @@ async function onMyStreamAdded(stream) {
   console.log('on my stream added', stream);
   if (stream.kind == 'audio') {
     console.log('enable vad and remove noise');
-    window.bluesea_session
+    window.atm0sSession
       .getSender('audio', 'audio_main')
       .toggleAudioFeatures(true, false)
       .then(console.log)
@@ -16,7 +16,7 @@ async function onStreamAdded(stream) {
   console.log('added stream:', stream);
   if (stream.kind == 'video') {
     console.log('create video consumer');
-    let consumer = window.bluesea_session.createConsumer(stream);
+    let consumer = window.atm0sSession.createConsumer(stream);
     let element = document.createElement('video');
     element.id = 'video-' + stream.peer_id;
     element.width = 300;
@@ -30,7 +30,7 @@ async function onStreamAdded(stream) {
 
   if (stream.kind == 'audio') {
     console.log('create audio mixer consumer');
-    let consumer = await window.bluesea_session.createConsumer(stream);
+    let consumer = await window.atm0sSession.createConsumer(stream);
     let element = document.createElement('audio');
     element.id = 'audio-' + stream.peer_id;
     element.hidden = true;
@@ -74,7 +74,7 @@ async function boot() {
       video: 5,
     },
   });
-  window.bluesea_session = session;
+  window.atm0sSession = session;
   session.connect();
   session.on('mystream_added', onMyStreamAdded);
   session.on('stream_added', onStreamAdded);

@@ -25,6 +25,7 @@ export declare class RPC implements IRPC {
     private _reqs;
     connected: boolean;
     constructor(_socket: IRealtimeSocket);
+    private emit;
     private _preprocess;
     private _handleEvent;
     private _handleAnswer;

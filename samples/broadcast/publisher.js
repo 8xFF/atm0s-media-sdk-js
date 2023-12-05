@@ -4,7 +4,7 @@ async function onMyStreamAdded(stream) {
     if (element.consumer) {
       await element.consumer.unview('main');
     }
-    let consumer = window.bluesea_session.createConsumer(stream);
+    let consumer = window.atm0sSession.createConsumer(stream);
     element.srcObject = consumer.view('main');
     element.consumer = consumer;
   }
@@ -13,7 +13,7 @@ async function onMyStreamAdded(stream) {
   //   if (element.consumer) {
   //     await element.consumer.unview('main');
   //   }
-  //   let consumer = window.bluesea_session.createConsumer(stream);
+  //   let consumer = window.atm0sSession.createConsumer(stream);
   //   // element.srcObject = await consumer.view('main');
   //   // await consumer.view('main');
   //   element.consumer = consumer;
@@ -51,7 +51,7 @@ async function boot() {
       video: 1,
     },
   });
-  window.bluesea_session = session;
+  window.atm0sSession = session;
   session.connect();
   session.on('mystream_added', onMyStreamAdded);
 }

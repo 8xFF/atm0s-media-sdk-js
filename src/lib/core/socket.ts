@@ -129,7 +129,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       offerToReceiveVideo: true,
     });
     this.logger.log('connect :: transceivers:', this._lc.getTransceivers());
-    this.logger.log('connect :: created offer:', offer.sdp);
+    this.logger.debug('connect :: created offer:', offer.sdp);
 
     const res = await connector.connect(serverUrl, {
       room: config.roomId,
@@ -138,9 +138,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       sdp: offer.sdp!,
       mix_minus_audio: config.mixMinusAudio?.mode,
       codecs: config.codecs,
-      senders: Array.from(this._sendStreams.values()).map((s) => ({
+      senders: this.getActiveSendTracks().map((s) => ({
         uuid: s.uuid,
-        label: s.label!,
+        label: s.label || 'unknown',
         kind: s.kind,
         screen: s.screen,
         name: s.name,
@@ -158,12 +158,16 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     const connId = res.data.conn_id;
     const sdp = res.data.sdp;
 
-    this.logger.log('connect :: received answer:', nodeId, connId, sdp);
+    this.logger.debug('connect :: received answer:', nodeId, connId, sdp);
     this._lc.onicecandidate = async (ice) => {
       if (ice && ice.candidate) await connector.iceCandidate(serverUrl, nodeId, connId, ice);
     };
     this._lc.setLocalDescription(offer);
     this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
+  }
+
+  private getActiveSendTracks() {
+    return Array.from(this._sendStreams.values());
   }
 
   private setConnState(state: RealtimeSocketState) {
@@ -172,6 +176,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   }
 
   private setDcState(state: RealtimeSocketState) {
+    this.logger.log('setDcState :: state:', state);
     this._dcState = state;
     this.emit('dc_state', this._dcState);
   }
@@ -210,15 +215,16 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
 
   public createSenderTrack(cfg: SenderConfig): SenderTrack {
     this.logger.log('createSenderTrack :: cfg:', cfg);
-    const track = getTrack(cfg.stream, cfg.kind);
+    const stream = cfg.stream || new MediaStream();
+    const track = getTrack(stream, cfg.kind);
     const label = track?.label || 'not-supported';
 
-    const transceiver = this._lc.addTransceiver(track!, {
+    const transceiver = this._lc.addTransceiver(track || cfg.kind, {
       direction: 'sendonly',
-      streams: [cfg.stream!],
+      streams: [stream],
+      sendEncodings: cfg.maxBitrate ? [{ maxBitrate: cfg.maxBitrate }] : undefined,
     });
-    const senderTrack = new SenderTrack({ ...cfg, label }, this._sendStreams, transceiver);
-    return senderTrack;
+    return new SenderTrack({ ...cfg, stream, label }, this._sendStreams, transceiver);
   }
 
   public async generateOffer() {
@@ -228,9 +234,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     });
     const meta = {
       sdp: offer.sdp!,
-      senders: Array.from(this._sendStreams.values()).map((s) => ({
+      senders: this.getActiveSendTracks().map((s) => ({
         uuid: s.uuid,
-        label: s.label!,
+        label: s.label || 'unknown',
         kind: s.kind,
         screen: s.screen,
         name: s.name,
@@ -244,8 +250,8 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   }
 
   public updateSdp(localOffer: RTCSessionDescriptionInit, remoteAnswerSdp: string) {
-    this.logger.log('updateSdp :: local offer:', localOffer.sdp);
-    this.logger.log('updateSdp :: remote answer sdp:', remoteAnswerSdp);
+    this.logger.debug('updateSdp :: local offer:', localOffer.sdp);
+    this.logger.debug('updateSdp :: remote answer sdp:', remoteAnswerSdp);
     this._lc.setLocalDescription(localOffer);
     this._lc.setRemoteDescription(new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }));
   }

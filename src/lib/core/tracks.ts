@@ -45,9 +45,7 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
   ) {
     super();
     this.uuid = `sender-${info.kind}-${SenderTrack.seed++}`;
-    if (info.stream) {
-      this.stream = info.stream;
-    }
+    this.stream = info.stream || new MediaStream();
     if (info.contentHint && this.getTrack() && info.contentHint !== ContentHint.None) {
       this.getTrack()!.contentHint = info.contentHint;
     }

@@ -42,8 +42,16 @@ export class RPC implements IRPC {
     this._socket.on('dc_state', (state) => {
       if (state === RealtimeSocketState.Connected) {
         this.connected = true;
+        this.emit('_rpc_connected');
       }
     });
+  }
+
+  private emit(event: string, data?: any) {
+    const handlers = this._handlers.get(event);
+    if (handlers) {
+      handlers.map((h) => h(event, data));
+    }
   }
 
   private _preprocess = (data: any) => {

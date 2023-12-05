@@ -9,7 +9,7 @@ export interface MixMinusRemoteStreamQuality extends RemoteStreamQuality {
 export interface ReceiverMixMinusAudioState {
     active: ([string, number] | null)[];
     sources: {
-        [peer_id: string]: number;
+        [peerId: string]: number;
     };
 }
 export declare class ReceiverMixMinusAudio extends EventEmitter {
@@ -19,8 +19,8 @@ export declare class ReceiverMixMinusAudio extends EventEmitter {
     receivers: IStreamReceiver[];
     elements: (HTMLAudioElement | null)[];
     sources: Map<string, {
-        peer_id: string;
-        stream_name: string;
+        peerId: string;
+        streamName: string;
     }>;
     _state: ReceiverMixMinusAudioState;
     constructor(id: string, _session: Session, _rpc: IRPC, elements?: [HTMLAudioElement, HTMLAudioElement, HTMLAudioElement]);
@@ -31,7 +31,7 @@ export declare class ReceiverMixMinusAudio extends EventEmitter {
     play(): void;
     addSource(remote: StreamRemote): Promise<void>;
     removeSource(remote: StreamRemote): Promise<void>;
-    addSourceManual(peer_id: string, stream_name: string): Promise<void>;
-    removeSourceManual(peer_id: string, stream_name: string): Promise<void>;
+    addSourceManual(peerId: string, stream_name: string): Promise<void>;
+    removeSourceManual(peerId: string, stream_name: string): Promise<void>;
 }
 //# sourceMappingURL=receiver-mix-minus.d.ts.map

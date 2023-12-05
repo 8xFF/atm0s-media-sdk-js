@@ -1,7 +1,7 @@
 async function onMyStreamAdded(stream) {
   console.log('added mystream:', stream);
   if (stream.kind == 'video') {
-    let receiver = window.bluesea_session.takeReceiver('video');
+    let receiver = window.atm0sSession.takeReceiver('video');
     console.log('take receiver:', receiver);
     let element = document.getElementById('my_video');
     element.srcObject = receiver.stream;
@@ -9,7 +9,7 @@ async function onMyStreamAdded(stream) {
   }
 
   if (stream.kind == 'audio') {
-    let receiver = window.bluesea_session.takeReceiver('audio');
+    let receiver = window.atm0sSession.takeReceiver('audio');
     let element = document.getElementById('my_audio');
     element.srcObject = receiver.stream;
     receiver.switch(stream);
@@ -44,7 +44,7 @@ async function boot() {
       video: 1,
     },
   });
-  window.bluesea_session = session;
+  window.atm0sSession = session;
   session.connect();
   session.on('mystream_added', onMyStreamAdded);
 }
