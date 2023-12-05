@@ -14,6 +14,7 @@ describe('StreamReceiver', () => {
       on: jest.fn(),
       off: jest.fn(),
       request: jest.fn(),
+      connected: true,
     } as any;
     track = {
       stream: new MediaStream(),

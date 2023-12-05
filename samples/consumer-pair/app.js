@@ -13,7 +13,7 @@ async function boot() {
       video: 1,
     },
   });
-  window.bluesea_session = session;
+  window.atm0sSession = session;
   let consumer = session.createConsumerPair('rtmp', 'main_audio', 'main_video');
   session.connect().then(() => {
     let element = document.getElementById('my_video');

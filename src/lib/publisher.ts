@@ -13,9 +13,7 @@ export class StreamPublisher extends TypedEventEmitter<IPublisherCallbacks> {
     super();
     this.sender = this._session.getSender(this._senderConfig.kind, this._senderConfig.name);
     if (!this.sender) {
-      if (this._senderConfig.stream) {
-        this.sender = this._session.createSender(this._senderConfig);
-      }
+      this.sender = this._session.createSender(this._senderConfig);
     }
 
     if (!this.sender) {
@@ -45,6 +43,10 @@ export class StreamPublisher extends TypedEventEmitter<IPublisherCallbacks> {
 
   switch(stream: MediaStream | null, label?: string) {
     this.sender?.switch(stream, label);
+  }
+
+  switchStream(stream: MediaStream | null, label?: string) {
+    this.switch(stream, label);
   }
 
   stop() {

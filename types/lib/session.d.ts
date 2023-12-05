@@ -37,7 +37,7 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     takeReceiver(kind: StreamKinds): IStreamReceiver;
     getMixMinusAudio(): ReceiverMixMinusAudio | undefined;
     backReceiver(receiver: IStreamReceiver): void;
-    getSender(kind: StreamKinds, name: string): IStreamSender;
+    getSender(kind: StreamKinds, name: string): IStreamSender | undefined;
     private update;
     private updateSdp;
     private onStreamEvent;

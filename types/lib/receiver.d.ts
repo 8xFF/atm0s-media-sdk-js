@@ -7,7 +7,7 @@ import type { IReceiverTrack } from './interfaces';
 export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> implements IStreamReceiver {
     private _rpc;
     private _track;
-    hasTrackPromises: AnyFunction[];
+    readyPromises: AnyFunction[];
     private _state;
     private logger;
     get state(): StreamReceiverState;
@@ -15,6 +15,7 @@ export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCal
     get kind(): import("./utils/types").StreamKinds;
     get remoteId(): string;
     constructor(_rpc: IRPC, _track: IReceiverTrack);
+    private _ready;
     private _handleOnTrackAdded;
     private _handleAudioLevelChange;
     private _handleStateChange;

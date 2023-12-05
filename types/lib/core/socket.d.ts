@@ -19,6 +19,7 @@ export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCal
     private _connected;
     constructor(_urls: string | string[], _options?: IRealtimeSocketOptions | undefined);
     connect(connector: IMediaGatewayConnector, config: ISessionConfig): Promise<void>;
+    private getActiveSendTracks;
     private setConnState;
     private setDcState;
     createReceiverTrack(id: string, kind: StreamKinds, opts?: {

@@ -10,13 +10,13 @@ export interface MixMinusRemoteStreamQuality extends RemoteStreamQuality {
 
 export interface ReceiverMixMinusAudioState {
   active: ([string, number] | null)[];
-  sources: { [peer_id: string]: number };
+  sources: { [peerId: string]: number };
 }
 
 export class ReceiverMixMinusAudio extends EventEmitter {
   receivers: IStreamReceiver[] = [];
   elements: (HTMLAudioElement | null)[] = [];
-  sources = new Map<string, { peer_id: string; stream_name: string }>();
+  sources = new Map<string, { peerId: string; streamName: string }>();
   _state: ReceiverMixMinusAudioState = { active: [], sources: {} };
 
   constructor(
@@ -69,8 +69,8 @@ export class ReceiverMixMinusAudio extends EventEmitter {
       this.receivers[i]!.switch(new StreamRemote(StreamKinds.AUDIO, '', '', 'mix_minus_' + this.id + '_' + i));
     }
     ///for each sources and call addSource for restore
-    this.sources.forEach((value: { peer_id: string; stream_name: string }) => {
-      this.addSourceManual(value.peer_id, value.stream_name);
+    this.sources.forEach((value: { peerId: string; streamName: string }) => {
+      this.addSourceManual(value.peerId, value.streamName);
     });
 
     this._rpc.on(`mix_minus_${this.id}_state`, (_, state: ReceiverMixMinusAudioState) => {
@@ -107,19 +107,19 @@ export class ReceiverMixMinusAudio extends EventEmitter {
     return this.removeSourceManual(remote.peerId, remote.name);
   }
 
-  async addSourceManual(peer_id: string, stream_name: string) {
-    this.sources.set(`${peer_id}-${stream_name}`, { peer_id, stream_name });
+  async addSourceManual(peerId: string, stream_name: string) {
+    this.sources.set(`${peerId}-${stream_name}`, { peerId, streamName: stream_name });
     if (this._rpc && this._rpc.connected) {
-      await this._rpc.request('mix_minus.add', { id: this.id, remote: { peer: peer_id, stream: stream_name } });
+      await this._rpc.request('mix_minus.add', { id: this.id, remote: { peer: peerId, stream: stream_name } });
     }
   }
 
-  async removeSourceManual(peer_id: string, stream_name: string) {
-    this.sources.delete(`${peer_id}-${stream_name}`);
+  async removeSourceManual(peerId: string, stream_name: string) {
+    this.sources.delete(`${peerId}-${stream_name}`);
     if (this._rpc && this._rpc.connected) {
       await this._rpc.request('mix_minus.remove', {
         id: this.id,
-        remote: { peer: peer_id, stream: stream_name },
+        remote: { peer: peerId, stream: stream_name },
       });
     }
   }

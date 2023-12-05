@@ -7,7 +7,7 @@ import type { IRPC } from './interfaces/rpc';
 import type { IReceiverTrack } from './interfaces';
 
 export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> implements IStreamReceiver {
-  hasTrackPromises: AnyFunction[] = [];
+  readyPromises: AnyFunction[] = [];
   private _state: StreamReceiverState = StreamReceiverState.NoSource;
   private logger = getLogger('atm0s:stream-receiver');
 
@@ -35,14 +35,19 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
     this.logger.log('remoteId', this.remoteId);
     this._rpc.on(`local_stream_${this.remoteId}_state`, this._handleStateChange);
     this._rpc.on(`local_stream_${this.remoteId}_audio_level`, this._handleAudioLevelChange);
+    this._rpc.on('_rpc_connected', this._ready);
     this._track.on('track_added', this._handleOnTrackAdded);
   }
+
+  private _ready = () => {
+    this.readyPromises.forEach((resolve) => resolve(true));
+    this.readyPromises = [];
+  };
 
   private _handleOnTrackAdded = (track: MediaStreamTrack) => {
     this.logger.log('track added', this._track.stream);
     this.emit('track_added', track);
-    this.hasTrackPromises.forEach((resolve) => resolve(true));
-    this.hasTrackPromises = [];
+    if (this._rpc.connected) this._ready();
   };
 
   private _handleAudioLevelChange = (_: string, { level }: { level: number }) => {
@@ -82,9 +87,9 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
   }
 
   private async internalReady() {
-    if (this._track.hasTrack) return true;
+    if (this._rpc?.connected) return true;
     return new Promise((resolve) => {
-      this.hasTrackPromises.push(resolve); //this ensure checking order
+      this.readyPromises.push(resolve); //this ensure checking order
     });
   }
 

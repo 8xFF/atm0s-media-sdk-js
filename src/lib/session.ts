@@ -76,7 +76,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     });
     this._rpc = new RPC(this._socket);
     if (_cfg.mixMinusAudio) {
-      this._mixminus = new ReceiverMixMinusAudio('default', this, this._rpc);
+      this._mixminus = new ReceiverMixMinusAudio('default', this, this._rpc, _cfg.mixMinusAudio.elements);
     }
     this._rpc.on('stream_added', this.onStreamEvent);
     this._rpc.on('stream_updated', this.onStreamEvent);
@@ -172,13 +172,21 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     return receiver;
   }
 
-  takeReceiver(kind: StreamKinds) {
-    const receiver = kind === StreamKinds.AUDIO ? this._audioReceivers.shift() : this._videoReceivers.shift();
-    if (!receiver) {
-      throw new Error('NO_RECEIVER');
+  takeReceiver(kind: StreamKinds): IStreamReceiver {
+    switch (kind) {
+      case StreamKinds.AUDIO:
+        if (this._audioReceivers.length === 0) {
+          this.createReceiver(kind);
+        }
+        return this._audioReceivers.shift()!;
+      case StreamKinds.VIDEO:
+        if (this._videoReceivers.length === 0) {
+          this.createReceiver(kind);
+        }
+        return this._videoReceivers.shift()!;
+      default:
+        throw new Error('Invalid stream kind');
     }
-    // this.update();
-    return receiver;
   }
 
   getMixMinusAudio(): ReceiverMixMinusAudio | undefined {
@@ -195,11 +203,14 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   }
 
   getSender(kind: StreamKinds, name: string) {
-    const sender = kind === StreamKinds.AUDIO ? this._audioSenders.get(name) : this._videoSenders.get(name);
-    if (!sender) {
-      throw new Error('NO_SENDER');
+    switch (kind) {
+      case StreamKinds.AUDIO:
+        return this._audioSenders.get(name);
+      case StreamKinds.VIDEO:
+        return this._videoSenders.get(name);
+      default:
+        return undefined;
     }
-    return sender;
   }
 
   private update = debounce(this.updateSdp, 500, {
