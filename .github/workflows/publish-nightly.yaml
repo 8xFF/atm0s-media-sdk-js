@@ -4,10 +4,30 @@ on:
   workflow_dispatch: {}
   repository_dispatch:
     types: [publish-nightly]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
+  check_date:
+    runs-on: self-hosted
+    name: Check latest commit
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Print Latest Commit
+        run: echo ${{ github.sha }}
+
+      - id: should_run
+        continue-on-error: true
+        name: Check if latest commit is less than a day
+        if: ${{ github.event_name == 'schedule' }}
+        run: test -z $(git rev-list  --after="24 hours"  ${{ github.sha }}) && echo "should_run=true" || echo "should_run=false" >> $GITHUB_OUTPUT
+
   publish:
     runs-on: ubuntu-latest
+    needs: check_date
+    if: ${{ needs.check_date.outputs.should_run == 'true' }}
     steps:
       - name: 'Checkout the repository'
         uses: 'actions/checkout@v4'
