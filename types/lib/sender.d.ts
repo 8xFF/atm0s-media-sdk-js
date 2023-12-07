@@ -13,7 +13,7 @@ export declare class StreamSender extends TypedEventEmitter<IStreamSenderCallbac
     get uuid(): string;
     get label(): string | undefined;
     get stream(): MediaStream | null;
-    get kind(): import("..").StreamKinds;
+    get kind(): import("./utils").StreamKinds;
     private _state;
     private logger;
     constructor(_rpc: IRPC, _track: ISenderTrack);

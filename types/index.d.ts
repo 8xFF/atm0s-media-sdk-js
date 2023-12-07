@@ -12,5 +12,5 @@ import type { ISessionConfig } from './lib/interfaces/session';
 export declare function createSession(urls: string | string[], cfg: ISessionConfig): Session;
 export { RealtimeSocket, Atm0s as MediaGatewayConnector, RPC, Session, StreamSender, StreamReceiver, StreamPublisher, StreamConsumer, StreamConsumerPair, StreamRemote, };
 export * from './lib/interfaces';
-export * from './lib/utils/types';
+export * from './lib/utils';
 //# sourceMappingURL=index.d.ts.map
