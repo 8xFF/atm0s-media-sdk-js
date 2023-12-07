@@ -31,4 +31,4 @@ export {
 };
 
 export * from './lib/interfaces';
-export * from './lib/utils/types';
+export * from './lib/utils';
