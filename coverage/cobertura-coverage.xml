@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="373" lines-covered="287" line-rate="0.7694" branches-valid="135" branches-covered="95" branch-rate="0.7037" timestamp="1701760890330" complexity="0" version="0.1">
+<coverage lines-valid="373" lines-covered="287" line-rate="0.7694" branches-valid="135" branches-covered="95" branch-rate="0.7037" timestamp="1702351363770" complexity="0" version="0.1">
   <sources>
     <source>/Users/luongminh/workspace/bluesea/media-sdk-js</source>
   </sources>
