@@ -32,13 +32,11 @@ export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
 
     this._audioConsumer.on('track_added', (track) => {
       this._combinedStream.addTrack(track);
-      console.log('view', this._combinedStream.getTracks());
       this.emit('track_added', track);
     });
 
     this._videoConsumer.on('track_added', (track) => {
       this._combinedStream.addTrack(track);
-      console.log('view', this._combinedStream.getTracks());
       this.emit('track_added', track);
     });
   }
