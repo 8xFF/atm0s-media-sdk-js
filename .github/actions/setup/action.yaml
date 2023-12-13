@@ -1,24 +1,26 @@
 name: 'Setup'
-description: "Setups Node.js and npm to run GitHub Actions' jobs."
+description: "Setups Node.js and pnpm to run GitHub Actions' jobs."
 runs:
   using: 'composite'
   steps:
+    - name: 'Setup pnpm'
+      uses: 'pnpm/action-setup@v2'
     - name: 'Setup Node.js'
       uses: 'actions/setup-node@v4'
       with:
         node-version: '16.x'
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
+        cache: 'pnpm'
+        cache-dependency-path: '**/pnpm-lock.json'
         registry-url: 'https://registry.npmjs.org'
     
-    - name: 'Keep npm cache for future workflows'
-      uses: 'actions/cache@v3'
+    - name: 'Keep pnpm cache for future workflows'
+      uses: 'actions/cache@v2'
       with:
-        key: "${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}"
-        path: '~/.npm'
+        path: '~/.pnpm-store'
+        key: "pnpm-cache-${{ hashFiles('**/pnpm-lock.json') }}"
         restore-keys: |
-          ${{ runner.os }}-node-
+          pnpm-cache-
 
     - name: 'Install dependencies'
-      run: 'npm ci'
+      run: 'pnpm ci'
       shell: 'bash'

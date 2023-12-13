@@ -19,11 +19,9 @@ yarn.lock
 .yarnrc
 .yarnrc.yaml
 
-# pnpm's lockfile, workspace definitions and hooks.
-# We're using npm, and it provides its lockfile and settings.
-pnpm-lock.yaml
-pnpm-workspace.yaml
-pnpmfile.js
+# npm's lockfile.
+# We're using pnpm, and it provides its lockfile and settings.
+package-lock.json
 
 # Log files.
 *.log
