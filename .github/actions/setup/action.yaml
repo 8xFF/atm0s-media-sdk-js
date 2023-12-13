@@ -3,29 +3,30 @@ description: "Setups Node.js and pnpm to run GitHub Actions' jobs."
 runs:
   using: 'composite'
   steps:
-    - name: 'Setup pnpm'
-      uses: 'pnpm/action-setup@v2'
-      with:
-        version: '6'
-        registry: 'https://registry.npmjs.org'
-        cache: 'pnpm'
-        cache-dependency-path: '**/pnpm-lock.json'
-        extra-args: '--store-dir ~/.pnpm-store'
     - name: 'Setup Node.js'
       uses: 'actions/setup-node@v4'
       with:
-        node-version: '16.x'
-        cache: 'pnpm'
-        cache-dependency-path: '**/pnpm-lock.json'
+        node-version: 16
         registry-url: 'https://registry.npmjs.org'
-    
-    - name: 'Keep pnpm cache for future workflows'
-      uses: 'actions/cache@v2'
+    - name: 'Setup pnpm'
+      uses: 'pnpm/action-setup@v2'
       with:
-        path: '~/.pnpm-store'
-        key: "pnpm-cache-${{ hashFiles('**/pnpm-lock.json') }}"
+        version: 8
+        run_install: false
+    
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          pnpm-cache-
+          ${{ runner.os }}-pnpm-store-
+
 
     - name: 'Install dependencies'
       run: 'pnpm ci'
