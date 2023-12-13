@@ -44,8 +44,8 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
     public transceiver?: RTCRtpTransceiver,
   ) {
     super();
-    this.uuid = `sender-${info.kind}-${SenderTrack.seed++}`;
     this.stream = info.stream || new MediaStream();
+    this.uuid = this.trackId || this.stream.id || `sender-${info.kind}-${SenderTrack.seed++}`;
     if (info.contentHint && this.getTrack() && info.contentHint !== ContentHint.None) {
       this.getTrack()!.contentHint = info.contentHint;
     }
