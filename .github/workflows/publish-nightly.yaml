@@ -44,12 +44,12 @@ jobs:
       - name: 'Checkout the repository'
         uses: 'actions/checkout@v4'
 
-      - name: 'Setup Node.js and npm'
+      - name: 'Setup Node.js and pnpm'
         uses: './.github/actions/setup'
 
       - name: 'Generate nightly package.json'
-        run: npm run config:prerelease -- nightly
+        run: pnpm config:prerelease -- nightly
 
-      - run: npm publish --tag nightly --access public
+      - run: pnpm publish --tag nightly --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

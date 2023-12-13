@@ -11,7 +11,7 @@ export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCal
     private logger;
     private _pConnState;
     private _dcState;
-    private _lc;
+    private _pc;
     private _dc;
     private _sendStreams;
     private _recvStreams;
