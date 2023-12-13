@@ -36,7 +36,7 @@ jobs:
         run: pnpm pack
 
       - name: 'Publish to npm'
-        run: pnpm publish --tag alpha --access public
+        run: pnpm publish --tag alpha --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Upload NPM package file
