@@ -7,8 +7,8 @@ export class TypedEventEmitter<TEvents extends Record<keyof TEvents, EventHandle
   }
 
   emit(event: keyof TEvents, ...args: Parameters<TEvents[typeof event]>) {
-    for (const i of this.events[event] || []) {
-      i(args[0], args[1], args[2], args[3]);
+    for (const handle of this.events[event] || []) {
+      handle(args[0], args[1], args[2], args[3]);
     }
   }
 
