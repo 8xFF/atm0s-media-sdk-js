@@ -1,5 +1,13 @@
 import type { ISessionCallbacks } from '../interfaces';
 
+export enum LogLevel {
+  None = 0,
+  Error = 1,
+  Warn = 2,
+  Info = 3,
+  Debug = 4,
+}
+
 export enum StreamKinds {
   AUDIO = 'audio',
   VIDEO = 'video',

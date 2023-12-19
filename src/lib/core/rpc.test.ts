@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IRealtimeSocket } from '../interfaces';
+import { setLogLevel } from '../utils';
 import { MockRTSocket } from '../utils/mocks';
 import { RPC, RpcRequest } from './rpc';
 
@@ -50,6 +51,7 @@ describe('RPC', () => {
     // Mock the socket object
     socketMock = new MockRTSocket();
     rpc = new RPC(socketMock);
+    setLogLevel(4);
   });
 
   afterEach(() => {

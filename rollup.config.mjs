@@ -10,7 +10,7 @@ import resolve from '@rollup/plugin-node-resolve';
  */
 const banner = `/*!
  * ${packageJSON.name} v${packageJSON.version}
- * (c) ${packageJSON.author.name}
+ * (c) ${packageJSON.author}
  * Released under the ${packageJSON.license} License.
  */
 `;
@@ -39,7 +39,6 @@ const options = {
     createOutputOptions({
       file: './dist/index.js',
       format: 'commonjs',
-      // plugins: [resolve()],
     }),
     createOutputOptions({
       file: './dist/index.cjs',
@@ -54,12 +53,10 @@ const options = {
     createOutputOptions({
       file: './dist/index.esm.js',
       format: 'esm',
-      // plugins: [resolve()],
     }),
     createOutputOptions({
       file: './dist/index.umd.js',
       format: 'umd',
-      // plugins: [resolve()],
     }),
     createOutputOptions({
       file: './dist/index.umd.min.js',
@@ -69,7 +66,6 @@ const options = {
     createOutputOptions({
       file: './dist/index.iife.js',
       format: 'iife',
-      // plugins: [resolve()],
     }),
     createOutputOptions({
       file: './dist/index.iife.min.js',
