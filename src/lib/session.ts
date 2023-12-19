@@ -3,7 +3,7 @@ import { StreamSender } from './sender';
 import { StreamKinds } from './utils/types';
 import { debounce } from 'ts-debounce';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import { getLogger } from './utils/logger';
+import { getLogger, setLogLevel } from './utils/logger';
 import type { IRPC } from './interfaces/rpc';
 import { RPC } from './core/rpc';
 import type { IMediaGatewayConnector } from './interfaces/gateway';
@@ -38,6 +38,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _connector: IMediaGatewayConnector,
   ) {
     super();
+    if (this._cfg.logLevel) {
+      this.logger.log('set log level:', this._cfg.logLevel);
+      setLogLevel(this._cfg.logLevel);
+    }
     this._socket.on('peer_state', (state) => {
       this.emit('peer_state', state);
       switch (state) {

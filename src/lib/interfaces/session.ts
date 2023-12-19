@@ -1,5 +1,5 @@
 import type { StreamRemote } from '../remote';
-import type { LatencyMode, Codecs, MixMinusMode, BitrateControlMode } from '../utils/types';
+import type { LatencyMode, Codecs, MixMinusMode, BitrateControlMode, LogLevel } from '../utils/types';
 import type { RealtimeSocketState } from './rtsocket';
 import type { SenderConfig } from './sender';
 
@@ -146,4 +146,9 @@ export interface ISessionConfig {
    * Optional bitrate control mode for the session.
    */
   bitrateControlMode?: BitrateControlMode;
+
+  /**
+   * Log level for the session.
+   */
+  logLevel?: LogLevel;
 }
