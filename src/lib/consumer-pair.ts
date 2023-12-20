@@ -20,10 +20,7 @@ export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
     private _audioConsumer: StreamConsumer,
   ) {
     super();
-    this._combinedStream = new MediaStream([
-      ...(this._videoConsumer.stream?.getVideoTracks() || []),
-      ...(this._audioConsumer.stream?.getAudioTracks() || []),
-    ]);
+    this._combinedStream = new MediaStream();
 
     this._videoConsumer.on('state', this.onVideoConsumerStateChanged);
     this._audioConsumer.on('audio_level', this.onAudioConsumerAudioLevelChanged);
@@ -58,12 +55,24 @@ export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
   }
 
   view(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2): MediaStream {
-    this._audioConsumer.view(key);
-    this._videoConsumer.view(key, priority, maxSpatial, maxTemporal);
+    const audioStream = this._audioConsumer.view(key);
+    const videoStream = this._videoConsumer.view(key, priority, maxSpatial, maxTemporal);
+    this._combinedStream.getTracks().forEach((track) => {
+      this._combinedStream.removeTrack(track);
+    });
+    audioStream.getAudioTracks().forEach((track) => {
+      this._combinedStream.addTrack(track);
+    });
+    videoStream.getVideoTracks().forEach((track) => {
+      this._combinedStream.addTrack(track);
+    });
     return this._combinedStream;
   }
 
   unview(key: string) {
+    this._combinedStream.getTracks().forEach((track) => {
+      this._combinedStream.removeTrack(track);
+    });
     this._audioConsumer.unview(key);
     this._videoConsumer.unview(key);
   }

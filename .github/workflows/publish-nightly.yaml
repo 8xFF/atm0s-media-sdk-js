@@ -22,7 +22,19 @@ jobs:
         continue-on-error: true
         name: Check if latest commit is less than a day
         # if: ${{ github.event_name == 'schedule' }}
-        run: test -z $(git rev-list  --after="24 hours"  ${{ github.sha }}) && echo "should_run=true" || echo "should_run=false" >> $GITHUB_OUTPUT
+        run: |
+          COMMIT_DATE=$(git show -s --format=%ci ${{ github.sha }})
+          COMMIT_DATE=$(date -d "$COMMIT_DATE" +%s)
+          NOW=$(date +%s)
+          DIFF=$(($NOW - $COMMIT_DATE))
+          echo "Commit date: $COMMIT_DATE"
+          echo "Now: $NOW"
+          echo "Diff: $DIFF"
+          if [ $DIFF -lt 86400 ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
 
   publish:
     runs-on: ubuntu-latest
@@ -32,12 +44,12 @@ jobs:
       - name: 'Checkout the repository'
         uses: 'actions/checkout@v4'
 
-      - name: 'Setup Node.js and npm'
+      - name: 'Setup Node.js and pnpm'
         uses: './.github/actions/setup'
 
       - name: 'Generate nightly package.json'
-        run: npm run config:prerelease -- nightly
+        run: pnpm config:prerelease -- nightly
 
-      - run: npm publish --tag nightly --access public
+      - run: pnpm publish --tag nightly --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

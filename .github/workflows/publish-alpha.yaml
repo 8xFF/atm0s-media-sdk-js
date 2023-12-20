@@ -26,17 +26,17 @@ jobs:
       - name: 'Checkout the repository'
         uses: 'actions/checkout@v4'
 
-      - name: 'Setup Node.js and npm'
+      - name: 'Setup Node.js and pnpm'
         uses: './.github/actions/setup'
 
       - name: 'Generate package.json'
         run: npm run config:prerelease -- ${{ needs.setup.outputs.version }}
 
       - name: 'Pack npm package'
-        run: npm pack
+        run: pnpm pack
 
       - name: 'Publish to npm'
-        run: npm publish --tag alpha --access public
+        run: pnpm publish --tag alpha --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Upload NPM package file

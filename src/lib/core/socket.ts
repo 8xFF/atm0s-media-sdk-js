@@ -21,7 +21,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   private logger = getLogger('atm0s:realtime-socket');
   private _pConnState: RealtimeSocketState = RealtimeSocketState.Created;
   private _dcState: RealtimeSocketState = RealtimeSocketState.Created;
-  private _lc: RTCPeerConnection;
+  private _pc: RTCPeerConnection;
   private _dc: RTCDataChannel;
   private _sendStreams = new Map<string, ISenderTrack>();
   private _recvStreams = new Map<string, IReceiverTrack>();
@@ -42,13 +42,13 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       iceServers: this._options?.iceServers || [],
     };
     configPeerLatencyMode(peerConfig, this._options?.latencyMode);
-    this._lc = new RTCPeerConnection(peerConfig);
-    this._dc = this._lc.createDataChannel('data', {
+    this._pc = new RTCPeerConnection(peerConfig);
+    this._dc = this._pc.createDataChannel('data', {
       ordered: false,
       maxPacketLifeTime: 10000,
     });
 
-    this._lc.ontrack = (event: RTCTrackEvent) => {
+    this._pc.ontrack = (event: RTCTrackEvent) => {
       if (event.streams.length === 0) {
         this.logger.log('connect :: no stream found');
         return;
@@ -70,9 +70,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       }
     };
 
-    this._lc.onconnectionstatechange = () => {
-      this.logger.log('connection state changed:', this._lc.connectionState);
-      switch (this._lc.connectionState) {
+    this._pc.onconnectionstatechange = () => {
+      this.logger.log('connection state changed:', this._pc.connectionState);
+      switch (this._pc.connectionState) {
         case 'connected':
           this.setConnState(RealtimeSocketState.Connected);
           break;
@@ -89,9 +89,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       }
     };
 
-    this._lc.oniceconnectionstatechange = () => {
-      this.logger.log('ice connection state changed:', this._lc.iceConnectionState);
-      switch (this._lc.iceConnectionState) {
+    this._pc.oniceconnectionstatechange = () => {
+      this.logger.log('ice connection state changed:', this._pc.iceConnectionState);
+      switch (this._pc.iceConnectionState) {
         case 'connected':
           if (this._connected) {
             this.setConnState(RealtimeSocketState.Reconnected);
@@ -130,11 +130,11 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     const serverUrl = await selectFromUrls(this._urls);
     this.logger.log('connect :: try connect to media server:', serverUrl);
 
-    const offer = await this._lc.createOffer({
+    const offer = await this._pc.createOffer({
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
     });
-    this.logger.log('connect :: transceivers:', this._lc.getTransceivers());
+    this.logger.log('connect :: transceivers:', this._pc.getTransceivers());
     this.logger.debug('connect :: created offer:', offer.sdp);
 
     const res = await this._connector.connect(serverUrl, {
@@ -169,11 +169,11 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.debug('connect :: connId:', connId);
     this.logger.debug('connect :: nodeId:', nodeId);
     this.logger.debug('connect :: received answer:', sdp);
-    this._lc.onicecandidate = async (ice) => {
+    this._pc.onicecandidate = async (ice) => {
       if (ice && ice.candidate) await this._connector.iceCandidate(serverUrl, nodeId, connId, ice);
     };
-    this._lc.setLocalDescription(offer);
-    this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
+    this._pc.setLocalDescription(offer);
+    this._pc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
   }
 
   private getActiveSendTracks() {
@@ -193,7 +193,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
 
   public async reconnect() {
     const serverUrl = await selectFromUrls(this._urls);
-    const offer = await this._lc.createOffer({
+    const offer = await this._pc.createOffer({
       iceRestart: true,
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
@@ -213,10 +213,10 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
 
         const sdp = res.data.sdp;
 
-        this._lc.setLocalDescription(offer);
-        this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
+        this._pc.setLocalDescription(offer);
+        this._pc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
 
-        if (this._lc.iceConnectionState === 'connected') {
+        if (this._pc.iceConnectionState === 'connected') {
           this.setConnState(RealtimeSocketState.Reconnected);
         }
       } catch (err) {
@@ -236,7 +236,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     },
   ): ReceiverTrack {
     this.logger.log('createReceiverTrack :: (id, kind):', id, kind);
-    const transceiver = this._lc.addTransceiver(kind, {
+    const transceiver = this._pc.addTransceiver(kind, {
       direction: 'recvonly',
     });
     this.logger.debug('createReceiverTrack :: transceiver:', transceiver);
@@ -262,7 +262,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     const track = getTrack(stream, cfg.kind);
     const label = track?.label || 'not-supported';
 
-    const transceiver = this._lc.addTransceiver(track || cfg.kind, {
+    const transceiver = this._pc.addTransceiver(track || cfg.kind, {
       direction: 'sendonly',
       streams: [stream],
       sendEncodings: cfg.maxBitrate ? [{ maxBitrate: cfg.maxBitrate }] : undefined,
@@ -286,14 +286,14 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.log('removeSenderTrack :: uuid:', track.uuid);
     if (track) {
       if (track.transceiver) {
-        this._lc.removeTrack(track.transceiver.sender);
+        this._pc.removeTrack(track.transceiver.sender);
       }
       this._sendStreams.delete(track.uuid);
     }
   };
 
   public async generateOffer() {
-    const offer = await this._lc.createOffer({
+    const offer = await this._pc.createOffer({
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
     });
@@ -317,8 +317,8 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   public updateSdp(localOffer: RTCSessionDescriptionInit, remoteAnswerSdp: string) {
     this.logger.debug('updateSdp :: local offer:', localOffer.sdp);
     this.logger.debug('updateSdp :: remote answer sdp:', remoteAnswerSdp);
-    this._lc.setLocalDescription(localOffer);
-    this._lc.setRemoteDescription(new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }));
+    this._pc.setLocalDescription(localOffer);
+    this._pc.setRemoteDescription(new RTCSessionDescription({ sdp: remoteAnswerSdp, type: 'answer' }));
   }
 
   public send(data: string) {
@@ -336,6 +336,6 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.log('close :: closing');
     this._dc?.close();
     await delay(500);
-    this._lc?.close();
+    this._pc?.close();
   }
 }
