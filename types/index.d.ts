@@ -1,4 +1,4 @@
-import { MediaGatewayConnector as Atm0s } from './lib/core/gateway';
+import { HttpGatewayConnector as Atm0s } from './lib/core/gateway';
 import { RealtimeSocket } from './lib/core/socket';
 import { Session } from './lib/session';
 import { RPC } from './lib/core/rpc';

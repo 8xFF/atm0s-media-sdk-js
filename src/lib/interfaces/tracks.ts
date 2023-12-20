@@ -4,11 +4,11 @@ import type { ReceiverInfo } from './receiver';
 
 export interface IReceiverTrackCallbacks {
   track_added: (track: MediaStreamTrack) => void;
-  stopped: (uuid: string) => void;
+  stopped: (track: IReceiverTrack) => void;
 }
 
 export interface ISenderTrackCallbacks {
-  stopped: (uuid: string) => void;
+  stopped: (track: ISenderTrack) => void;
 }
 
 export interface ISenderTrack {

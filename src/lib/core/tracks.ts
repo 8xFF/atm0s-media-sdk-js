@@ -40,7 +40,6 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
 
   constructor(
     private info: SenderConfig,
-    private catalog: Map<string, ISenderTrack>,
     public transceiver?: RTCRtpTransceiver,
   ) {
     super();
@@ -60,11 +59,9 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
         addTransceiverPreferredCodecs(transceiver, this.kind, info.preferredCodecs);
       }
     }
-    this.catalog.set(this.uuid, this);
   }
 
   replaceStream(stream: MediaStream | null, label?: string) {
-    console.log('replaceStream', stream, label);
     if (label && label !== this.info.label) {
       this.info.label = label;
     }
@@ -89,8 +86,7 @@ export class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implem
 
   stop() {
     this.stream?.getTracks().forEach((track) => track.stop());
-    this.emit('stopped', this.uuid);
-    this.catalog.delete(this.uuid);
+    this.emit('stopped', this);
   }
 
   pause() {
@@ -114,7 +110,6 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
   }
   constructor(
     public info: ReceiverInfo,
-    private catalog: Map<string, IReceiverTrack>,
     public transceiver?: RTCRtpTransceiver,
   ) {
     super();
@@ -129,7 +124,6 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
         configLatencyMode(transceiver, info.latencyMode);
       }
     }
-    this.catalog.set(this.uuid, this);
   }
 
   getTrack() {
@@ -144,7 +138,7 @@ export class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> im
 
   stop() {
     this.stream.getTracks().forEach((track) => track.stop());
-    this.catalog.delete(this.uuid);
+    this.emit('stopped', this);
   }
 
   pause() {

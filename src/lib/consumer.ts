@@ -3,7 +3,7 @@ import type { IConsumerCallbacks, ViewInfo } from './interfaces/consumer';
 import type { StreamRemote } from './remote';
 import type { Session } from './session';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import { StreamKinds } from './utils/types';
+import { StreamKinds, type RemoteStreamQuality } from './utils/types';
 
 /**
  * Represents a stream consumer that sets up views for specific viewers and configures layer settings.
@@ -42,6 +42,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
       this.receiver.on('state', this.onReceiverStateChanged);
       this.receiver.on('audio_level', this.onReceiverAudioLevelChanged);
       this.receiver.on('track_added', this.onAddTrack);
+      this.receiver.on('quality', this.onQuality);
 
       this.receiver.switch(this._remote, priority);
     }
@@ -110,5 +111,9 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
 
   private onAddTrack = (track: MediaStreamTrack) => {
     this.emit('track_added', track);
+  };
+
+  private onQuality = (quality: RemoteStreamQuality) => {
+    this.emit('quality', quality);
   };
 }

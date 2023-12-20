@@ -127,12 +127,21 @@ export class RPC implements IRPC {
     }
   };
 
-  request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>> {
+  request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd], timeout?: number): Promise<RpcResponse<T>> {
     this.logger.info('request:', cmd, data);
     return new Promise((resolve, reject) => {
       const req = new RpcRequest(this._reqSeed++, cmd, data, resolve, reject);
       this._reqs.set(req.reqId, req);
       this._socket.send(JSON.stringify(req.toJson()));
+
+      if (timeout) {
+        setTimeout(() => {
+          if (this._reqs.has(req.reqId)) {
+            this._reqs.delete(req.reqId);
+            reject('Timed out');
+          }
+        }, timeout);
+      }
     });
   }
 

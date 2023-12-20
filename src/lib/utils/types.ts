@@ -8,6 +8,10 @@ export enum LogLevel {
   Debug = 4,
 }
 
+export interface RoomStats {
+  peers: number;
+}
+
 export enum StreamKinds {
   AUDIO = 'audio',
   VIDEO = 'video',
@@ -65,7 +69,7 @@ export enum StreamRemoteStatus {
 }
 
 export type RemoteStreamQuality = {
-  peer: number;
+  peer: string;
   name: string;
   kind: StreamKinds;
   mos: number;

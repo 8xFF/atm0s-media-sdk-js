@@ -2,8 +2,6 @@ import { StreamReceiver } from './receiver';
 import { StreamSender } from './sender';
 import { StreamKinds } from './utils/types';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import type { IMediaGatewayConnector } from './interfaces/gateway';
-import type { IRealtimeSocket } from './interfaces/rtsocket';
 import type { ISessionCallbacks, ISessionConfig } from './interfaces/session';
 import { StreamRemote } from './remote';
 import type { IStreamSender, SenderConfig } from './interfaces/sender';
@@ -14,10 +12,9 @@ import { StreamConsumerPair } from './consumer-pair';
 import { ReceiverMixMinusAudio } from './receiver-mix-minus';
 export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _cfg;
-    private _socket;
-    private _connector;
     private _audioSenders;
     private _videoSenders;
+    private _streams;
     private _audioReceivers;
     private _videoReceivers;
     private _remotes;
@@ -25,8 +22,13 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     private _rpc;
     private _mixminus?;
     disconnected: boolean;
-    constructor(_cfg: ISessionConfig, _socket: IRealtimeSocket, _connector: IMediaGatewayConnector);
+    wasConnected: boolean;
+    private _socket;
+    constructor(urls: string | string[], _cfg: ISessionConfig);
     connect(): Promise<void>;
+    ping(): Promise<number>;
+    restartIce(): Promise<void>;
+    private restartIceInternal;
     private _onSenderStopped;
     disconnect(): Promise<void>;
     createPublisher(cfg: SenderConfig): StreamPublisher;
@@ -40,6 +42,7 @@ export declare class Session extends TypedEventEmitter<ISessionCallbacks> {
     getSender(kind: StreamKinds, name: string): IStreamSender | undefined;
     private update;
     private updateSdp;
+    private onRoomStats;
     private onStreamEvent;
 }
 //# sourceMappingURL=session.d.ts.map

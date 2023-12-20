@@ -1,4 +1,14 @@
 import type { ISessionCallbacks } from '../interfaces';
+export declare enum LogLevel {
+    None = 0,
+    Error = 1,
+    Warn = 2,
+    Info = 3,
+    Debug = 4
+}
+export interface RoomStats {
+    peers: number;
+}
 export declare enum StreamKinds {
     AUDIO = "audio",
     VIDEO = "video"
@@ -46,7 +56,7 @@ export declare enum StreamRemoteStatus {
     Disconnected = "disconnected"
 }
 export type RemoteStreamQuality = {
-    peer: number;
+    peer: string;
     name: string;
     kind: StreamKinds;
     mos: number;

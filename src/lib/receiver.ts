@@ -1,10 +1,11 @@
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { getLogger } from './utils/logger';
-import type { AnyFunction } from './utils/types';
+import type { AnyFunction, RemoteStreamQuality } from './utils/types';
 import type { StreamRemote } from './remote';
 import { type IStreamReceiverCallbacks, type IStreamReceiver, StreamReceiverState } from './interfaces/receiver';
 import type { IRPC } from './interfaces/rpc';
 import type { IReceiverTrack } from './interfaces';
+import type { StreamMapping } from './stream-mapping';
 
 export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> implements IStreamReceiver {
   readyPromises: AnyFunction[] = [];
@@ -30,11 +31,13 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
   constructor(
     private _rpc: IRPC,
     private _track: IReceiverTrack,
+    private _streams: StreamMapping,
   ) {
     super();
     this.logger.log('remoteId', this.remoteId);
     this._rpc.on(`local_stream_${this.remoteId}_state`, this._handleStateChange);
     this._rpc.on(`local_stream_${this.remoteId}_audio_level`, this._handleAudioLevelChange);
+    this._rpc.on(`local_stream_${this.remoteId}_quality`, this._handleOnQuality);
     this._rpc.on('_rpc_connected', this._ready);
     this._track.on('track_added', this._handleOnTrackAdded);
   }
@@ -42,6 +45,26 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
   private _ready = () => {
     this.readyPromises.forEach((resolve) => resolve(true));
     this.readyPromises = [];
+  };
+
+  private _handleOnQuality = (_: string, info: RemoteStreamQuality) => {
+    const { mos, peer, name } = info;
+    if (mos && peer && name) {
+      const stream = this._streams.get(peer, name);
+      if (stream) {
+        const quality = { peer: stream.peerId, name, kind: this.kind, mos: mos / 1000 };
+        this.emit('quality', quality);
+        stream.updateQuality(quality);
+
+        // TODO: Why this
+        // if (stream != preMountedQuality) {
+        //   if (!!preMountedQuality) {
+        //     preMountedQuality.updateQuality(null);
+        //   }
+        //   preMountedQuality = stream;
+        // }
+      }
+    }
   };
 
   private _handleOnTrackAdded = (track: MediaStreamTrack) => {

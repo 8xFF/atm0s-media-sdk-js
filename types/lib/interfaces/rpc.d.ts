@@ -11,7 +11,7 @@ export interface IRPC {
      * @param data The data to be sent with the request.
      * @returns A promise that resolves to the response from the RPC server.
      */
-    request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>>;
+    request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd], timeout?: number): Promise<RpcResponse<T>>;
     /**
      * Registers an event handler for the specified command.
      * @param cmd The command to listen for.
@@ -73,6 +73,7 @@ export type RpcRequests = {
             stream: string;
         };
     };
+    'peer.ping': null;
 };
 export type RpcMessage<T = unknown> = {
     type: 'event' | 'answer' | 'request';

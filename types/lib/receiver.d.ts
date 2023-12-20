@@ -4,9 +4,11 @@ import type { StreamRemote } from './remote';
 import { type IStreamReceiverCallbacks, type IStreamReceiver, StreamReceiverState } from './interfaces/receiver';
 import type { IRPC } from './interfaces/rpc';
 import type { IReceiverTrack } from './interfaces';
+import type { StreamMapping } from './stream-mapping';
 export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> implements IStreamReceiver {
     private _rpc;
     private _track;
+    private _streams;
     readyPromises: AnyFunction[];
     private _state;
     private logger;
@@ -14,8 +16,9 @@ export declare class StreamReceiver extends TypedEventEmitter<IStreamReceiverCal
     get stream(): MediaStream;
     get kind(): import("./utils/types").StreamKinds;
     get remoteId(): string;
-    constructor(_rpc: IRPC, _track: IReceiverTrack);
+    constructor(_rpc: IRPC, _track: IReceiverTrack, _streams: StreamMapping);
     private _ready;
+    private _handleOnQuality;
     private _handleOnTrackAdded;
     private _handleAudioLevelChange;
     private _handleStateChange;

@@ -46,5 +46,6 @@ export declare class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks
     private onReceiverAudioLevelChanged;
     private onReceiverStateChanged;
     private onAddTrack;
+    private onQuality;
 }
 //# sourceMappingURL=consumer.d.ts.map

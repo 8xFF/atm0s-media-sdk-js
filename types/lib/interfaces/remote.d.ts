@@ -1,4 +1,4 @@
-import type { StreamRemoteScalingType, StreamRemoteStatus } from '../utils/types';
+import type { RemoteStreamQuality, StreamRemoteScalingType, StreamRemoteStatus } from '../utils/types';
 export interface StreamRemoteState {
     scaling: StreamRemoteScalingType;
     layers: number[];
@@ -7,6 +7,7 @@ export interface StreamRemoteState {
 }
 export interface IStreamRemoteCallbacks {
     state: (state: StreamRemoteState) => void;
+    quality: (quality: RemoteStreamQuality | null) => void;
     closed: () => void;
 }
 //# sourceMappingURL=remote.d.ts.map

@@ -15,6 +15,7 @@ import type { ISessionConfig } from '../interfaces/session';
 import type { SenderConfig } from '../interfaces/sender';
 import { configPeerLatencyMode } from '../utils/latency-mode';
 import type { IReceiverTrack, ISenderTrack } from '../interfaces';
+import { selectFromUrls } from '../utils/http';
 
 export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> implements IRealtimeSocket {
   private logger = getLogger('atm0s:realtime-socket');
@@ -28,8 +29,12 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   private _msg_encoder = new TextEncoder();
   private _connected = false;
 
+  private _nodeId: number | undefined;
+  private _connId: string | undefined;
+
   constructor(
     private _urls: string | string[],
+    private _connector: IMediaGatewayConnector,
     private _options?: IRealtimeSocketOptions,
   ) {
     super();
@@ -95,6 +100,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
         case 'disconnected':
           this.setConnState(RealtimeSocketState.Reconnecting);
           // TODO: Restart ICE
+          // this.reconnect();
           break;
       }
     };
@@ -117,11 +123,11 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     };
   }
 
-  public async connect(connector: IMediaGatewayConnector, config: ISessionConfig) {
+  public async connect(config: ISessionConfig) {
     this.logger.log('connect :: connecting to %s', this._urls);
     this._pConnState = RealtimeSocketState.Connecting;
 
-    const serverUrl = await connector.selectFromUrls(this._urls);
+    const serverUrl = await selectFromUrls(this._urls);
     this.logger.log('connect :: try connect to media server:', serverUrl);
 
     const offer = await this._lc.createOffer({
@@ -131,7 +137,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.log('connect :: transceivers:', this._lc.getTransceivers());
     this.logger.debug('connect :: created offer:', offer.sdp);
 
-    const res = await connector.connect(serverUrl, {
+    const res = await this._connector.connect(serverUrl, {
       room: config.roomId,
       peer: config.peerId,
       token: config.token,
@@ -156,11 +162,15 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     }
     const nodeId = res.data.node_id;
     const connId = res.data.conn_id;
+    this._nodeId = nodeId;
+    this._connId = connId;
     const sdp = res.data.sdp;
 
-    this.logger.debug('connect :: received answer:', nodeId, connId, sdp);
+    this.logger.debug('connect :: connId:', connId);
+    this.logger.debug('connect :: nodeId:', nodeId);
+    this.logger.debug('connect :: received answer:', sdp);
     this._lc.onicecandidate = async (ice) => {
-      if (ice && ice.candidate) await connector.iceCandidate(serverUrl, nodeId, connId, ice);
+      if (ice && ice.candidate) await this._connector.iceCandidate(serverUrl, nodeId, connId, ice);
     };
     this._lc.setLocalDescription(offer);
     this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
@@ -181,11 +191,41 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.emit('dc_state', this._dcState);
   }
 
-  // public async reconnect(connector: IMediaGatewayConnector) {
-  //   // TODO: implement reconnect
-  //   // this.close();
-  //   // this.connect(connector);
-  // }
+  public async reconnect() {
+    const serverUrl = await selectFromUrls(this._urls);
+    const offer = await this._lc.createOffer({
+      iceRestart: true,
+      offerToReceiveAudio: true,
+      offerToReceiveVideo: true,
+    });
+    this.logger.log('reconnect :: try reconnect to media server:', serverUrl);
+
+    let tries = 0;
+    const maxTries = 20;
+
+    while (tries++ < maxTries && this._connected) {
+      try {
+        const res = await this._connector.restartIce(serverUrl, this._nodeId!, this._connId!, offer.sdp!);
+        if (!res.status) {
+          throw new Error(res.error);
+        }
+        this.logger.debug('reconnect :: received answer:', res);
+
+        const sdp = res.data.sdp;
+
+        this._lc.setLocalDescription(offer);
+        this._lc.setRemoteDescription(new RTCSessionDescription({ sdp, type: 'answer' }));
+
+        if (this._lc.iceConnectionState === 'connected') {
+          this.setConnState(RealtimeSocketState.Reconnected);
+        }
+      } catch (err) {
+        this.logger.error('reconnect :: failed to reconnect:', err);
+        await delay(2000);
+      }
+    }
+    throw new Error('Failed to reconnect');
+  }
 
   public createReceiverTrack(
     id: string,
@@ -207,9 +247,12 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
         codecs: opts?.codecs,
         latencyMode: opts?.latencyMode,
       },
-      this._recvStreams,
       transceiver,
     );
+    track.on('stopped', () => {
+      this.onReceiverTrackStopped(track);
+    });
+    this._recvStreams.set(track.uuid, track);
     return track;
   }
 
@@ -224,8 +267,30 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       streams: [stream],
       sendEncodings: cfg.maxBitrate ? [{ maxBitrate: cfg.maxBitrate }] : undefined,
     });
-    return new SenderTrack({ ...cfg, stream, label }, this._sendStreams, transceiver);
+    const senderTrack = new SenderTrack({ ...cfg, stream, label }, transceiver);
+    senderTrack.on('stopped', () => {
+      this.onSenderTrackStopped(senderTrack);
+    });
+    this._sendStreams.set(senderTrack.uuid, senderTrack);
+    return senderTrack;
   }
+
+  private onReceiverTrackStopped = (track: IReceiverTrack) => {
+    this.logger.log('removeReceiverTrack :: uuid:', track.uuid);
+    if (track) {
+      this._recvStreams.delete(track.uuid);
+    }
+  };
+
+  private onSenderTrackStopped = (track: ISenderTrack) => {
+    this.logger.log('removeSenderTrack :: uuid:', track.uuid);
+    if (track) {
+      if (track.transceiver) {
+        this._lc.removeTrack(track.transceiver.sender);
+      }
+      this._sendStreams.delete(track.uuid);
+    }
+  };
 
   public async generateOffer() {
     const offer = await this._lc.createOffer({
@@ -268,6 +333,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   }
 
   async close() {
+    this.logger.log('close :: closing');
     this._dc?.close();
     await delay(500);
     this._lc?.close();

@@ -13,6 +13,7 @@ export declare class MockRTSocket extends TypedEventEmitter<any> implements IRea
     createSenderTrack: jest.Mock<any, any, any>;
     generateOffer: jest.Mock<any, any, any>;
     updateSdp: jest.Mock<any, any, any>;
+    reconnect: jest.Mock<any, any, any>;
     close(): void;
 }
 //# sourceMappingURL=mocks.d.ts.map

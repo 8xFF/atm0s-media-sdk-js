@@ -5,7 +5,6 @@ import { StreamKinds } from '../utils/types';
 import type { SenderConfig } from '../interfaces';
 export declare class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks> implements ISenderTrack {
     private info;
-    private catalog;
     transceiver?: RTCRtpTransceiver | undefined;
     private static seed;
     uuid: string;
@@ -17,7 +16,7 @@ export declare class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks
     get simulcast(): boolean | undefined;
     get maxBitrate(): number | undefined;
     get trackId(): string | undefined;
-    constructor(info: SenderConfig, catalog: Map<string, ISenderTrack>, transceiver?: RTCRtpTransceiver | undefined);
+    constructor(info: SenderConfig, transceiver?: RTCRtpTransceiver | undefined);
     replaceStream(stream: MediaStream | null, label?: string): void;
     getTrack(): MediaStreamTrack | undefined;
     stop(): void;
@@ -25,7 +24,6 @@ export declare class SenderTrack extends TypedEventEmitter<ISenderTrackCallbacks
 }
 export declare class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallbacks> implements IReceiverTrack {
     info: ReceiverInfo;
-    private catalog;
     transceiver?: RTCRtpTransceiver | undefined;
     private static seed;
     uuid: string;
@@ -34,7 +32,7 @@ export declare class ReceiverTrack extends TypedEventEmitter<IReceiverTrackCallb
     get trackId(): string | undefined;
     get kind(): StreamKinds;
     get remoteId(): string;
-    constructor(info: ReceiverInfo, catalog: Map<string, IReceiverTrack>, transceiver?: RTCRtpTransceiver | undefined);
+    constructor(info: ReceiverInfo, transceiver?: RTCRtpTransceiver | undefined);
     getTrack(): MediaStreamTrack | undefined;
     addTrack(track: MediaStreamTrack): void;
     stop(): void;

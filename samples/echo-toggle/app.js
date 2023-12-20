@@ -33,10 +33,14 @@ async function boot() {
       audio: 1,
       video: 1,
     },
+    logLevel: 5,
   });
   window.atm0sSession = session;
   session.on('mystream_added', onMyStreamAdded);
   session.on('mystream_removed', onMyStreamRemoved);
+  session.on('room_stats', (stats) => {
+    console.log('=== room_stats:', stats);
+  });
   session.connect();
 }
 
@@ -55,5 +59,14 @@ window.toggleStream = async function toggleStream() {
     });
   }
 };
+
+window.pingStream = async function pingStream() {
+  const res = await window.atm0sSession.ping();
+  console.log('ping result:', res);
+}
+
+window.restartIce = async function restartIce() {
+  await window.atm0sSession.restartIce();
+}
 
 boot();

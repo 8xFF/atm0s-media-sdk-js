@@ -1,5 +1,5 @@
 import type { StreamRemote } from '../remote';
-import type { LatencyMode, Codecs, MixMinusMode, BitrateControlMode, LogLevel } from '../utils/types';
+import type { LatencyMode, Codecs, MixMinusMode, BitrateControlMode, LogLevel, RoomStats } from '../utils/types';
 import type { RealtimeSocketState } from './rtsocket';
 import type { SenderConfig } from './sender';
 
@@ -42,6 +42,12 @@ export interface ISessionCallbacks {
    * @param stream The updated stream.
    */
   stream_updated: (stream: StreamRemote) => void;
+
+  /**
+   * Callback function triggered when the room stats are updated.
+   * @param stats The updated room stats.
+   */
+  room_stats: (stats: RoomStats) => void;
 
   /**
    * Callback function triggered when the peer state changes.

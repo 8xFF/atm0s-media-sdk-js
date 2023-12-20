@@ -32,3 +32,6 @@ pnpmfile.js
 # Dist
 dist/
 docs/
+
+# Converage
+coverage/

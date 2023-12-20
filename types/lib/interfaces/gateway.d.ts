@@ -33,12 +33,6 @@ export interface IConnectResponse {
  */
 export interface IMediaGatewayConnector {
     /**
-     * Selects a media stream from the given URLs.
-     * @param urls - The URLs of the media streams.
-     * @returns A promise that resolves to the selected media stream.
-     */
-    selectFromUrls(urls: string | string[]): Promise<string>;
-    /**
      * Connects to the media server using the provided configuration.
      * @param url - The URL of the media server.
      * @param config - The connection configuration.
@@ -52,5 +46,13 @@ export interface IMediaGatewayConnector {
      * @param ice - The ICE candidate event.
      */
     iceCandidate(url: string, nodeId: number, connId: string, ice: RTCPeerConnectionIceEvent): void;
+    /**
+     * Restarts the ICE connection.
+     * @param url - The URL of the media server.
+     * @param nodeId - The ID of the node.
+     * @param connId - The ID of the connection.
+     * @param sdp - The SDP offer.
+     */
+    restartIce(url: string, nodeId: number, connId: string, sdp: string): Promise<IConnectResponse>;
 }
 //# sourceMappingURL=gateway.d.ts.map

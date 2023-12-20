@@ -7,6 +7,7 @@ import type { ISessionConfig } from '../interfaces/session';
 import type { SenderConfig } from '../interfaces/sender';
 export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> implements IRealtimeSocket {
     private _urls;
+    private _connector;
     private _options?;
     private logger;
     private _pConnState;
@@ -17,16 +18,21 @@ export declare class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCal
     private _recvStreams;
     private _msg_encoder;
     private _connected;
-    constructor(_urls: string | string[], _options?: IRealtimeSocketOptions | undefined);
-    connect(connector: IMediaGatewayConnector, config: ISessionConfig): Promise<void>;
+    private _nodeId;
+    private _connId;
+    constructor(_urls: string | string[], _connector: IMediaGatewayConnector, _options?: IRealtimeSocketOptions | undefined);
+    connect(config: ISessionConfig): Promise<void>;
     private getActiveSendTracks;
     private setConnState;
     private setDcState;
+    reconnect(): Promise<void>;
     createReceiverTrack(id: string, kind: StreamKinds, opts?: {
         codecs?: Codecs[];
         latencyMode?: LatencyMode;
     }): ReceiverTrack;
     createSenderTrack(cfg: SenderConfig): SenderTrack;
+    private onReceiverTrackStopped;
+    private onSenderTrackStopped;
     generateOffer(): Promise<{
         offer: RTCSessionDescriptionInit;
         meta: {

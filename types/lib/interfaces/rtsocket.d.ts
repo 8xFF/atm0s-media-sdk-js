@@ -1,7 +1,6 @@
 import { LatencyMode, StreamKinds } from '../utils/types';
 import { TypedEventEmitter } from '../utils/typed-event-emitter';
 import type { ReceiverTrack, SenderTrack } from '../core/tracks';
-import type { IMediaGatewayConnector } from './gateway';
 import type { ISessionConfig } from './session';
 import type { SenderConfig } from './sender';
 export interface IRealtimeSocketCallbacks {
@@ -33,7 +32,7 @@ export interface IRealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallba
      * @param config - The session configuration.
      * @returns A promise that resolves when the connection is established.
      */
-    connect(connector: IMediaGatewayConnector, config: ISessionConfig): Promise<void>;
+    connect(config: ISessionConfig): Promise<void>;
     /**
      * Creates a `ReceiverTrack` with the specified ID and kind.
      * @param id - The ID of the receiver track.
@@ -55,6 +54,13 @@ export interface IRealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallba
         offer: RTCSessionDescriptionInit;
         meta: OfferMeta;
     }>;
+    /**
+     * Reconnects the socket.
+     * @returns A promise that resolves when the socket is reconnected.
+     * @remarks This method is used when the ICE connection is lost.
+     *
+     */
+    reconnect(): Promise<void>;
     /**
      * Updates the SDP (Session Description Protocol) with the local offer and remote answer SDP.
      * @param localOffer - The local offer SDP.

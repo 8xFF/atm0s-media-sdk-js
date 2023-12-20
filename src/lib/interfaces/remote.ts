@@ -1,4 +1,4 @@
-import type { StreamRemoteScalingType, StreamRemoteStatus } from '../utils/types';
+import type { RemoteStreamQuality, StreamRemoteScalingType, StreamRemoteStatus } from '../utils/types';
 
 export interface StreamRemoteState {
   scaling: StreamRemoteScalingType;
@@ -9,5 +9,6 @@ export interface StreamRemoteState {
 
 export interface IStreamRemoteCallbacks {
   state: (state: StreamRemoteState) => void;
+  quality: (quality: RemoteStreamQuality | null) => void;
   closed: () => void;
 }

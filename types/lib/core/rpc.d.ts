@@ -30,7 +30,7 @@ export declare class RPC implements IRPC {
     private _handleEvent;
     private _handleAnswer;
     private _process;
-    request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd]): Promise<RpcResponse<T>>;
+    request<T>(cmd: keyof RpcRequests, data: RpcRequests[typeof cmd], timeout?: number): Promise<RpcResponse<T>>;
     on(cmd: string, handler: (event: string, data: any) => void): void;
     off(cmd: string, handler: AnyFunction): void;
     offAllListeners(cmd: string): void;
