@@ -30,3 +30,7 @@ package-lock.json
 # Dist
 dist/
 docs/
+types/
+
+# Converage
+coverage/

@@ -24,6 +24,7 @@ export class MockRTSocket extends TypedEventEmitter<any> implements IRealtimeSoc
   createSenderTrack = jest.fn();
   generateOffer = jest.fn();
   updateSdp = jest.fn();
+  reconnect = jest.fn();
 
   close() {
     this._state = RealtimeSocketState.Closed;

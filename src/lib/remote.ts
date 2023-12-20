@@ -1,6 +1,6 @@
 import type { IStreamRemoteCallbacks, StreamRemoteState } from './interfaces/remote';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import { StreamRemoteScalingType, StreamRemoteStatus, type StreamKinds } from './utils/types';
+import { StreamRemoteScalingType, StreamRemoteStatus, type StreamKinds, type RemoteStreamQuality } from './utils/types';
 
 export class StreamRemote extends TypedEventEmitter<IStreamRemoteCallbacks> {
   _state: StreamRemoteState = {
@@ -28,6 +28,10 @@ export class StreamRemote extends TypedEventEmitter<IStreamRemoteCallbacks> {
       this._state = _state;
       this.emit('state', _state);
     }
+  }
+
+  updateQuality(quality: RemoteStreamQuality | null) {
+    this.emit('quality', quality);
   }
 
   close() {

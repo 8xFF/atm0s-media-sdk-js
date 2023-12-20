@@ -1,6 +1,6 @@
 import { LogLevel } from './types';
 
-let logLevel: LogLevel = LogLevel.None;
+let logLevel: LogLevel = LogLevel.Warn;
 
 export function setLogLevel(level: LogLevel) {
   logLevel = level;

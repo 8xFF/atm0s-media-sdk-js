@@ -26,7 +26,8 @@ describe('StreamReceiver', () => {
       on: jest.fn(),
       stop: jest.fn(),
     } as unknown as IReceiverTrack;
-    receiver = new StreamReceiver(rpc, track);
+
+    receiver = new StreamReceiver(rpc, track, {} as any);
   });
 
   test('should initialize with correct state and properties', () => {

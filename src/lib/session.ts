@@ -1,12 +1,11 @@
 import { StreamReceiver } from './receiver';
 import { StreamSender } from './sender';
-import { StreamKinds } from './utils/types';
+import { StreamKinds, type RoomStats } from './utils/types';
 import { debounce } from 'ts-debounce';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { getLogger, setLogLevel } from './utils/logger';
 import type { IRPC } from './interfaces/rpc';
 import { RPC } from './core/rpc';
-import type { IMediaGatewayConnector } from './interfaces/gateway';
 import type { StreamRemoteState } from './interfaces/remote';
 import type { IRealtimeSocket } from './interfaces/rtsocket';
 import type { ISessionCallbacks, ISessionConfig } from './interfaces/session';
@@ -17,10 +16,15 @@ import { StreamPublisher } from './publisher';
 import { StreamConsumer } from './consumer';
 import { StreamConsumerPair } from './consumer-pair';
 import { ReceiverMixMinusAudio } from './receiver-mix-minus';
+import { StreamMapping } from './stream-mapping';
+import { RealtimeSocket } from './core/socket';
+import { HttpGatewayConnector } from './core/gateway';
 
 export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private _audioSenders = new Map<string, IStreamSender>();
   private _videoSenders = new Map<string, IStreamSender>();
+
+  private _streams = new StreamMapping();
 
   private _audioReceivers: IStreamReceiver[] = [];
   private _videoReceivers: IStreamReceiver[] = [];
@@ -31,17 +35,20 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private _mixminus?: ReceiverMixMinusAudio;
 
   public disconnected = false;
+  public wasConnected = false;
+
+  private _socket: IRealtimeSocket;
 
   constructor(
+    urls: string | string[],
     private _cfg: ISessionConfig,
-    private _socket: IRealtimeSocket,
-    private _connector: IMediaGatewayConnector,
   ) {
     super();
     if (this._cfg.logLevel) {
       this.logger.log('set log level:', this._cfg.logLevel);
       setLogLevel(this._cfg.logLevel);
     }
+    this._socket = new RealtimeSocket(urls, new HttpGatewayConnector());
     this._socket.on('peer_state', (state) => {
       this.emit('peer_state', state);
       switch (state) {
@@ -51,6 +58,9 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
           this.disconnected = true;
           this._mixminus?.releaseElements();
           this.emit('disconnected', state);
+          break;
+        case 'connected':
+          this.wasConnected = true;
           break;
         case 'reconnected':
           this.logger.info('peer reconnected:', state);
@@ -85,6 +95,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     this._rpc.on('stream_added', this.onStreamEvent);
     this._rpc.on('stream_updated', this.onStreamEvent);
     this._rpc.on('stream_removed', this.onStreamEvent);
+    this._rpc.on('room_stats', this.onRoomStats);
     this._cfg.senders?.map((s) => {
       if (s.stream) {
         const senderTrack = this._socket.createSenderTrack(s);
@@ -102,21 +113,57 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     });
     for (let i = 0; i < this._cfg.receivers.video; i++) {
       const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
-      const receiver = new StreamReceiver(this._rpc, recvrTrack);
+      const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
       this._videoReceivers.push(receiver);
     }
 
     for (let i = 0; i < this._cfg.receivers.audio; i++) {
       const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
-      const receiver = new StreamReceiver(this._rpc, recvrTrack);
+      const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
       this._audioReceivers.push(receiver);
     }
   }
 
   connect() {
     this.logger.info('start to connect ...');
-    return this._socket.connect(this._connector, this._cfg);
+    return this._socket.connect(this._cfg);
   }
+
+  async ping() {
+    const started = Date.now();
+    await this._rpc.request('peer.ping', null, 500);
+    return Date.now() - started;
+  }
+
+  async restartIce() {
+    if (!this.wasConnected) {
+      this.logger.warn('should call restartIce after connected');
+      return;
+    }
+    if (this.disconnected) {
+      this.logger.warn('should call restartIce before disconnect');
+      return;
+    }
+    try {
+      const rtt = await this.ping();
+      this.logger.warn('ping success, not restart ice, ping rtt', rtt);
+    } catch (e) {
+      return this.restartIceInternal();
+    }
+  }
+
+  private restartIceInternal = async () => {
+    if (!this.wasConnected) {
+      this.logger.warn('should call restartIce after connected');
+      return;
+    }
+    if (this.disconnected) {
+      this.logger.warn('should call restartIce before disconnect');
+      return;
+    }
+    this.emit('reconnecting');
+    await this._socket.reconnect();
+  };
 
   private _onSenderStopped = (sender: IStreamSender) => {
     this.logger.info('sender stopped:', sender.name);
@@ -165,7 +212,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   createReceiver(kind: StreamKinds) {
     const recvrTrack = this._socket.createReceiverTrack(`${kind}_${this._audioReceivers.length}`, kind);
-    const receiver = new StreamReceiver(this._rpc, recvrTrack);
+    const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
     if (kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
     }
@@ -233,6 +280,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     this._socket.updateSdp(offer, res.data.sdp);
   }
 
+  private onRoomStats = (_: string, stats: RoomStats) => {
+    this.emit('room_stats', stats);
+  };
+
   private onStreamEvent = (
     event: string,
     params: {
@@ -256,6 +307,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
           this.emit(isMyStream ? 'mystream_updated' : 'stream_updated', remote);
         } else {
           const remote = new StreamRemote(params.kind, params.peer, params.peer_hash, params.stream);
+          this._streams.add(params.peer_hash, params.stream, remote);
           remote.updateState(params.state);
           this._remotes.set(key, remote);
           this.emit(isMyStream ? 'mystream_added' : 'stream_added', remote);
@@ -265,6 +317,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
       case 'stream_removed':
         if (this._remotes.has(key)) {
           const remote = this._remotes.get(key)!;
+          this._streams.remove(params.peer_hash, params.stream);
           this._remotes.delete(key);
           this.emit(isMyStream ? 'mystream_removed' : 'stream_removed', remote);
         }
