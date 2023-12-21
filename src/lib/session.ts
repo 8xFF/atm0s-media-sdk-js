@@ -111,16 +111,21 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
         }
       }
     });
-    for (let i = 0; i < this._cfg.receivers.video; i++) {
-      const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
-      const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
-      this._videoReceivers.push(receiver);
+
+    if (this._cfg.receivers?.video) {
+      for (let i = 0; i < this._cfg.receivers.video; i++) {
+        const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
+        const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
+        this._videoReceivers.push(receiver);
+      }
     }
 
-    for (let i = 0; i < this._cfg.receivers.audio; i++) {
-      const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
-      const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
-      this._audioReceivers.push(receiver);
+    if (this._cfg.receivers?.audio) {
+      for (let i = 0; i < this._cfg.receivers.audio; i++) {
+        const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
+        const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
+        this._audioReceivers.push(receiver);
+      }
     }
   }
 

@@ -3,7 +3,9 @@ import type { StreamReceiverState } from './receiver';
 
 export interface ViewInfo {
   priority: number;
+  minSpatial: number;
   maxSpatial: number;
+  minTemporal: number;
   maxTemporal: number;
 }
 

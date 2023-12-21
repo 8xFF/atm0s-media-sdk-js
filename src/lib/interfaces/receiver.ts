@@ -25,11 +25,17 @@ export interface IStreamReceiver extends TypedEventEmitter<IStreamReceiverCallba
    * `temporal` is a value indicating the smoothness, or frame rate of the stream.
    *
    * @param priority The priority of the stream to limit.
-   * @param max_spatial The maximum spatial value.
-   * @param max_temporal The maximum temporal value.
+   * @param maxSpatial The maximum spatial value.
+   * @param maxTemporal The maximum temporal value.
    * @returns A promise that resolves to a boolean indicating whether the limit was successful.
    */
-  limit(priority: number, max_spatial: number, max_temporal: number): Promise<boolean>;
+  limit(
+    priority: number,
+    minSpatial: number,
+    maxSpatial: number,
+    minTemporal: number,
+    maxTemporal: number,
+  ): Promise<boolean>;
 
   /**
    * Stops the stream.

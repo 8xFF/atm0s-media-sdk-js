@@ -50,13 +50,27 @@ export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
     this.emit('quality', quality);
   };
 
-  limit(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2) {
-    this._videoConsumer.limit(key, priority, maxSpatial, maxTemporal);
+  limit(
+    key: string,
+    priority: number = 50,
+    minSpatial: number = 0,
+    maxSpatial: number = 2,
+    minTemporal: number = 0,
+    maxTemporal: number = 2,
+  ) {
+    this._videoConsumer.limit(key, priority, minSpatial, maxSpatial, minTemporal, maxTemporal);
   }
 
-  view(key: string, priority: number = 50, maxSpatial: number = 2, maxTemporal: number = 2): MediaStream {
+  view(
+    key: string,
+    priority: number = 50,
+    minSpatial: number = 0,
+    maxSpatial: number = 2,
+    minTemporal: number = 0,
+    maxTemporal: number = 2,
+  ): MediaStream {
     const audioStream = this._audioConsumer.view(key);
-    const videoStream = this._videoConsumer.view(key, priority, maxSpatial, maxTemporal);
+    const videoStream = this._videoConsumer.view(key, priority, minSpatial, maxSpatial, minTemporal, maxTemporal);
     this._combinedStream.getTracks().forEach((track) => {
       this._combinedStream.removeTrack(track);
     });
