@@ -114,9 +114,17 @@ export interface ISessionConfig {
    *
    */
   senders?: SenderConfig[];
-  receivers: {
-    audio: number;
-    video: number;
+
+  /**
+   * The number of receivers the session will be pre-allocated at connect time.
+   * This is so that the media server can pre-allocate the resources for the session.
+   * You can also dynamically add receivers later.
+   * @example { audio: 1, video: 1 }
+   *
+   */
+  receivers?: {
+    audio?: number;
+    video?: number;
   };
 
   /**
