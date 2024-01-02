@@ -39,7 +39,7 @@ async function boot() {
   document.getElementById('quality').onchange = (event) => {
     let layers = event.target.value.split('-');
     let element = document.getElementById('my_video');
-    element.receiver.limit(50, 0, 0, parseInt(layers[0]), parseInt(layers[1]));
+    element.receiver.limit({ priority: 50, maxSpatial: parseInt(layers[0]), maxTemporal: parseInt(layers[1]) });
   };
 }
 
