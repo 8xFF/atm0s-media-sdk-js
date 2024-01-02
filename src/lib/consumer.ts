@@ -38,13 +38,12 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
     key: string,
     limit: StreamLimit = { priority: 50, maxSpatial: 2, minSpatial: 0, maxTemporal: 2, minTemporal: 0 },
   ): MediaStream {
-    const { priority, maxSpatial, maxTemporal, minSpatial, minTemporal } = limit;
     this.keys.set(key, {
-      priority,
-      maxSpatial,
-      maxTemporal,
-      minSpatial: minSpatial || 0,
-      minTemporal: minTemporal || 0,
+      priority: limit?.priority,
+      maxSpatial: limit?.maxSpatial,
+      maxTemporal: limit?.maxTemporal,
+      minSpatial: limit?.minSpatial || 0,
+      minTemporal: limit?.minTemporal || 0,
     });
     if (!this.receiver) {
       this.receiver = this._session.takeReceiver(this._remote.kind);
@@ -53,7 +52,7 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
       this.receiver.on('track_added', this.onAddTrack);
       this.receiver.on('quality', this.onQuality);
 
-      this.receiver.switch(this._remote, priority);
+      this.receiver.switch(this._remote, limit?.priority);
     }
     this.configLayer();
     return this.receiver.stream;
@@ -64,11 +63,14 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
    * @param key - The key of the view to set the limit for.
    * @param limit - The limit to set for the view.
    */
-  public limit(
-    key: string,
-    { priority = 50, maxSpatial = 2, minSpatial = 0, maxTemporal = 2, minTemporal = 0 }: StreamLimit,
-  ) {
-    this.keys.set(key, { priority, maxSpatial, maxTemporal, minSpatial, minTemporal });
+  public limit(key: string, limit: StreamLimit) {
+    this.keys.set(key, {
+      priority: limit?.priority || 50,
+      maxSpatial: limit?.maxSpatial || 2,
+      maxTemporal: limit?.maxTemporal || 2,
+      minSpatial: limit?.minSpatial || 0,
+      minTemporal: limit?.minTemporal || 0,
+    });
     this.configLayer();
   }
 
