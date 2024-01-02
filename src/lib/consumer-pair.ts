@@ -2,7 +2,7 @@ import type { StreamConsumer } from './consumer';
 import type { StreamReceiverState } from './interfaces';
 import type { IConsumerCallbacks } from './interfaces/consumer';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import type { RemoteStreamQuality } from './utils/types';
+import type { RemoteStreamQuality, StreamLimit } from './utils/types';
 
 export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
   private _combinedStream: MediaStream;
@@ -50,27 +50,13 @@ export class StreamConsumerPair extends TypedEventEmitter<IConsumerCallbacks> {
     this.emit('quality', quality);
   };
 
-  limit(
-    key: string,
-    priority: number = 50,
-    minSpatial: number = 0,
-    maxSpatial: number = 2,
-    minTemporal: number = 0,
-    maxTemporal: number = 2,
-  ) {
-    this._videoConsumer.limit(key, priority, minSpatial, maxSpatial, minTemporal, maxTemporal);
+  limit(key: string, limit: StreamLimit) {
+    this._videoConsumer.limit(key, limit);
   }
 
-  view(
-    key: string,
-    priority: number = 50,
-    minSpatial: number = 0,
-    maxSpatial: number = 2,
-    minTemporal: number = 0,
-    maxTemporal: number = 2,
-  ): MediaStream {
-    const audioStream = this._audioConsumer.view(key);
-    const videoStream = this._videoConsumer.view(key, priority, minSpatial, maxSpatial, minTemporal, maxTemporal);
+  view(key: string, limit?: StreamLimit): MediaStream {
+    const audioStream = this._audioConsumer.view(key, limit);
+    const videoStream = this._videoConsumer.view(key, limit);
     this._combinedStream.getTracks().forEach((track) => {
       this._combinedStream.removeTrack(track);
     });

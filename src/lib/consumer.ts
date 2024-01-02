@@ -3,7 +3,7 @@ import type { IConsumerCallbacks, ViewInfo } from './interfaces/consumer';
 import type { StreamRemote } from './remote';
 import type { Session } from './session';
 import { TypedEventEmitter } from './utils/typed-event-emitter';
-import { StreamKinds, type RemoteStreamQuality } from './utils/types';
+import { StreamKinds, type RemoteStreamQuality, type StreamLimit } from './utils/types';
 
 /**
  * Represents a stream consumer that sets up views for specific viewers and configures layer settings.
@@ -30,22 +30,22 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
   /**
    * Sets up a view for a specific viewer key.
    * @param key - The key of the viewer.
-   * @param priority - The priority of the view (default: 50).
-   * @param minSpatial - The minimum spatial layer for the view (default: 0).
-   * @param maxSpatial - The maximum spatial limit (default: 2).
-   * @param minTemporal - The minimum temporal layer for the view (default: 0).
-   * @param maxTemporal - The maximum temporal limit (default: 2).
+   * @param limit - The limit to set for the view.
+   *
    * @returns The MediaStream of the view.
    */
   public view(
     key: string,
-    priority: number = 50,
-    minSpatial: number = 0,
-    maxSpatial: number = 2,
-    minTemporal: number = 0,
-    maxTemporal: number = 2,
+    limit: StreamLimit = { priority: 50, maxSpatial: 2, minSpatial: 0, maxTemporal: 2, minTemporal: 0 },
   ): MediaStream {
-    this.keys.set(key, { priority, maxSpatial, maxTemporal, minSpatial, minTemporal });
+    const { priority, maxSpatial, maxTemporal, minSpatial, minTemporal } = limit;
+    this.keys.set(key, {
+      priority,
+      maxSpatial,
+      maxTemporal,
+      minSpatial: minSpatial || 0,
+      minTemporal: minTemporal || 0,
+    });
     if (!this.receiver) {
       this.receiver = this._session.takeReceiver(this._remote.kind);
       this.receiver.on('state', this.onReceiverStateChanged);
@@ -62,19 +62,11 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
   /**
    * Sets the limit for a specific view by key.
    * @param key - The key of the view to set the limit for.
-   * @param priority - The priority of the view (default: 50).
-   * @param minSpatial - The minimum spatial layer for the view (default: 0).
-   * @param maxSpatial - The maximum spatial limit (default: 2).
-   * @param minTemporal - The minimum temporal layer for the view (default: 0).
-   * @param maxTemporal - The maximum temporal limit (default: 2).
+   * @param limit - The limit to set for the view.
    */
   public limit(
     key: string,
-    priority: number = 50,
-    minSpatial: number = 0,
-    maxSpatial: number = 2,
-    minTemporal: number = 0,
-    maxTemporal: number = 2,
+    { priority = 50, maxSpatial = 2, minSpatial = 0, maxTemporal = 2, minTemporal = 0 }: StreamLimit,
   ) {
     this.keys.set(key, { priority, maxSpatial, maxTemporal, minSpatial, minTemporal });
     this.configLayer();
@@ -120,13 +112,13 @@ export class StreamConsumer extends TypedEventEmitter<IConsumerCallbacks> {
       selectedMinSpartial = Math.max(selectedMinSpartial, viewer.minSpatial);
       selectedMinTemporal = Math.max(selectedMinTemporal, viewer.minTemporal);
     });
-    this.receiver?.limit(
-      selectedPriority,
-      selectedMinSpartial,
-      selectedMaxSpartial,
-      selectedMinTemporal,
-      selectedMaxTemporal,
-    );
+    this.receiver?.limit({
+      priority: selectedPriority,
+      maxSpatial: selectedMaxSpartial,
+      maxTemporal: selectedMaxTemporal,
+      minTemporal: selectedMinTemporal,
+      minSpatial: selectedMinSpartial,
+    });
   }
 
   private onReceiverAudioLevelChanged = (level: number) => {

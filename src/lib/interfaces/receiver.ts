@@ -1,6 +1,6 @@
 import type { StreamRemote } from '../remote';
 import type { TypedEventEmitter } from '../utils/typed-event-emitter';
-import type { Codecs, StreamKinds, LatencyMode, RemoteStreamQuality } from '../utils/types';
+import type { Codecs, StreamKinds, LatencyMode, RemoteStreamQuality, StreamLimit } from '../utils/types';
 
 /**
  * Represents a stream receiver.
@@ -24,18 +24,10 @@ export interface IStreamReceiver extends TypedEventEmitter<IStreamReceiverCallba
    * `spatial` is a value indicating the definition clarity of the stream.
    * `temporal` is a value indicating the smoothness, or frame rate of the stream.
    *
-   * @param priority The priority of the stream to limit.
-   * @param maxSpatial The maximum spatial value.
-   * @param maxTemporal The maximum temporal value.
+   * @param limit - The limit to set for the stream.
    * @returns A promise that resolves to a boolean indicating whether the limit was successful.
    */
-  limit(
-    priority: number,
-    minSpatial: number,
-    maxSpatial: number,
-    minTemporal: number,
-    maxTemporal: number,
-  ): Promise<boolean>;
+  limit(limit: StreamLimit): Promise<boolean>;
 
   /**
    * Stops the stream.

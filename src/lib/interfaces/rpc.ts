@@ -44,9 +44,13 @@ export type RpcResponse<T> = {
 export type RpcRequests = {
   'receiver.limit': {
     id: string;
-    priority: number;
-    max_spatial: number;
-    max_temporal: number;
+    limit: {
+      priority: number;
+      min_spatial?: number;
+      min_temporal?: number;
+      max_spatial: number;
+      max_temporal: number;
+    };
   };
   'receiver.switch': {
     id: string;

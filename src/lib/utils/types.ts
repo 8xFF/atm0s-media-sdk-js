@@ -77,3 +77,18 @@ export type RemoteStreamQuality = {
 };
 
 export type SessionEvent = keyof ISessionCallbacks;
+
+/**
+ * @param priority - The priority of the stream (default: 50).
+ * @param minSpatial - The minimum spatial limit for the stream (default: 0).
+ * @param maxSpatial - The maximum spatial limit (default: 2).
+ * @param minTemporal - The minimum temporal layer for the stream (default: 0).
+ * @param maxTemporal - The maximum temporal limit (default: 2).
+ */
+export type StreamLimit = {
+  priority: number;
+  minSpatial?: number;
+  maxSpatial: number;
+  minTemporal?: number;
+  maxTemporal: number;
+};
