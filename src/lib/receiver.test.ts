@@ -118,14 +118,20 @@ describe('StreamReceiver', () => {
 
     rpc.request.mockResolvedValueOnce({ status: true });
 
-    const result = await receiver.limit(50, 2, 3);
+    const result = await receiver.limit({
+      priority: 50,
+      maxSpatial: 2,
+      maxTemporal: 3,
+    });
 
     expect(result).toBe(true);
     expect(rpc.request).toHaveBeenCalledWith('receiver.limit', {
       id: '123',
-      priority: 50,
-      max_spatial: 2,
-      max_temporal: 3,
+      limit: {
+        priority: 50,
+        max_spatial: 2,
+        max_temporal: 3,
+      },
     });
   });
 
@@ -135,14 +141,20 @@ describe('StreamReceiver', () => {
 
     rpc.request.mockResolvedValueOnce({ status: false });
 
-    const result = await receiver.limit(50, 2, 3);
+    const result = await receiver.limit({
+      priority: 50,
+      maxSpatial: 2,
+      maxTemporal: 3,
+    });
 
     expect(result).toBe(false);
     expect(rpc.request).toHaveBeenCalledWith('receiver.limit', {
       id: '123',
-      priority: 50,
-      max_spatial: 2,
-      max_temporal: 3,
+      limit: {
+        priority: 50,
+        max_spatial: 2,
+        max_temporal: 3,
+      },
     });
   });
 

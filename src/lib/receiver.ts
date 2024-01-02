@@ -1,6 +1,6 @@
 import { TypedEventEmitter } from './utils/typed-event-emitter';
 import { getLogger } from './utils/logger';
-import type { AnyFunction, RemoteStreamQuality } from './utils/types';
+import type { AnyFunction, RemoteStreamQuality, StreamLimit } from './utils/types';
 import type { StreamRemote } from './remote';
 import { type IStreamReceiverCallbacks, type IStreamReceiver, StreamReceiverState } from './interfaces/receiver';
 import type { IRPC } from './interfaces/rpc';
@@ -137,15 +137,19 @@ export class StreamReceiver extends TypedEventEmitter<IStreamReceiverCallbacks> 
     return false;
   }
 
-  async limit(priority: number, maxSpatial: number, maxTemporal: number): Promise<boolean> {
-    this.logger.log('limit stream', priority, maxSpatial, maxTemporal);
+  async limit(limit: StreamLimit): Promise<boolean> {
+    this.logger.log('limit stream', limit.priority, limit.maxSpatial, limit.maxTemporal);
     await this.internalReady();
     if (this._track.stream) {
       const res = await this._rpc.request('receiver.limit', {
         id: this.remoteId,
-        priority,
-        max_spatial: maxSpatial,
-        max_temporal: maxTemporal,
+        limit: {
+          priority: limit.priority,
+          min_spatial: limit.minSpatial,
+          min_temporal: limit.minTemporal,
+          max_spatial: limit.maxSpatial,
+          max_temporal: limit.maxTemporal,
+        },
       });
       if (res.status === true) {
         return true;
