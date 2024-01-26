@@ -2,8 +2,7 @@
 
 [![Continuous Integrations](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/8xFF/media-sdk-js/actions/workflows/continuous-integrations.yaml)
 
-JS SDK for interacting with Atm0s Media Server
-This SDK is still in Alpha.
+JS SDK for interacting with Atm0s Media Server (This SDK is still in Alpha).
 
 ## Installation
 
