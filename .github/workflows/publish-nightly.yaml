@@ -50,6 +50,6 @@ jobs:
       - name: 'Generate nightly package.json'
         run: npm run config:prerelease -- nightly
 
-      - run: pnpm publish --tag nightly --access public
+      - run: pnpm publish --tag nightly --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
