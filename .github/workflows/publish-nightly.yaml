@@ -48,7 +48,7 @@ jobs:
         uses: './.github/actions/setup'
 
       - name: 'Generate nightly package.json'
-        run: pnpm config:prerelease -- nightly
+        run: npm run config:prerelease -- nightly
 
       - run: pnpm publish --tag nightly --access public
         env:
