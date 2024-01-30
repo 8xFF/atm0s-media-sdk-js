@@ -233,7 +233,7 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
       latencyMode?: LatencyMode;
     },
   ): ReceiverTrack {
-    let id = `${kind}_${this._countReceiver(kind)}`
+    const id = `${kind}_${this._countReceiver(kind)}`;
     this.logger.log('createReceiverTrack :: (id, kind):', id, kind);
     const transceiver = this._pc.addTransceiver(kind, {
       direction: 'recvonly',
