@@ -39,11 +39,10 @@ export interface IRealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallba
 
   /**
    * Creates a `ReceiverTrack` with the specified ID and kind.
-   * @param id - The ID of the receiver track.
    * @param kind - The kind of the receiver track.
    * @returns The created receiver track.
    */
-  createReceiverTrack(id: string, kind: StreamKinds): ReceiverTrack;
+  createReceiverTrack(kind: StreamKinds): ReceiverTrack;
 
   /**
    * Creates a `SenderTrack` with the specified configuration.

@@ -64,7 +64,6 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
           receiver.stream.getTracks().length === 0 &&
           receiver.info.kind === track.kind
         ) {
-          receiver.stream = stream;
           receiver.addTrack(track);
         }
       }
@@ -131,8 +130,8 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this.logger.log('connect :: try connect to media server:', serverUrl);
 
     const offer = await this._pc.createOffer({
-      offerToReceiveAudio: true,
-      offerToReceiveVideo: true,
+      offerToReceiveAudio: this._countReceiver(StreamKinds.AUDIO) > 0,
+      offerToReceiveVideo: this._countReceiver(StreamKinds.VIDEO) > 0,
     });
     this.logger.log('connect :: transceivers:', this._pc.getTransceivers());
     this.logger.debug('connect :: created offer:', offer.sdp);
@@ -228,13 +227,13 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
   }
 
   public createReceiverTrack(
-    id: string,
     kind: StreamKinds,
     opts?: {
       codecs?: Codecs[];
       latencyMode?: LatencyMode;
     },
   ): ReceiverTrack {
+    const id = `${kind}_${this._countReceiver(kind)}`;
     this.logger.log('createReceiverTrack :: (id, kind):', id, kind);
     const transceiver = this._pc.addTransceiver(kind, {
       direction: 'recvonly',
@@ -337,5 +336,9 @@ export class RealtimeSocket extends TypedEventEmitter<IRealtimeSocketCallbacks> 
     this._dc?.close();
     await delay(500);
     this._pc?.close();
+  }
+
+  _countReceiver(kind: StreamKinds) {
+    return Array.from(this._recvStreams.values()).filter((s) => s.info.kind === kind).length;
   }
 }

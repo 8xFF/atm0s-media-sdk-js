@@ -90,6 +90,11 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     });
     this._rpc = new RPC(this._socket);
     if (_cfg.mixMinusAudio) {
+      if (_cfg.receivers) {
+        _cfg.receivers.audio = (_cfg.receivers.audio || 0) + 3;
+      } else {
+        _cfg.receivers = { audio: 3, video: 0 };
+      }
       this._mixminus = new ReceiverMixMinusAudio('default', this, this._rpc, _cfg.mixMinusAudio.elements);
     }
     this._rpc.on('stream_added', this.onStreamEvent);
@@ -114,7 +119,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
     if (this._cfg.receivers?.video) {
       for (let i = 0; i < this._cfg.receivers.video; i++) {
-        const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
+        const recvrTrack = this._socket.createReceiverTrack(StreamKinds.VIDEO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._videoReceivers.push(receiver);
       }
@@ -122,7 +127,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
     if (this._cfg.receivers?.audio) {
       for (let i = 0; i < this._cfg.receivers.audio; i++) {
-        const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
+        const recvrTrack = this._socket.createReceiverTrack(StreamKinds.AUDIO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._audioReceivers.push(receiver);
       }
@@ -178,7 +183,9 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (sender.kind === StreamKinds.VIDEO) {
       this._videoSenders.delete(sender.name);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.update();
+    }
   };
 
   async disconnect() {
@@ -211,12 +218,15 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (cfg.kind === StreamKinds.VIDEO) {
       this._videoSenders.set(cfg.name, sender);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.logger.info('create sender after connected, update sdp');
+      this.update();
+    }
     return sender;
   }
 
   createReceiver(kind: StreamKinds) {
-    const recvrTrack = this._socket.createReceiverTrack(`${kind}_${this._audioReceivers.length}`, kind);
+    const recvrTrack = this._socket.createReceiverTrack(kind);
     const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
     if (kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
@@ -224,7 +234,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (kind === StreamKinds.VIDEO) {
       this._videoReceivers.push(receiver);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.logger.info('create receiver after connected, update sdp');
+      this.update();
+    }
     return receiver;
   }
 
@@ -274,6 +287,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   });
 
   private async updateSdp() {
+    this.logger.info('will update sdp now');
     const { offer, meta } = await this._socket.generateOffer();
     this.logger.info('send updated sdp:', meta);
     const res = await this._rpc!.request<{ sdp: string }>('peer.updateSdp', meta);
