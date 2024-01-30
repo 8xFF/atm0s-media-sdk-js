@@ -48,6 +48,13 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
       this.logger.log('set log level:', this._cfg.logLevel);
       setLogLevel(this._cfg.logLevel);
     }
+    if (!!_cfg.mixMinusAudio) {
+      if (_cfg.receivers) {
+        _cfg.receivers.audio = (_cfg.receivers.audio || 0) + 3;
+      } else {
+        _cfg.receivers = { audio: 3, video: 0 };
+      }
+    }
     this._socket = new RealtimeSocket(urls, new HttpGatewayConnector());
     this._socket.on('peer_state', (state) => {
       this.emit('peer_state', state);
@@ -178,7 +185,9 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (sender.kind === StreamKinds.VIDEO) {
       this._videoSenders.delete(sender.name);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.update();
+    }
   };
 
   async disconnect() {
@@ -211,7 +220,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (cfg.kind === StreamKinds.VIDEO) {
       this._videoSenders.set(cfg.name, sender);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.logger.info('create sender after connected, update sdp');
+      this.update();
+    }
     return sender;
   }
 
@@ -224,7 +236,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (kind === StreamKinds.VIDEO) {
       this._videoReceivers.push(receiver);
     }
-    this.update();
+    if (this.wasConnected) {
+      this.logger.info('create receiver after connected, update sdp');
+      this.update();
+    }
     return receiver;
   }
 
