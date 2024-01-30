@@ -27,9 +27,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private _streams = new StreamMapping();
 
   private _audioReceivers: IStreamReceiver[] = [];
-  private _freeAudioReceivers: IStreamReceiver[] = [];
   private _videoReceivers: IStreamReceiver[] = [];
-  private _freeVideoReceivers: IStreamReceiver[] = [];
   private _remotes = new Map<string, StreamRemote>();
 
   private logger = getLogger('atm0s:session');
@@ -121,19 +119,17 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
     if (this._cfg.receivers?.video) {
       for (let i = 0; i < this._cfg.receivers.video; i++) {
-        const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
+        const recvrTrack = this._socket.createReceiverTrack(StreamKinds.VIDEO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._videoReceivers.push(receiver);
-        this._freeVideoReceivers.push(receiver);
       }
     }
 
     if (this._cfg.receivers?.audio) {
       for (let i = 0; i < this._cfg.receivers.audio; i++) {
-        const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
+        const recvrTrack = this._socket.createReceiverTrack(StreamKinds.AUDIO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._audioReceivers.push(receiver);
-        this._freeAudioReceivers.push(receiver);
       }
     }
   }
@@ -230,15 +226,13 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   }
 
   createReceiver(kind: StreamKinds) {
-    const recvrTrack = this._socket.createReceiverTrack(`${kind}_${this._audioReceivers.length}`, kind);
+    const recvrTrack = this._socket.createReceiverTrack(kind);
     const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
     if (kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
-      this._freeAudioReceivers.push(receiver);
     }
     if (kind === StreamKinds.VIDEO) {
       this._videoReceivers.push(receiver);
-      this._freeVideoReceivers.push(receiver);
     }
     if (this.wasConnected) {
       this.logger.info('create receiver after connected, update sdp');
@@ -250,15 +244,15 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   takeReceiver(kind: StreamKinds): IStreamReceiver {
     switch (kind) {
       case StreamKinds.AUDIO:
-        if (this._freeAudioReceivers.length === 0) {
+        if (this._audioReceivers.length === 0) {
           this.createReceiver(kind);
         }
-        return this._freeAudioReceivers.shift()!;
+        return this._audioReceivers.shift()!;
       case StreamKinds.VIDEO:
-        if (this._freeVideoReceivers.length === 0) {
+        if (this._videoReceivers.length === 0) {
           this.createReceiver(kind);
         }
-        return this._freeVideoReceivers.shift()!;
+        return this._videoReceivers.shift()!;
       default:
         throw new Error('Invalid stream kind');
     }
@@ -270,10 +264,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   backReceiver(receiver: IStreamReceiver) {
     if (receiver.kind === StreamKinds.AUDIO) {
-      this._freeAudioReceivers.push(receiver);
+      this._audioReceivers.push(receiver);
     }
     if (receiver.kind === StreamKinds.VIDEO) {
-      this._freeVideoReceivers.push(receiver);
+      this._videoReceivers.push(receiver);
     }
   }
 
