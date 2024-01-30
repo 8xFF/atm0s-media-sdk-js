@@ -27,7 +27,9 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   private _streams = new StreamMapping();
 
   private _audioReceivers: IStreamReceiver[] = [];
+  private _freeAudioReceivers: IStreamReceiver[] = [];
   private _videoReceivers: IStreamReceiver[] = [];
+  private _freeVideoReceivers: IStreamReceiver[] = [];
   private _remotes = new Map<string, StreamRemote>();
 
   private logger = getLogger('atm0s:session');
@@ -47,13 +49,6 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     if (this._cfg.logLevel) {
       this.logger.log('set log level:', this._cfg.logLevel);
       setLogLevel(this._cfg.logLevel);
-    }
-    if (!!_cfg.mixMinusAudio) {
-      if (_cfg.receivers) {
-        _cfg.receivers.audio = (_cfg.receivers.audio || 0) + 3;
-      } else {
-        _cfg.receivers = { audio: 3, video: 0 };
-      }
     }
     this._socket = new RealtimeSocket(urls, new HttpGatewayConnector());
     this._socket.on('peer_state', (state) => {
@@ -97,6 +92,11 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     });
     this._rpc = new RPC(this._socket);
     if (_cfg.mixMinusAudio) {
+      if (_cfg.receivers) {
+        _cfg.receivers.audio = (_cfg.receivers.audio || 0) + 3;
+      } else {
+        _cfg.receivers = { audio: 3, video: 0 };
+      }
       this._mixminus = new ReceiverMixMinusAudio('default', this, this._rpc, _cfg.mixMinusAudio.elements);
     }
     this._rpc.on('stream_added', this.onStreamEvent);
@@ -124,6 +124,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
         const recvrTrack = this._socket.createReceiverTrack(`video_${i}`, StreamKinds.VIDEO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._videoReceivers.push(receiver);
+        this._freeVideoReceivers.push(receiver);
       }
     }
 
@@ -132,6 +133,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
         const recvrTrack = this._socket.createReceiverTrack(`audio_${i}`, StreamKinds.AUDIO);
         const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
         this._audioReceivers.push(receiver);
+        this._freeAudioReceivers.push(receiver);
       }
     }
   }
@@ -232,9 +234,11 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
     const receiver = new StreamReceiver(this._rpc, recvrTrack, this._streams);
     if (kind === StreamKinds.AUDIO) {
       this._audioReceivers.push(receiver);
+      this._freeAudioReceivers.push(receiver);
     }
     if (kind === StreamKinds.VIDEO) {
       this._videoReceivers.push(receiver);
+      this._freeVideoReceivers.push(receiver);
     }
     if (this.wasConnected) {
       this.logger.info('create receiver after connected, update sdp');
@@ -246,15 +250,15 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   takeReceiver(kind: StreamKinds): IStreamReceiver {
     switch (kind) {
       case StreamKinds.AUDIO:
-        if (this._audioReceivers.length === 0) {
+        if (this._freeAudioReceivers.length === 0) {
           this.createReceiver(kind);
         }
-        return this._audioReceivers.shift()!;
+        return this._freeAudioReceivers.shift()!;
       case StreamKinds.VIDEO:
-        if (this._videoReceivers.length === 0) {
+        if (this._freeVideoReceivers.length === 0) {
           this.createReceiver(kind);
         }
-        return this._videoReceivers.shift()!;
+        return this._freeVideoReceivers.shift()!;
       default:
         throw new Error('Invalid stream kind');
     }
@@ -266,10 +270,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
 
   backReceiver(receiver: IStreamReceiver) {
     if (receiver.kind === StreamKinds.AUDIO) {
-      this._audioReceivers.push(receiver);
+      this._freeAudioReceivers.push(receiver);
     }
     if (receiver.kind === StreamKinds.VIDEO) {
-      this._videoReceivers.push(receiver);
+      this._freeVideoReceivers.push(receiver);
     }
   }
 
@@ -289,6 +293,7 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
   });
 
   private async updateSdp() {
+    this.logger.info('will update sdp now');
     const { offer, meta } = await this._socket.generateOffer();
     this.logger.info('send updated sdp:', meta);
     const res = await this._rpc!.request<{ sdp: string }>('peer.updateSdp', meta);
