@@ -48,7 +48,10 @@ export class Session extends TypedEventEmitter<ISessionCallbacks> {
       this.logger.log('set log level:', this._cfg.logLevel);
       setLogLevel(this._cfg.logLevel);
     }
-    this._socket = new RealtimeSocket(urls, new HttpGatewayConnector());
+    this._socket = new RealtimeSocket(urls, new HttpGatewayConnector(), {
+      iceServers: this._cfg.iceServers,
+      latencyMode: this._cfg.latencyMode,
+    });
     this._socket.on('peer_state', (state) => {
       this.emit('peer_state', state);
       switch (state) {
